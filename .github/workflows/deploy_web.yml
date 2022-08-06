@@ -44,6 +44,8 @@ jobs:
 
       - run: flutter build web
 
+      - run: touch build/web/.nojekyll
+
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
