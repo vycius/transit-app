@@ -130,7 +130,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
                   return ListTile(
                     title: Text(route.route_long_name),
-                    subtitle: Text(shortName),
+                    leading: CircleAvatar(
+                      child: Text(shortName),
+                    ),
                   );
                 },
               );
