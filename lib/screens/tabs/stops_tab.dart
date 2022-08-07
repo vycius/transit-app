@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:transit/database/db.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
 
@@ -19,6 +20,13 @@ class StopsTab extends StatelessWidget {
             final stop = stops[index];
 
             return ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Colors.blue,
+                child: Icon(
+                  MdiIcons.busStop,
+                  color: Colors.white,
+                ),
+              ),
               title: Text(stop.stop_name),
               subtitle: Text(stop.stop_desc ?? ''),
             );

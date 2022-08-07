@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -14,7 +15,6 @@ class MapTab extends StatefulWidget {
 }
 
 class _MapTabState extends State<MapTab> {
-
   List<Stop> stops = [];
 
   @override
@@ -38,6 +38,7 @@ class _MapTabState extends State<MapTab> {
             center: LatLng(54.68916, 25.2798),
             plugins: [
               MarkerClusterPlugin(),
+              LocationMarkerPlugin(),
             ],
           ),
           layers: [
@@ -45,6 +46,7 @@ class _MapTabState extends State<MapTab> {
               urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
               userAgentPackageName: 'lt.transit.transit',
             ),
+            LocationMarkerLayerOptions(),
             MarkerClusterLayerOptions(
               disableClusteringAtZoom: 14,
               markers: [
