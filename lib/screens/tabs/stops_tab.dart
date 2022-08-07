@@ -36,7 +36,7 @@ class StopsTab extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  NavigationRoutes.stop,
+                  NavigationRoutes.routeStop,
                   arguments: stop,
                 );
               },

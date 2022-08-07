@@ -3,6 +3,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:transit/database/db.dart';
 import 'package:transit/navigation_routes.dart';
 import 'package:transit/screens/tabs/map_tab.dart';
+import 'package:transit/screens/tabs/realtime_tab.dart';
 import 'package:transit/screens/tabs/routes_tab.dart';
 import 'package:transit/screens/tabs/stops_tab.dart';
 
@@ -31,6 +32,11 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: () => MapTab(),
       icon: Icons.map,
       label: 'Žemėlapis',
+    ),
+    _HomeScreenTab(
+      builder: () => RealtimeTab(),
+      icon: MdiIcons.bus,
+      label: 'Realus laikas',
     ),
   ];
 

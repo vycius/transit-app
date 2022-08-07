@@ -7,6 +7,16 @@ import 'package:transit/screens/home_screen.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
 
 class RegionSelectorScreen extends StatefulWidget {
+  static const regions = [
+    Region(
+      name: 'Vilniaus m.',
+      gtfsUrl:
+          'https://api.allorigins.win/raw?url=http://stops.lt/vilnius/vilnius/gtfs.zip',
+      gtfsRealtimeUrl:
+          'https://api.allorigins.win/raw?url=http://www.stops.lt/vilnius/gtfs_realtime.pb',
+    ),
+  ];
+
   RegionSelectorScreen({Key? key}) : super(key: key);
 
   @override
@@ -17,14 +27,6 @@ class _RegionSelectorScreenState extends State<RegionSelectorScreen> {
   AppDatabase get _database => AppDatabase.get(context);
 
   Region? _regionToLoad;
-
-  final _regions = const [
-    Region(
-      name: 'Vilniaus m.',
-      gtfsUrl:
-          'https://api.allorigins.win/raw?url=http://stops.lt/vilnius/vilnius/gtfs.zip',
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +57,9 @@ class _RegionSelectorScreenState extends State<RegionSelectorScreen> {
         }
 
         return ListView.builder(
-          itemCount: _regions.length,
+          itemCount: RegionSelectorScreen.regions.length,
           itemBuilder: (context, index) {
-            final region = _regions[index];
+            final region = RegionSelectorScreen.regions[index];
             return ListTile(
               title: Text(region.name),
               onTap: () => setState(() => _regionToLoad = region),
@@ -87,7 +89,7 @@ class _RegionSelectorScreenState extends State<RegionSelectorScreen> {
     if (mounted) {
       await Navigator.pushReplacementNamed(
         context,
-        NavigationRoutes.regionHome,
+        NavigationRoutes.routeHome,
       );
     }
     return true;

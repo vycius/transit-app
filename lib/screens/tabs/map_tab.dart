@@ -62,7 +62,7 @@ class _MapTabState extends State<MapTab> {
                       onPressed: () {
                         Navigator.pushNamed(
                           context,
-                          NavigationRoutes.stop,
+                          NavigationRoutes.routeStop,
                           arguments: stop,
                         );
                       },

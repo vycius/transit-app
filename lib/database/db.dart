@@ -157,6 +157,13 @@ class AppDatabase extends _$AppDatabase {
     return joinedQuery.get();
   }
 
+  Future<List<Trip>> selectTrips(TransitRoute route) {
+    final query = select(trips)
+      ..where((r) => r.route_id.equals(route.route_id));
+
+    return query.get();
+  }
+
   Future<List<TransitRoute>> selectRoutesByStop(Stop stop) {
     return select(transitRoutes)
         .join(

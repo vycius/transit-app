@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:transit/database/db.dart';
+import 'package:transit/navigation_routes.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
 import 'package:transit/screens/widgets/route_avatar.dart';
 
@@ -21,6 +22,11 @@ class RoutesTab extends StatelessWidget {
             return ListTile(
               title: Text(route.route_long_name),
               leading: RouteAvatar(route: route),
+              onTap: () => Navigator.pushNamed(
+                context,
+                NavigationRoutes.routeTrip,
+                arguments: route,
+              ),
             );
           },
         );

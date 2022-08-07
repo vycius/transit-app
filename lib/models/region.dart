@@ -1,11 +1,11 @@
 class Region {
   final String name;
   final String gtfsUrl;
-  final bool corsHackRequired;
+  final String? gtfsRealtimeUrl;
 
   const Region({
     required this.name,
     required this.gtfsUrl,
-    this.corsHackRequired = true,
+    this.gtfsRealtimeUrl,
   });
 }
