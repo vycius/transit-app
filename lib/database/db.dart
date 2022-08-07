@@ -83,12 +83,37 @@ class AppDatabase extends _$AppDatabase {
     }
   }
 
+  Expression<bool> _calendarWeekdayExpression(DateTime dateTime) {
+    switch (dateTime.weekday) {
+      case DateTime.monday:
+        return calendar.monday.equals(true);
+      case DateTime.tuesday:
+        return calendar.tuesday.equals(true);
+      case DateTime.wednesday:
+        return calendar.wednesday.equals(true);
+      case DateTime.thursday:
+        return calendar.thursday.equals(true);
+      case DateTime.friday:
+        return calendar.friday.equals(true);
+      case DateTime.saturday:
+        return calendar.saturday.equals(true);
+      case DateTime.sunday:
+        return calendar.sunday.equals(true);
+      default:
+        throw Exception('Unable to map weekday');
+    }
+  }
+
   Future<List<TripsWithStopTimes>> selectStopTimes(
     String stopId,
     DateTime dateTime,
   ) {
+    final localDateTime = dateTime.toLocal();
+
     final timeFormat = DateFormat('HH:mm:ss');
-    final timeFormatted = timeFormat.format(dateTime.toLocal());
+    final timeFormatted = timeFormat.format(localDateTime.toLocal());
+    final dateFormat = DateFormat('yyyyMMdd');
+    final dateFormatted = dateFormat.format(localDateTime.toLocal());
 
     final query = select(stopTimes)
       ..where((s) => s.stop_id.equals(stopId))
@@ -105,7 +130,14 @@ class AppDatabase extends _$AppDatabase {
       ),
       innerJoin(
         transitRoutes,
-        trips.route_id.equalsExp(transitRoutes.route_id),
+        transitRoutes.route_id.equalsExp(trips.route_id),
+      ),
+      innerJoin(
+        calendar,
+        calendar.service_id.equalsExp(trips.service_id) &
+            calendar.start_date.isSmallerOrEqualValue(dateFormatted) &
+            calendar.end_date.isBiggerOrEqualValue(dateFormatted) &
+            _calendarWeekdayExpression(localDateTime),
       ),
     ]).map((row) {
       return TripsWithStopTimes(
