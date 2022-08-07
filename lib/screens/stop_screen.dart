@@ -14,7 +14,10 @@ class StopScreen extends StatelessWidget {
         title: Text(stop.stop_name),
       ),
       body: AppFutureBuilder<List<TripsWithStopTimes>>(
-        future: AppDatabase.get(context).selectStopTimes(stop.stop_id),
+        future: AppDatabase.get(context).selectStopTimes(
+          stop.stop_id,
+          DateTime.now(),
+        ),
         builder: (context, tripsWithTimes) {
           return ListView.separated(
             itemCount: tripsWithTimes.length,
@@ -35,8 +38,6 @@ class StopScreen extends StatelessWidget {
               );
             },
           );
-
-          return Text('Good');
         },
       ),
     );

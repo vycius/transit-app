@@ -1,5 +1,7 @@
+import 'package:collection/collection.dart';
 import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:transit/database/tables.dart';
@@ -62,17 +64,35 @@ class AppDatabase extends _$AppDatabase {
     return query.get();
   }
 
-  Future<List<Stop>> selectAllStops({LatLng? currentPosition}) {
+  Future<List<Stop>> selectAllStops({LatLng? currentPosition}) async {
     final query = select(stops);
 
-    return query.get();
+    final allStops = await query.get();
+    final distance = Distance();
+
+    if (currentPosition == null) {
+      return allStops;
+    } else {
+      return allStops.sortedBy<num>(
+        (s) => distance.as(
+          LengthUnit.Meter,
+          LatLng(s.stop_lat, s.stop_lon),
+          currentPosition,
+        ),
+      );
+    }
   }
 
   Future<List<TripsWithStopTimes>> selectStopTimes(
     String stopId,
+    DateTime dateTime,
   ) {
+    final timeFormat = DateFormat('HH:mm:ss');
+    final timeFormatted = timeFormat.format(dateTime.toLocal());
+
     final query = select(stopTimes)
       ..where((s) => s.stop_id.equals(stopId))
+      ..where((s) => s.arrival_time.isBiggerOrEqualValue(timeFormatted))
       ..orderBy([
         (t) => OrderingTerm(expression: t.arrival_time),
         (t) => OrderingTerm(expression: t.departure_time),
