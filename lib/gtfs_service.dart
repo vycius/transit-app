@@ -23,8 +23,6 @@ class _CsvRowValues {
         return double.parse(value) as T;
       case bool:
         return (value == '1') as T;
-      case DateTime:
-        return DateTime.parse(value) as T;
     }
 
     throw ArgumentError.value(

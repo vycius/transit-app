@@ -1182,8 +1182,8 @@ class CalendarData extends DataClass implements Insertable<CalendarData> {
   final bool friday;
   final bool saturday;
   final bool sunday;
-  final DateTime start_date;
-  final DateTime end_date;
+  final String start_date;
+  final String end_date;
   CalendarData(
       {required this.service_id,
       required this.monday,
@@ -1214,9 +1214,9 @@ class CalendarData extends DataClass implements Insertable<CalendarData> {
           .mapFromDatabaseResponse(data['${effectivePrefix}saturday'])!,
       sunday: const BoolType()
           .mapFromDatabaseResponse(data['${effectivePrefix}sunday'])!,
-      start_date: const DateTimeType()
+      start_date: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}start_date'])!,
-      end_date: const DateTimeType()
+      end_date: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}end_date'])!,
     );
   }
@@ -1231,8 +1231,8 @@ class CalendarData extends DataClass implements Insertable<CalendarData> {
     map['friday'] = Variable<bool>(friday);
     map['saturday'] = Variable<bool>(saturday);
     map['sunday'] = Variable<bool>(sunday);
-    map['start_date'] = Variable<DateTime>(start_date);
-    map['end_date'] = Variable<DateTime>(end_date);
+    map['start_date'] = Variable<String>(start_date);
+    map['end_date'] = Variable<String>(end_date);
     return map;
   }
 
@@ -1263,8 +1263,8 @@ class CalendarData extends DataClass implements Insertable<CalendarData> {
       friday: serializer.fromJson<bool>(json['friday']),
       saturday: serializer.fromJson<bool>(json['saturday']),
       sunday: serializer.fromJson<bool>(json['sunday']),
-      start_date: serializer.fromJson<DateTime>(json['start_date']),
-      end_date: serializer.fromJson<DateTime>(json['end_date']),
+      start_date: serializer.fromJson<String>(json['start_date']),
+      end_date: serializer.fromJson<String>(json['end_date']),
     );
   }
   @override
@@ -1279,8 +1279,8 @@ class CalendarData extends DataClass implements Insertable<CalendarData> {
       'friday': serializer.toJson<bool>(friday),
       'saturday': serializer.toJson<bool>(saturday),
       'sunday': serializer.toJson<bool>(sunday),
-      'start_date': serializer.toJson<DateTime>(start_date),
-      'end_date': serializer.toJson<DateTime>(end_date),
+      'start_date': serializer.toJson<String>(start_date),
+      'end_date': serializer.toJson<String>(end_date),
     };
   }
 
@@ -1293,8 +1293,8 @@ class CalendarData extends DataClass implements Insertable<CalendarData> {
           bool? friday,
           bool? saturday,
           bool? sunday,
-          DateTime? start_date,
-          DateTime? end_date}) =>
+          String? start_date,
+          String? end_date}) =>
       CalendarData(
         service_id: service_id ?? this.service_id,
         monday: monday ?? this.monday,
@@ -1352,8 +1352,8 @@ class CalendarCompanion extends UpdateCompanion<CalendarData> {
   final Value<bool> friday;
   final Value<bool> saturday;
   final Value<bool> sunday;
-  final Value<DateTime> start_date;
-  final Value<DateTime> end_date;
+  final Value<String> start_date;
+  final Value<String> end_date;
   const CalendarCompanion({
     this.service_id = const Value.absent(),
     this.monday = const Value.absent(),
@@ -1375,8 +1375,8 @@ class CalendarCompanion extends UpdateCompanion<CalendarData> {
     required bool friday,
     required bool saturday,
     required bool sunday,
-    required DateTime start_date,
-    required DateTime end_date,
+    required String start_date,
+    required String end_date,
   })  : service_id = Value(service_id),
         monday = Value(monday),
         tuesday = Value(tuesday),
@@ -1396,8 +1396,8 @@ class CalendarCompanion extends UpdateCompanion<CalendarData> {
     Expression<bool>? friday,
     Expression<bool>? saturday,
     Expression<bool>? sunday,
-    Expression<DateTime>? start_date,
-    Expression<DateTime>? end_date,
+    Expression<String>? start_date,
+    Expression<String>? end_date,
   }) {
     return RawValuesInsertable({
       if (service_id != null) 'service_id': service_id,
@@ -1422,8 +1422,8 @@ class CalendarCompanion extends UpdateCompanion<CalendarData> {
       Value<bool>? friday,
       Value<bool>? saturday,
       Value<bool>? sunday,
-      Value<DateTime>? start_date,
-      Value<DateTime>? end_date}) {
+      Value<String>? start_date,
+      Value<String>? end_date}) {
     return CalendarCompanion(
       service_id: service_id ?? this.service_id,
       monday: monday ?? this.monday,
@@ -1466,10 +1466,10 @@ class CalendarCompanion extends UpdateCompanion<CalendarData> {
       map['sunday'] = Variable<bool>(sunday.value);
     }
     if (start_date.present) {
-      map['start_date'] = Variable<DateTime>(start_date.value);
+      map['start_date'] = Variable<String>(start_date.value);
     }
     if (end_date.present) {
-      map['end_date'] = Variable<DateTime>(end_date.value);
+      map['end_date'] = Variable<String>(end_date.value);
     }
     return map;
   }
@@ -1554,14 +1554,14 @@ class $CalendarTable extends Calendar
       defaultConstraints: 'CHECK (sunday IN (0, 1))');
   final VerificationMeta _start_dateMeta = const VerificationMeta('start_date');
   @override
-  late final GeneratedColumn<DateTime?> start_date = GeneratedColumn<DateTime?>(
+  late final GeneratedColumn<String?> start_date = GeneratedColumn<String?>(
       'start_date', aliasedName, false,
-      type: const IntType(), requiredDuringInsert: true);
+      type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _end_dateMeta = const VerificationMeta('end_date');
   @override
-  late final GeneratedColumn<DateTime?> end_date = GeneratedColumn<DateTime?>(
+  late final GeneratedColumn<String?> end_date = GeneratedColumn<String?>(
       'end_date', aliasedName, false,
-      type: const IntType(), requiredDuringInsert: true);
+      type: const StringType(), requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
         service_id,
@@ -3091,7 +3091,7 @@ class $StopTimesTable extends StopTimes
 
 class CalendarDate extends DataClass implements Insertable<CalendarDate> {
   final String service_id;
-  final DateTime date;
+  final String date;
   final int exception_type;
   CalendarDate(
       {required this.service_id,
@@ -3102,7 +3102,7 @@ class CalendarDate extends DataClass implements Insertable<CalendarDate> {
     return CalendarDate(
       service_id: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}service_id'])!,
-      date: const DateTimeType()
+      date: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}date'])!,
       exception_type: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}exception_type'])!,
@@ -3112,7 +3112,7 @@ class CalendarDate extends DataClass implements Insertable<CalendarDate> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['service_id'] = Variable<String>(service_id);
-    map['date'] = Variable<DateTime>(date);
+    map['date'] = Variable<String>(date);
     map['exception_type'] = Variable<int>(exception_type);
     return map;
   }
@@ -3130,7 +3130,7 @@ class CalendarDate extends DataClass implements Insertable<CalendarDate> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return CalendarDate(
       service_id: serializer.fromJson<String>(json['service_id']),
-      date: serializer.fromJson<DateTime>(json['date']),
+      date: serializer.fromJson<String>(json['date']),
       exception_type: serializer.fromJson<int>(json['exception_type']),
     );
   }
@@ -3139,13 +3139,13 @@ class CalendarDate extends DataClass implements Insertable<CalendarDate> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'service_id': serializer.toJson<String>(service_id),
-      'date': serializer.toJson<DateTime>(date),
+      'date': serializer.toJson<String>(date),
       'exception_type': serializer.toJson<int>(exception_type),
     };
   }
 
   CalendarDate copyWith(
-          {String? service_id, DateTime? date, int? exception_type}) =>
+          {String? service_id, String? date, int? exception_type}) =>
       CalendarDate(
         service_id: service_id ?? this.service_id,
         date: date ?? this.date,
@@ -3174,7 +3174,7 @@ class CalendarDate extends DataClass implements Insertable<CalendarDate> {
 
 class CalendarDatesCompanion extends UpdateCompanion<CalendarDate> {
   final Value<String> service_id;
-  final Value<DateTime> date;
+  final Value<String> date;
   final Value<int> exception_type;
   const CalendarDatesCompanion({
     this.service_id = const Value.absent(),
@@ -3183,14 +3183,14 @@ class CalendarDatesCompanion extends UpdateCompanion<CalendarDate> {
   });
   CalendarDatesCompanion.insert({
     required String service_id,
-    required DateTime date,
+    required String date,
     required int exception_type,
   })  : service_id = Value(service_id),
         date = Value(date),
         exception_type = Value(exception_type);
   static Insertable<CalendarDate> custom({
     Expression<String>? service_id,
-    Expression<DateTime>? date,
+    Expression<String>? date,
     Expression<int>? exception_type,
   }) {
     return RawValuesInsertable({
@@ -3202,7 +3202,7 @@ class CalendarDatesCompanion extends UpdateCompanion<CalendarDate> {
 
   CalendarDatesCompanion copyWith(
       {Value<String>? service_id,
-      Value<DateTime>? date,
+      Value<String>? date,
       Value<int>? exception_type}) {
     return CalendarDatesCompanion(
       service_id: service_id ?? this.service_id,
@@ -3218,7 +3218,7 @@ class CalendarDatesCompanion extends UpdateCompanion<CalendarDate> {
       map['service_id'] = Variable<String>(service_id.value);
     }
     if (date.present) {
-      map['date'] = Variable<DateTime>(date.value);
+      map['date'] = Variable<String>(date.value);
     }
     if (exception_type.present) {
       map['exception_type'] = Variable<int>(exception_type.value);
@@ -3252,9 +3252,9 @@ class $CalendarDatesTable extends CalendarDates
       defaultConstraints: 'REFERENCES calendar (service_id)');
   final VerificationMeta _dateMeta = const VerificationMeta('date');
   @override
-  late final GeneratedColumn<DateTime?> date = GeneratedColumn<DateTime?>(
+  late final GeneratedColumn<String?> date = GeneratedColumn<String?>(
       'date', aliasedName, false,
-      type: const IntType(), requiredDuringInsert: true);
+      type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _exception_typeMeta =
       const VerificationMeta('exception_type');
   @override

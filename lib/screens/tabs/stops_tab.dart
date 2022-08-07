@@ -4,7 +4,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:transit/database/db.dart';
 import 'package:transit/navigation_routes.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
-import 'package:latlong2/latlong.dart';
 
 class StopsTab extends StatelessWidget {
   const StopsTab({Key? key}) : super(key: key);

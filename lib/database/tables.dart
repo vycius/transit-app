@@ -77,9 +77,9 @@ class Calendar extends Table {
 
   BoolColumn get sunday => boolean()();
 
-  DateTimeColumn get start_date => dateTime()();
+  TextColumn get start_date => text()();
 
-  DateTimeColumn get end_date => dateTime()();
+  TextColumn get end_date => text()();
 
   @override
   Set<Column> get primaryKey => {service_id};
@@ -157,7 +157,7 @@ class Shapes extends Table {
 class CalendarDates extends Table {
   TextColumn get service_id => text().references(Calendar, #service_id)();
 
-  DateTimeColumn get date => dateTime()();
+  TextColumn get date => text()();
 
   IntColumn get exception_type => integer()();
 
