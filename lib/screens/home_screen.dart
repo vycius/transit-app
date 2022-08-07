@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:transit/database/db.dart';
 import 'package:transit/routes.dart';
+import 'package:transit/screens/tabs/map_tab.dart';
 import 'package:transit/screens/tabs/routes_tab.dart';
+import 'package:transit/screens/tabs/stops_tab.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -21,9 +23,14 @@ class _HomeScreenState extends State<HomeScreen> {
       label: 'Maršrutai',
     ),
     _HomeScreenTab(
-      builder: () => Container(),
+      builder: () => StopsTab(),
       icon: MdiIcons.busStop,
       label: 'Stotelės',
+    ),
+    _HomeScreenTab(
+      builder: () => MapTab(),
+      icon: Icons.map,
+      label: 'Žemėlapis',
     ),
   ];
 

@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 class AppFutureBuilder<T> extends StatelessWidget {
   final Future<T> future;
   final Widget Function(BuildContext context, T data) builder;
+  final Widget Function(BuildContext context)? loadingBuilder;
 
   const AppFutureBuilder({
     super.key,
     required this.future,
     required this.builder,
+    this.loadingBuilder,
   });
 
   @override
@@ -44,6 +46,12 @@ class AppFutureBuilder<T> extends StatelessWidget {
             ),
           );
         }
+
+        final loadingBuilderFunc = loadingBuilder;
+        if (loadingBuilderFunc != null) {
+          return loadingBuilderFunc(context);
+        }
+
         return Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

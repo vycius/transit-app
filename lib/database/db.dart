@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:transit/database/tables.dart';
 
@@ -56,8 +57,14 @@ class AppDatabase extends _$AppDatabase {
     final query = select(transitRoutes)
       ..orderBy([
         (t) => OrderingTerm(expression: t.route_sort_order),
-        (t) => OrderingTerm(expression: t.route_short_name),
+        (t) => OrderingTerm(expression: t.route_id),
       ]);
+    return query.get();
+  }
+
+  Future<List<Stop>> selectAllStops({LatLng? currentPosition}) {
+    final query = select(stops);
+
     return query.get();
   }
 

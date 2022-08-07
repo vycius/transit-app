@@ -3,6 +3,7 @@ import 'package:transit/database/db.dart';
 import 'package:transit/gtfs_service.dart';
 import 'package:transit/models/region.dart';
 import 'package:transit/routes.dart';
+import 'package:transit/screens/home_screen.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
 
 class RegionSelectorScreen extends StatefulWidget {
@@ -49,6 +50,10 @@ class _RegionSelectorScreenState extends State<RegionSelectorScreen> {
     return AppFutureBuilder<bool>(
       future: _hasAnyRoutes(),
       builder: (context, hasAnyRoutes) {
+        if (hasAnyRoutes) {
+          return HomeScreen();
+        }
+
         return ListView.builder(
           itemCount: _regions.length,
           itemBuilder: (context, index) {
