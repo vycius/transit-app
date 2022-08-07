@@ -7,23 +7,24 @@ const RESOURCES = {
 "canvaskit/profiling/canvaskit.wasm": "95e736ab31147d1b2c7b25f11d4c32cd",
 "canvaskit/canvaskit.js": "c2b4e5f3d7a3d82aed024e7249a78487",
 "canvaskit/canvaskit.wasm": "4b83d89d9fecbea8ca46f2f760c5a9ba",
-"index.html": "131e0ff19151d351bfdd71fced8981bd",
-"/": "131e0ff19151d351bfdd71fced8981bd",
+"index.html": "df25eaa960ef88e5465b5c4b6aeb401f",
+"/": "df25eaa960ef88e5465b5c4b6aeb401f",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
-"main.dart.js": "10934369c27246ea932d99c717f71b1a",
+"main.dart.js": "8e1eec8e8508df8e0e994750ca4b808b",
 "manifest.json": "f3c24bc12e92d9d8255a4213bda584c9",
 "version.json": "35a38eaf147ea65399633ceb27ec2a82",
 "sql-wasm.js": "2c200f5293606b776b6700b825b004aa",
 "flutter.js": "eb2682e33f25cd8f1fc59011497c35f8",
-"icons/Icon-maskable-512.png": "f8ad0a3187d01cac9d1b56c35da3e3a3",
+"icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
-"icons/Icon-maskable-192.png": "49d80e1d8c0fa63fae248633e10a25fe",
+"icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "sql-wasm.wasm": "1b0fa4ee8004632ba85abefe56855493",
-"assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
-"assets/NOTICES": "4dc488a05fa1e03ba894ac23931ebf8a",
+"assets/FontManifest.json": "cf3c681641169319e61b61bd0277378f",
+"assets/NOTICES": "b65a42b350cf703defbcb0a623532b47",
 "assets/fonts/MaterialIcons-Regular.otf": "95db9098c58fd6db106f1116bae85a0b",
-"assets/AssetManifest.json": "99914b932bd37a50b983c5e7c90ae93b"
+"assets/packages/material_design_icons_flutter/lib/fonts/materialdesignicons-webfont.ttf": "e9f2f143310604845f8aa26c42ad5f55",
+"assets/AssetManifest.json": "0ae7fc18201ca69c4417732763656d07"
 };
 
 // The application shell files that are downloaded before a service worker can
