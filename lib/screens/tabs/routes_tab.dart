@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:transit/database/db.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
+import 'package:transit/screens/widgets/route_avatar.dart';
 
 class RoutesTab extends StatelessWidget {
   const RoutesTab({Key? key}) : super(key: key);
@@ -17,13 +18,9 @@ class RoutesTab extends StatelessWidget {
           itemBuilder: (context, index) {
             final route = routes[index];
 
-            final shortName = route.route_short_name ?? '';
-
             return ListTile(
               title: Text(route.route_long_name),
-              leading: CircleAvatar(
-                child: Text(shortName),
-              ),
+              leading: RouteAvatar(route: route),
             );
           },
         );

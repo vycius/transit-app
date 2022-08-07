@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:transit/database/db.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
+import 'package:transit/screens/widgets/route_avatar.dart';
 
 class StopScreen extends StatelessWidget {
   final Stop stop;
@@ -29,9 +30,7 @@ class StopScreen extends StatelessWidget {
               final route = tripWithTime.route;
 
               return ListTile(
-                leading: CircleAvatar(
-                  child: Text(route.route_short_name ?? ''),
-                ),
+                leading: RouteAvatar(route: route),
                 title: Text(trip.trip_headsign ?? ''),
                 subtitle: Text(trip.trip_short_name ?? route.route_long_name),
                 trailing: Text(stopTimes.departure_time),
