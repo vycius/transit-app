@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:archive/archive.dart';
 import 'package:csv/csv.dart';
 import 'package:drift/drift.dart';
+import 'package:http/http.dart' as http;
 import 'package:transit/database/db.dart';
+import 'package:transit/models/region.dart';
 
 class _CsvRowValues {
   final Map<String, int> headerIndexLookup;
@@ -64,6 +66,22 @@ class _CsvRowValues {
 }
 
 class GTFSImportService {
+  Future<void> importRegionGTFS(Region region, AppDatabase appDatabase) async {
+    final uri = Uri.parse(region.gtfsUrl);
+
+    final response = await http.get(uri);
+
+    if (response.statusCode / 100 == 2) {
+      final archive = ZipDecoder().decodeBytes(
+        response.bodyBytes,
+        verify: true,
+      );
+      return GTFSImportService().insertGTFSArchive(archive, appDatabase);
+    } else {
+      throw Exception('Failed to load GTFS from internet ${region.gtfsUrl}');
+    }
+  }
+
   Future<void> insertGTFSArchive(
     Archive archive,
     AppDatabase appDatabase,
@@ -74,17 +92,24 @@ class GTFSImportService {
     await _insertCalendar(archive, appDatabase);
     await _insertShapes(archive, appDatabase);
     await _insertTrips(archive, appDatabase);
+    await _insertCalendarDates(archive, appDatabase);
+    await _insertStopTimes(archive, appDatabase);
   }
 
   Iterable<T> _mapFileRowsToInserts<T>(
     Archive archive,
     String fileName,
-    T Function(_CsvRowValues rowValues) insertMapper,
-  ) {
+    T Function(_CsvRowValues rowValues) insertMapper, {
+    bool isRequired = true,
+  }) {
     final file = archive.findFile(fileName);
 
     if (file == null) {
-      throw ArgumentError.notNull('$fileName is required in GTFS file');
+      if (isRequired) {
+        throw ArgumentError.notNull('$fileName is required in GTFS file');
+      } else {
+        return [];
+      }
     }
 
     final bytes = file.content as List<int>;
@@ -145,7 +170,7 @@ class GTFSImportService {
       archive,
       'routes.txt',
       (rowValues) {
-        return RoutesCompanion.insert(
+        return TransitRoutesCompanion.insert(
           route_id: rowValues.getRequiredValue('route_id'),
           agency_id: rowValues.getValue('agency_id'),
           route_short_name: rowValues.getValue('route_short_name'),
@@ -161,7 +186,7 @@ class GTFSImportService {
     );
 
     return appDatabase.batch((batch) {
-      batch.insertAll(appDatabase.routes, stopInserts);
+      batch.insertAll(appDatabase.transitRoutes, stopInserts);
     });
   }
 
@@ -232,6 +257,57 @@ class GTFSImportService {
 
     return appDatabase.batch((batch) {
       batch.insertAll(appDatabase.shapes, tripsInserts);
+    });
+  }
+
+  Future<void> _insertStopTimes(
+    Archive archive,
+    AppDatabase appDatabase,
+  ) async {
+    final tripsInserts = _mapFileRowsToInserts(
+      archive,
+      'stop_times.txt',
+      (rowValues) {
+        return StopTimesCompanion.insert(
+          trip_id: rowValues.getRequiredValue('trip_id'),
+          arrival_time: rowValues.getRequiredValue('arrival_time'),
+          departure_time: rowValues.getRequiredValue('departure_time'),
+          stop_id: rowValues.getRequiredValue('stop_id'),
+          stop_sequence: rowValues.getRequiredValue('stop_sequence'),
+          stop_headsign: rowValues.getValue('stop_headsign'),
+          pickup_type: rowValues.getValue('pickup_type'),
+          drop_off_type: rowValues.getValue('drop_off_type'),
+          continuous_pickup: rowValues.getValue('continuous_pickup'),
+          continuous_drop_off: rowValues.getValue('continuous_drop_off'),
+          shape_dist_traveled: rowValues.getValue('shape_dist_traveled'),
+          timepoint: rowValues.getValue('timepoint'),
+        );
+      },
+    );
+
+    return appDatabase.batch((batch) {
+      batch.insertAll(appDatabase.stopTimes, tripsInserts);
+    });
+  }
+
+  Future<void> _insertCalendarDates(
+    Archive archive,
+    AppDatabase appDatabase,
+  ) async {
+    final tripsInserts = _mapFileRowsToInserts(
+      archive,
+      'calendar_dates.txt',
+      (rowValues) {
+        return CalendarDatesCompanion.insert(
+          service_id: rowValues.getRequiredValue('service_id'),
+          date: rowValues.getRequiredValue('date'),
+          exception_type: rowValues.getRequiredValue('exception_type'),
+        );
+      },
+    );
+
+    return appDatabase.batch((batch) {
+      batch.insertAll(appDatabase.calendarDates, tripsInserts);
     });
   }
 }

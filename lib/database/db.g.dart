@@ -664,7 +664,7 @@ class $StopsTable extends Stops with TableInfo<$StopsTable, Stop> {
   }
 }
 
-class Route extends DataClass implements Insertable<Route> {
+class TransitRoute extends DataClass implements Insertable<TransitRoute> {
   final String route_id;
   final String? agency_id;
   final String? route_short_name;
@@ -675,7 +675,7 @@ class Route extends DataClass implements Insertable<Route> {
   final String? route_color;
   final String? route_text_color;
   final int? route_sort_order;
-  Route(
+  TransitRoute(
       {required this.route_id,
       this.agency_id,
       this.route_short_name,
@@ -686,9 +686,9 @@ class Route extends DataClass implements Insertable<Route> {
       this.route_color,
       this.route_text_color,
       this.route_sort_order});
-  factory Route.fromData(Map<String, dynamic> data, {String? prefix}) {
+  factory TransitRoute.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    return Route(
+    return TransitRoute(
       route_id: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}route_id'])!,
       agency_id: const StringType()
@@ -741,8 +741,8 @@ class Route extends DataClass implements Insertable<Route> {
     return map;
   }
 
-  RoutesCompanion toCompanion(bool nullToAbsent) {
-    return RoutesCompanion(
+  TransitRoutesCompanion toCompanion(bool nullToAbsent) {
+    return TransitRoutesCompanion(
       route_id: Value(route_id),
       agency_id: agency_id == null && nullToAbsent
           ? const Value.absent()
@@ -770,10 +770,10 @@ class Route extends DataClass implements Insertable<Route> {
     );
   }
 
-  factory Route.fromJson(Map<String, dynamic> json,
+  factory TransitRoute.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Route(
+    return TransitRoute(
       route_id: serializer.fromJson<String>(json['route_id']),
       agency_id: serializer.fromJson<String?>(json['agency_id']),
       route_short_name: serializer.fromJson<String?>(json['route_short_name']),
@@ -803,7 +803,7 @@ class Route extends DataClass implements Insertable<Route> {
     };
   }
 
-  Route copyWith(
+  TransitRoute copyWith(
           {String? route_id,
           String? agency_id,
           String? route_short_name,
@@ -814,7 +814,7 @@ class Route extends DataClass implements Insertable<Route> {
           String? route_color,
           String? route_text_color,
           int? route_sort_order}) =>
-      Route(
+      TransitRoute(
         route_id: route_id ?? this.route_id,
         agency_id: agency_id ?? this.agency_id,
         route_short_name: route_short_name ?? this.route_short_name,
@@ -828,7 +828,7 @@ class Route extends DataClass implements Insertable<Route> {
       );
   @override
   String toString() {
-    return (StringBuffer('Route(')
+    return (StringBuffer('TransitRoute(')
           ..write('route_id: $route_id, ')
           ..write('agency_id: $agency_id, ')
           ..write('route_short_name: $route_short_name, ')
@@ -858,7 +858,7 @@ class Route extends DataClass implements Insertable<Route> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is Route &&
+      (other is TransitRoute &&
           other.route_id == this.route_id &&
           other.agency_id == this.agency_id &&
           other.route_short_name == this.route_short_name &&
@@ -871,7 +871,7 @@ class Route extends DataClass implements Insertable<Route> {
           other.route_sort_order == this.route_sort_order);
 }
 
-class RoutesCompanion extends UpdateCompanion<Route> {
+class TransitRoutesCompanion extends UpdateCompanion<TransitRoute> {
   final Value<String> route_id;
   final Value<String?> agency_id;
   final Value<String?> route_short_name;
@@ -882,7 +882,7 @@ class RoutesCompanion extends UpdateCompanion<Route> {
   final Value<String?> route_color;
   final Value<String?> route_text_color;
   final Value<int?> route_sort_order;
-  const RoutesCompanion({
+  const TransitRoutesCompanion({
     this.route_id = const Value.absent(),
     this.agency_id = const Value.absent(),
     this.route_short_name = const Value.absent(),
@@ -894,7 +894,7 @@ class RoutesCompanion extends UpdateCompanion<Route> {
     this.route_text_color = const Value.absent(),
     this.route_sort_order = const Value.absent(),
   });
-  RoutesCompanion.insert({
+  TransitRoutesCompanion.insert({
     required String route_id,
     this.agency_id = const Value.absent(),
     this.route_short_name = const Value.absent(),
@@ -908,7 +908,7 @@ class RoutesCompanion extends UpdateCompanion<Route> {
   })  : route_id = Value(route_id),
         route_long_name = Value(route_long_name),
         route_type = Value(route_type);
-  static Insertable<Route> custom({
+  static Insertable<TransitRoute> custom({
     Expression<String>? route_id,
     Expression<String?>? agency_id,
     Expression<String?>? route_short_name,
@@ -934,7 +934,7 @@ class RoutesCompanion extends UpdateCompanion<Route> {
     });
   }
 
-  RoutesCompanion copyWith(
+  TransitRoutesCompanion copyWith(
       {Value<String>? route_id,
       Value<String?>? agency_id,
       Value<String?>? route_short_name,
@@ -945,7 +945,7 @@ class RoutesCompanion extends UpdateCompanion<Route> {
       Value<String?>? route_color,
       Value<String?>? route_text_color,
       Value<int?>? route_sort_order}) {
-    return RoutesCompanion(
+    return TransitRoutesCompanion(
       route_id: route_id ?? this.route_id,
       agency_id: agency_id ?? this.agency_id,
       route_short_name: route_short_name ?? this.route_short_name,
@@ -997,7 +997,7 @@ class RoutesCompanion extends UpdateCompanion<Route> {
 
   @override
   String toString() {
-    return (StringBuffer('RoutesCompanion(')
+    return (StringBuffer('TransitRoutesCompanion(')
           ..write('route_id: $route_id, ')
           ..write('agency_id: $agency_id, ')
           ..write('route_short_name: $route_short_name, ')
@@ -1013,11 +1013,12 @@ class RoutesCompanion extends UpdateCompanion<Route> {
   }
 }
 
-class $RoutesTable extends Routes with TableInfo<$RoutesTable, Route> {
+class $TransitRoutesTable extends TransitRoutes
+    with TableInfo<$TransitRoutesTable, TransitRoute> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $RoutesTable(this.attachedDatabase, [this._alias]);
+  $TransitRoutesTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _route_idMeta = const VerificationMeta('route_id');
   @override
   late final GeneratedColumn<String?> route_id = GeneratedColumn<String?>(
@@ -1087,11 +1088,11 @@ class $RoutesTable extends Routes with TableInfo<$RoutesTable, Route> {
         route_sort_order
       ];
   @override
-  String get aliasedName => _alias ?? 'routes';
+  String get aliasedName => _alias ?? 'transit_routes';
   @override
-  String get actualTableName => 'routes';
+  String get actualTableName => 'transit_routes';
   @override
-  VerificationContext validateIntegrity(Insertable<Route> instance,
+  VerificationContext validateIntegrity(Insertable<TransitRoute> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -1161,14 +1162,14 @@ class $RoutesTable extends Routes with TableInfo<$RoutesTable, Route> {
   @override
   Set<GeneratedColumn> get $primaryKey => {route_id};
   @override
-  Route map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Route.fromData(data,
+  TransitRoute map(Map<String, dynamic> data, {String? tablePrefix}) {
+    return TransitRoute.fromData(data,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
-  $RoutesTable createAlias(String alias) {
-    return $RoutesTable(attachedDatabase, alias);
+  $TransitRoutesTable createAlias(String alias) {
+    return $TransitRoutesTable(attachedDatabase, alias);
   }
 }
 
@@ -2337,7 +2338,7 @@ class $TripsTable extends Trips with TableInfo<$TripsTable, Trip> {
       'route_id', aliasedName, false,
       type: const StringType(),
       requiredDuringInsert: true,
-      defaultConstraints: 'REFERENCES routes (route_id)');
+      defaultConstraints: 'REFERENCES transit_routes (route_id)');
   final VerificationMeta _service_idMeta = const VerificationMeta('service_id');
   @override
   late final GeneratedColumn<String?> service_id = GeneratedColumn<String?>(
@@ -2495,11 +2496,13 @@ class StopTime extends DataClass implements Insertable<StopTime> {
   final String departure_time;
   final String stop_id;
   final int stop_sequence;
-  final String? stop_headsign;
+  final int? stop_headsign;
   final int? pickup_type;
   final int? drop_off_type;
+  final int? continuous_pickup;
+  final int? continuous_drop_off;
   final double? shape_dist_traveled;
-  final double? stop_shape_percent;
+  final int? timepoint;
   StopTime(
       {required this.trip_id,
       required this.arrival_time,
@@ -2509,8 +2512,10 @@ class StopTime extends DataClass implements Insertable<StopTime> {
       this.stop_headsign,
       this.pickup_type,
       this.drop_off_type,
+      this.continuous_pickup,
+      this.continuous_drop_off,
       this.shape_dist_traveled,
-      this.stop_shape_percent});
+      this.timepoint});
   factory StopTime.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return StopTime(
@@ -2524,16 +2529,20 @@ class StopTime extends DataClass implements Insertable<StopTime> {
           .mapFromDatabaseResponse(data['${effectivePrefix}stop_id'])!,
       stop_sequence: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}stop_sequence'])!,
-      stop_headsign: const StringType()
+      stop_headsign: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}stop_headsign']),
       pickup_type: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}pickup_type']),
       drop_off_type: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}drop_off_type']),
+      continuous_pickup: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}continuous_pickup']),
+      continuous_drop_off: const IntType().mapFromDatabaseResponse(
+          data['${effectivePrefix}continuous_drop_off']),
       shape_dist_traveled: const RealType().mapFromDatabaseResponse(
           data['${effectivePrefix}shape_dist_traveled']),
-      stop_shape_percent: const RealType().mapFromDatabaseResponse(
-          data['${effectivePrefix}stop_shape_percent']),
+      timepoint: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}timepoint']),
     );
   }
   @override
@@ -2545,7 +2554,7 @@ class StopTime extends DataClass implements Insertable<StopTime> {
     map['stop_id'] = Variable<String>(stop_id);
     map['stop_sequence'] = Variable<int>(stop_sequence);
     if (!nullToAbsent || stop_headsign != null) {
-      map['stop_headsign'] = Variable<String?>(stop_headsign);
+      map['stop_headsign'] = Variable<int?>(stop_headsign);
     }
     if (!nullToAbsent || pickup_type != null) {
       map['pickup_type'] = Variable<int?>(pickup_type);
@@ -2553,11 +2562,17 @@ class StopTime extends DataClass implements Insertable<StopTime> {
     if (!nullToAbsent || drop_off_type != null) {
       map['drop_off_type'] = Variable<int?>(drop_off_type);
     }
+    if (!nullToAbsent || continuous_pickup != null) {
+      map['continuous_pickup'] = Variable<int?>(continuous_pickup);
+    }
+    if (!nullToAbsent || continuous_drop_off != null) {
+      map['continuous_drop_off'] = Variable<int?>(continuous_drop_off);
+    }
     if (!nullToAbsent || shape_dist_traveled != null) {
       map['shape_dist_traveled'] = Variable<double?>(shape_dist_traveled);
     }
-    if (!nullToAbsent || stop_shape_percent != null) {
-      map['stop_shape_percent'] = Variable<double?>(stop_shape_percent);
+    if (!nullToAbsent || timepoint != null) {
+      map['timepoint'] = Variable<int?>(timepoint);
     }
     return map;
   }
@@ -2578,12 +2593,18 @@ class StopTime extends DataClass implements Insertable<StopTime> {
       drop_off_type: drop_off_type == null && nullToAbsent
           ? const Value.absent()
           : Value(drop_off_type),
+      continuous_pickup: continuous_pickup == null && nullToAbsent
+          ? const Value.absent()
+          : Value(continuous_pickup),
+      continuous_drop_off: continuous_drop_off == null && nullToAbsent
+          ? const Value.absent()
+          : Value(continuous_drop_off),
       shape_dist_traveled: shape_dist_traveled == null && nullToAbsent
           ? const Value.absent()
           : Value(shape_dist_traveled),
-      stop_shape_percent: stop_shape_percent == null && nullToAbsent
+      timepoint: timepoint == null && nullToAbsent
           ? const Value.absent()
-          : Value(stop_shape_percent),
+          : Value(timepoint),
     );
   }
 
@@ -2596,13 +2617,15 @@ class StopTime extends DataClass implements Insertable<StopTime> {
       departure_time: serializer.fromJson<String>(json['departure_time']),
       stop_id: serializer.fromJson<String>(json['stop_id']),
       stop_sequence: serializer.fromJson<int>(json['stop_sequence']),
-      stop_headsign: serializer.fromJson<String?>(json['stop_headsign']),
+      stop_headsign: serializer.fromJson<int?>(json['stop_headsign']),
       pickup_type: serializer.fromJson<int?>(json['pickup_type']),
       drop_off_type: serializer.fromJson<int?>(json['drop_off_type']),
+      continuous_pickup: serializer.fromJson<int?>(json['continuous_pickup']),
+      continuous_drop_off:
+          serializer.fromJson<int?>(json['continuous_drop_off']),
       shape_dist_traveled:
           serializer.fromJson<double?>(json['shape_dist_traveled']),
-      stop_shape_percent:
-          serializer.fromJson<double?>(json['stop_shape_percent']),
+      timepoint: serializer.fromJson<int?>(json['timepoint']),
     );
   }
   @override
@@ -2614,11 +2637,13 @@ class StopTime extends DataClass implements Insertable<StopTime> {
       'departure_time': serializer.toJson<String>(departure_time),
       'stop_id': serializer.toJson<String>(stop_id),
       'stop_sequence': serializer.toJson<int>(stop_sequence),
-      'stop_headsign': serializer.toJson<String?>(stop_headsign),
+      'stop_headsign': serializer.toJson<int?>(stop_headsign),
       'pickup_type': serializer.toJson<int?>(pickup_type),
       'drop_off_type': serializer.toJson<int?>(drop_off_type),
+      'continuous_pickup': serializer.toJson<int?>(continuous_pickup),
+      'continuous_drop_off': serializer.toJson<int?>(continuous_drop_off),
       'shape_dist_traveled': serializer.toJson<double?>(shape_dist_traveled),
-      'stop_shape_percent': serializer.toJson<double?>(stop_shape_percent),
+      'timepoint': serializer.toJson<int?>(timepoint),
     };
   }
 
@@ -2628,11 +2653,13 @@ class StopTime extends DataClass implements Insertable<StopTime> {
           String? departure_time,
           String? stop_id,
           int? stop_sequence,
-          String? stop_headsign,
+          int? stop_headsign,
           int? pickup_type,
           int? drop_off_type,
+          int? continuous_pickup,
+          int? continuous_drop_off,
           double? shape_dist_traveled,
-          double? stop_shape_percent}) =>
+          int? timepoint}) =>
       StopTime(
         trip_id: trip_id ?? this.trip_id,
         arrival_time: arrival_time ?? this.arrival_time,
@@ -2642,8 +2669,10 @@ class StopTime extends DataClass implements Insertable<StopTime> {
         stop_headsign: stop_headsign ?? this.stop_headsign,
         pickup_type: pickup_type ?? this.pickup_type,
         drop_off_type: drop_off_type ?? this.drop_off_type,
+        continuous_pickup: continuous_pickup ?? this.continuous_pickup,
+        continuous_drop_off: continuous_drop_off ?? this.continuous_drop_off,
         shape_dist_traveled: shape_dist_traveled ?? this.shape_dist_traveled,
-        stop_shape_percent: stop_shape_percent ?? this.stop_shape_percent,
+        timepoint: timepoint ?? this.timepoint,
       );
   @override
   String toString() {
@@ -2656,8 +2685,10 @@ class StopTime extends DataClass implements Insertable<StopTime> {
           ..write('stop_headsign: $stop_headsign, ')
           ..write('pickup_type: $pickup_type, ')
           ..write('drop_off_type: $drop_off_type, ')
+          ..write('continuous_pickup: $continuous_pickup, ')
+          ..write('continuous_drop_off: $continuous_drop_off, ')
           ..write('shape_dist_traveled: $shape_dist_traveled, ')
-          ..write('stop_shape_percent: $stop_shape_percent')
+          ..write('timepoint: $timepoint')
           ..write(')'))
         .toString();
   }
@@ -2672,8 +2703,10 @@ class StopTime extends DataClass implements Insertable<StopTime> {
       stop_headsign,
       pickup_type,
       drop_off_type,
+      continuous_pickup,
+      continuous_drop_off,
       shape_dist_traveled,
-      stop_shape_percent);
+      timepoint);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2686,8 +2719,10 @@ class StopTime extends DataClass implements Insertable<StopTime> {
           other.stop_headsign == this.stop_headsign &&
           other.pickup_type == this.pickup_type &&
           other.drop_off_type == this.drop_off_type &&
+          other.continuous_pickup == this.continuous_pickup &&
+          other.continuous_drop_off == this.continuous_drop_off &&
           other.shape_dist_traveled == this.shape_dist_traveled &&
-          other.stop_shape_percent == this.stop_shape_percent);
+          other.timepoint == this.timepoint);
 }
 
 class StopTimesCompanion extends UpdateCompanion<StopTime> {
@@ -2696,11 +2731,13 @@ class StopTimesCompanion extends UpdateCompanion<StopTime> {
   final Value<String> departure_time;
   final Value<String> stop_id;
   final Value<int> stop_sequence;
-  final Value<String?> stop_headsign;
+  final Value<int?> stop_headsign;
   final Value<int?> pickup_type;
   final Value<int?> drop_off_type;
+  final Value<int?> continuous_pickup;
+  final Value<int?> continuous_drop_off;
   final Value<double?> shape_dist_traveled;
-  final Value<double?> stop_shape_percent;
+  final Value<int?> timepoint;
   const StopTimesCompanion({
     this.trip_id = const Value.absent(),
     this.arrival_time = const Value.absent(),
@@ -2710,8 +2747,10 @@ class StopTimesCompanion extends UpdateCompanion<StopTime> {
     this.stop_headsign = const Value.absent(),
     this.pickup_type = const Value.absent(),
     this.drop_off_type = const Value.absent(),
+    this.continuous_pickup = const Value.absent(),
+    this.continuous_drop_off = const Value.absent(),
     this.shape_dist_traveled = const Value.absent(),
-    this.stop_shape_percent = const Value.absent(),
+    this.timepoint = const Value.absent(),
   });
   StopTimesCompanion.insert({
     required String trip_id,
@@ -2722,8 +2761,10 @@ class StopTimesCompanion extends UpdateCompanion<StopTime> {
     this.stop_headsign = const Value.absent(),
     this.pickup_type = const Value.absent(),
     this.drop_off_type = const Value.absent(),
+    this.continuous_pickup = const Value.absent(),
+    this.continuous_drop_off = const Value.absent(),
     this.shape_dist_traveled = const Value.absent(),
-    this.stop_shape_percent = const Value.absent(),
+    this.timepoint = const Value.absent(),
   })  : trip_id = Value(trip_id),
         arrival_time = Value(arrival_time),
         departure_time = Value(departure_time),
@@ -2735,11 +2776,13 @@ class StopTimesCompanion extends UpdateCompanion<StopTime> {
     Expression<String>? departure_time,
     Expression<String>? stop_id,
     Expression<int>? stop_sequence,
-    Expression<String?>? stop_headsign,
+    Expression<int?>? stop_headsign,
     Expression<int?>? pickup_type,
     Expression<int?>? drop_off_type,
+    Expression<int?>? continuous_pickup,
+    Expression<int?>? continuous_drop_off,
     Expression<double?>? shape_dist_traveled,
-    Expression<double?>? stop_shape_percent,
+    Expression<int?>? timepoint,
   }) {
     return RawValuesInsertable({
       if (trip_id != null) 'trip_id': trip_id,
@@ -2750,9 +2793,12 @@ class StopTimesCompanion extends UpdateCompanion<StopTime> {
       if (stop_headsign != null) 'stop_headsign': stop_headsign,
       if (pickup_type != null) 'pickup_type': pickup_type,
       if (drop_off_type != null) 'drop_off_type': drop_off_type,
+      if (continuous_pickup != null) 'continuous_pickup': continuous_pickup,
+      if (continuous_drop_off != null)
+        'continuous_drop_off': continuous_drop_off,
       if (shape_dist_traveled != null)
         'shape_dist_traveled': shape_dist_traveled,
-      if (stop_shape_percent != null) 'stop_shape_percent': stop_shape_percent,
+      if (timepoint != null) 'timepoint': timepoint,
     });
   }
 
@@ -2762,11 +2808,13 @@ class StopTimesCompanion extends UpdateCompanion<StopTime> {
       Value<String>? departure_time,
       Value<String>? stop_id,
       Value<int>? stop_sequence,
-      Value<String?>? stop_headsign,
+      Value<int?>? stop_headsign,
       Value<int?>? pickup_type,
       Value<int?>? drop_off_type,
+      Value<int?>? continuous_pickup,
+      Value<int?>? continuous_drop_off,
       Value<double?>? shape_dist_traveled,
-      Value<double?>? stop_shape_percent}) {
+      Value<int?>? timepoint}) {
     return StopTimesCompanion(
       trip_id: trip_id ?? this.trip_id,
       arrival_time: arrival_time ?? this.arrival_time,
@@ -2776,8 +2824,10 @@ class StopTimesCompanion extends UpdateCompanion<StopTime> {
       stop_headsign: stop_headsign ?? this.stop_headsign,
       pickup_type: pickup_type ?? this.pickup_type,
       drop_off_type: drop_off_type ?? this.drop_off_type,
+      continuous_pickup: continuous_pickup ?? this.continuous_pickup,
+      continuous_drop_off: continuous_drop_off ?? this.continuous_drop_off,
       shape_dist_traveled: shape_dist_traveled ?? this.shape_dist_traveled,
-      stop_shape_percent: stop_shape_percent ?? this.stop_shape_percent,
+      timepoint: timepoint ?? this.timepoint,
     );
   }
 
@@ -2800,7 +2850,7 @@ class StopTimesCompanion extends UpdateCompanion<StopTime> {
       map['stop_sequence'] = Variable<int>(stop_sequence.value);
     }
     if (stop_headsign.present) {
-      map['stop_headsign'] = Variable<String?>(stop_headsign.value);
+      map['stop_headsign'] = Variable<int?>(stop_headsign.value);
     }
     if (pickup_type.present) {
       map['pickup_type'] = Variable<int?>(pickup_type.value);
@@ -2808,11 +2858,17 @@ class StopTimesCompanion extends UpdateCompanion<StopTime> {
     if (drop_off_type.present) {
       map['drop_off_type'] = Variable<int?>(drop_off_type.value);
     }
+    if (continuous_pickup.present) {
+      map['continuous_pickup'] = Variable<int?>(continuous_pickup.value);
+    }
+    if (continuous_drop_off.present) {
+      map['continuous_drop_off'] = Variable<int?>(continuous_drop_off.value);
+    }
     if (shape_dist_traveled.present) {
       map['shape_dist_traveled'] = Variable<double?>(shape_dist_traveled.value);
     }
-    if (stop_shape_percent.present) {
-      map['stop_shape_percent'] = Variable<double?>(stop_shape_percent.value);
+    if (timepoint.present) {
+      map['timepoint'] = Variable<int?>(timepoint.value);
     }
     return map;
   }
@@ -2828,8 +2884,10 @@ class StopTimesCompanion extends UpdateCompanion<StopTime> {
           ..write('stop_headsign: $stop_headsign, ')
           ..write('pickup_type: $pickup_type, ')
           ..write('drop_off_type: $drop_off_type, ')
+          ..write('continuous_pickup: $continuous_pickup, ')
+          ..write('continuous_drop_off: $continuous_drop_off, ')
           ..write('shape_dist_traveled: $shape_dist_traveled, ')
-          ..write('stop_shape_percent: $stop_shape_percent')
+          ..write('timepoint: $timepoint')
           ..write(')'))
         .toString();
   }
@@ -2876,9 +2934,9 @@ class $StopTimesTable extends StopTimes
   final VerificationMeta _stop_headsignMeta =
       const VerificationMeta('stop_headsign');
   @override
-  late final GeneratedColumn<String?> stop_headsign = GeneratedColumn<String?>(
+  late final GeneratedColumn<int?> stop_headsign = GeneratedColumn<int?>(
       'stop_headsign', aliasedName, true,
-      type: const StringType(), requiredDuringInsert: false);
+      type: const IntType(), requiredDuringInsert: false);
   final VerificationMeta _pickup_typeMeta =
       const VerificationMeta('pickup_type');
   @override
@@ -2891,18 +2949,29 @@ class $StopTimesTable extends StopTimes
   late final GeneratedColumn<int?> drop_off_type = GeneratedColumn<int?>(
       'drop_off_type', aliasedName, true,
       type: const IntType(), requiredDuringInsert: false);
+  final VerificationMeta _continuous_pickupMeta =
+      const VerificationMeta('continuous_pickup');
+  @override
+  late final GeneratedColumn<int?> continuous_pickup = GeneratedColumn<int?>(
+      'continuous_pickup', aliasedName, true,
+      type: const IntType(), requiredDuringInsert: false);
+  final VerificationMeta _continuous_drop_offMeta =
+      const VerificationMeta('continuous_drop_off');
+  @override
+  late final GeneratedColumn<int?> continuous_drop_off = GeneratedColumn<int?>(
+      'continuous_drop_off', aliasedName, true,
+      type: const IntType(), requiredDuringInsert: false);
   final VerificationMeta _shape_dist_traveledMeta =
       const VerificationMeta('shape_dist_traveled');
   @override
   late final GeneratedColumn<double?> shape_dist_traveled =
       GeneratedColumn<double?>('shape_dist_traveled', aliasedName, true,
           type: const RealType(), requiredDuringInsert: false);
-  final VerificationMeta _stop_shape_percentMeta =
-      const VerificationMeta('stop_shape_percent');
+  final VerificationMeta _timepointMeta = const VerificationMeta('timepoint');
   @override
-  late final GeneratedColumn<double?> stop_shape_percent =
-      GeneratedColumn<double?>('stop_shape_percent', aliasedName, true,
-          type: const RealType(), requiredDuringInsert: false);
+  late final GeneratedColumn<int?> timepoint = GeneratedColumn<int?>(
+      'timepoint', aliasedName, true,
+      type: const IntType(), requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
         trip_id,
@@ -2913,8 +2982,10 @@ class $StopTimesTable extends StopTimes
         stop_headsign,
         pickup_type,
         drop_off_type,
+        continuous_pickup,
+        continuous_drop_off,
         shape_dist_traveled,
-        stop_shape_percent
+        timepoint
       ];
   @override
   String get aliasedName => _alias ?? 'stop_times';
@@ -2979,17 +3050,27 @@ class $StopTimesTable extends StopTimes
           drop_off_type.isAcceptableOrUnknown(
               data['drop_off_type']!, _drop_off_typeMeta));
     }
+    if (data.containsKey('continuous_pickup')) {
+      context.handle(
+          _continuous_pickupMeta,
+          continuous_pickup.isAcceptableOrUnknown(
+              data['continuous_pickup']!, _continuous_pickupMeta));
+    }
+    if (data.containsKey('continuous_drop_off')) {
+      context.handle(
+          _continuous_drop_offMeta,
+          continuous_drop_off.isAcceptableOrUnknown(
+              data['continuous_drop_off']!, _continuous_drop_offMeta));
+    }
     if (data.containsKey('shape_dist_traveled')) {
       context.handle(
           _shape_dist_traveledMeta,
           shape_dist_traveled.isAcceptableOrUnknown(
               data['shape_dist_traveled']!, _shape_dist_traveledMeta));
     }
-    if (data.containsKey('stop_shape_percent')) {
-      context.handle(
-          _stop_shape_percentMeta,
-          stop_shape_percent.isAcceptableOrUnknown(
-              data['stop_shape_percent']!, _stop_shape_percentMeta));
+    if (data.containsKey('timepoint')) {
+      context.handle(_timepointMeta,
+          timepoint.isAcceptableOrUnknown(data['timepoint']!, _timepointMeta));
     }
     return context;
   }
@@ -3008,17 +3089,240 @@ class $StopTimesTable extends StopTimes
   }
 }
 
+class CalendarDate extends DataClass implements Insertable<CalendarDate> {
+  final String service_id;
+  final DateTime date;
+  final int exception_type;
+  CalendarDate(
+      {required this.service_id,
+      required this.date,
+      required this.exception_type});
+  factory CalendarDate.fromData(Map<String, dynamic> data, {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    return CalendarDate(
+      service_id: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}service_id'])!,
+      date: const DateTimeType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}date'])!,
+      exception_type: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}exception_type'])!,
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['service_id'] = Variable<String>(service_id);
+    map['date'] = Variable<DateTime>(date);
+    map['exception_type'] = Variable<int>(exception_type);
+    return map;
+  }
+
+  CalendarDatesCompanion toCompanion(bool nullToAbsent) {
+    return CalendarDatesCompanion(
+      service_id: Value(service_id),
+      date: Value(date),
+      exception_type: Value(exception_type),
+    );
+  }
+
+  factory CalendarDate.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return CalendarDate(
+      service_id: serializer.fromJson<String>(json['service_id']),
+      date: serializer.fromJson<DateTime>(json['date']),
+      exception_type: serializer.fromJson<int>(json['exception_type']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'service_id': serializer.toJson<String>(service_id),
+      'date': serializer.toJson<DateTime>(date),
+      'exception_type': serializer.toJson<int>(exception_type),
+    };
+  }
+
+  CalendarDate copyWith(
+          {String? service_id, DateTime? date, int? exception_type}) =>
+      CalendarDate(
+        service_id: service_id ?? this.service_id,
+        date: date ?? this.date,
+        exception_type: exception_type ?? this.exception_type,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('CalendarDate(')
+          ..write('service_id: $service_id, ')
+          ..write('date: $date, ')
+          ..write('exception_type: $exception_type')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(service_id, date, exception_type);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is CalendarDate &&
+          other.service_id == this.service_id &&
+          other.date == this.date &&
+          other.exception_type == this.exception_type);
+}
+
+class CalendarDatesCompanion extends UpdateCompanion<CalendarDate> {
+  final Value<String> service_id;
+  final Value<DateTime> date;
+  final Value<int> exception_type;
+  const CalendarDatesCompanion({
+    this.service_id = const Value.absent(),
+    this.date = const Value.absent(),
+    this.exception_type = const Value.absent(),
+  });
+  CalendarDatesCompanion.insert({
+    required String service_id,
+    required DateTime date,
+    required int exception_type,
+  })  : service_id = Value(service_id),
+        date = Value(date),
+        exception_type = Value(exception_type);
+  static Insertable<CalendarDate> custom({
+    Expression<String>? service_id,
+    Expression<DateTime>? date,
+    Expression<int>? exception_type,
+  }) {
+    return RawValuesInsertable({
+      if (service_id != null) 'service_id': service_id,
+      if (date != null) 'date': date,
+      if (exception_type != null) 'exception_type': exception_type,
+    });
+  }
+
+  CalendarDatesCompanion copyWith(
+      {Value<String>? service_id,
+      Value<DateTime>? date,
+      Value<int>? exception_type}) {
+    return CalendarDatesCompanion(
+      service_id: service_id ?? this.service_id,
+      date: date ?? this.date,
+      exception_type: exception_type ?? this.exception_type,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (service_id.present) {
+      map['service_id'] = Variable<String>(service_id.value);
+    }
+    if (date.present) {
+      map['date'] = Variable<DateTime>(date.value);
+    }
+    if (exception_type.present) {
+      map['exception_type'] = Variable<int>(exception_type.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CalendarDatesCompanion(')
+          ..write('service_id: $service_id, ')
+          ..write('date: $date, ')
+          ..write('exception_type: $exception_type')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $CalendarDatesTable extends CalendarDates
+    with TableInfo<$CalendarDatesTable, CalendarDate> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $CalendarDatesTable(this.attachedDatabase, [this._alias]);
+  final VerificationMeta _service_idMeta = const VerificationMeta('service_id');
+  @override
+  late final GeneratedColumn<String?> service_id = GeneratedColumn<String?>(
+      'service_id', aliasedName, false,
+      type: const StringType(),
+      requiredDuringInsert: true,
+      defaultConstraints: 'REFERENCES calendar (service_id)');
+  final VerificationMeta _dateMeta = const VerificationMeta('date');
+  @override
+  late final GeneratedColumn<DateTime?> date = GeneratedColumn<DateTime?>(
+      'date', aliasedName, false,
+      type: const IntType(), requiredDuringInsert: true);
+  final VerificationMeta _exception_typeMeta =
+      const VerificationMeta('exception_type');
+  @override
+  late final GeneratedColumn<int?> exception_type = GeneratedColumn<int?>(
+      'exception_type', aliasedName, false,
+      type: const IntType(), requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [service_id, date, exception_type];
+  @override
+  String get aliasedName => _alias ?? 'calendar_dates';
+  @override
+  String get actualTableName => 'calendar_dates';
+  @override
+  VerificationContext validateIntegrity(Insertable<CalendarDate> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('service_id')) {
+      context.handle(
+          _service_idMeta,
+          service_id.isAcceptableOrUnknown(
+              data['service_id']!, _service_idMeta));
+    } else if (isInserting) {
+      context.missing(_service_idMeta);
+    }
+    if (data.containsKey('date')) {
+      context.handle(
+          _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
+    } else if (isInserting) {
+      context.missing(_dateMeta);
+    }
+    if (data.containsKey('exception_type')) {
+      context.handle(
+          _exception_typeMeta,
+          exception_type.isAcceptableOrUnknown(
+              data['exception_type']!, _exception_typeMeta));
+    } else if (isInserting) {
+      context.missing(_exception_typeMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {service_id, date};
+  @override
+  CalendarDate map(Map<String, dynamic> data, {String? tablePrefix}) {
+    return CalendarDate.fromData(data,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+  }
+
+  @override
+  $CalendarDatesTable createAlias(String alias) {
+    return $CalendarDatesTable(attachedDatabase, alias);
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   late final $StopsTable stops = $StopsTable(this);
-  late final $RoutesTable routes = $RoutesTable(this);
+  late final $TransitRoutesTable transitRoutes = $TransitRoutesTable(this);
   late final $CalendarTable calendar = $CalendarTable(this);
   late final $ShapesTable shapes = $ShapesTable(this);
   late final $TripsTable trips = $TripsTable(this);
   late final $StopTimesTable stopTimes = $StopTimesTable(this);
+  late final $CalendarDatesTable calendarDates = $CalendarDatesTable(this);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [stops, routes, calendar, shapes, trips, stopTimes];
+      [stops, transitRoutes, calendar, shapes, trips, stopTimes, calendarDates];
 }

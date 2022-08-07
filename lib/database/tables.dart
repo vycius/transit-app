@@ -35,7 +35,7 @@ class Stops extends Table {
   Set<Column> get primaryKey => {stop_id};
 }
 
-class Routes extends Table {
+class TransitRoutes extends Table {
   TextColumn get route_id => text()();
 
   TextColumn get agency_id => text().nullable()();
@@ -60,34 +60,6 @@ class Routes extends Table {
   Set<Column> get primaryKey => {route_id};
 }
 
-// CREATE TABLE trips (
-//     route_id TEXT,
-//     service_id TEXT,
-//     trip_id TEXT PRIMARY KEY,
-//     trip_headsign TEXT,
-//     trip_short_name TEXT,
-//     direction_id INTEGER,
-//     block_id TEXT,
-//     shape_id TEXT,
-//     wheelchair_accessible INTEGER,
-//     trip_ok INTEGER,
-//     trip_start_seconds INTEGER,
-//     trip_end_seconds INTEGER,
-//     trip_span_midnight INTEGER
-// );
-
-// CREATE TABLE calendar (
-//     service_id TEXT PRIMARY KEY,
-//     monday INTEGER,
-//     tuesday INTEGER,
-//     wednesday INTEGER,
-//     thursday INTEGER,
-//     friday INTEGER,
-//     saturday INTEGER,
-//     sunday INTEGER,
-//     start_date TEXT,
-//     end_date TEXT
-// );
 class Calendar extends Table {
   TextColumn get service_id => text()();
 
@@ -114,7 +86,7 @@ class Calendar extends Table {
 }
 
 class Trips extends Table {
-  TextColumn get route_id => text().references(Routes, #route_id)();
+  TextColumn get route_id => text().references(TransitRoutes, #route_id)();
 
   TextColumn get service_id => text().references(Calendar, #service_id)();
 
@@ -149,15 +121,19 @@ class StopTimes extends Table {
 
   IntColumn get stop_sequence => integer()();
 
-  TextColumn get stop_headsign => text().nullable()();
+  IntColumn get stop_headsign => integer().nullable()();
 
   IntColumn get pickup_type => integer().nullable()();
 
   IntColumn get drop_off_type => integer().nullable()();
 
+  IntColumn get continuous_pickup => integer().nullable()();
+
+  IntColumn get continuous_drop_off => integer().nullable()();
+
   RealColumn get shape_dist_traveled => real().nullable()();
 
-  RealColumn get stop_shape_percent => real().nullable()();
+  IntColumn get timepoint => integer().nullable()();
 
   @override
   Set<Column> get primaryKey => {trip_id, stop_id, stop_sequence};
@@ -176,4 +152,15 @@ class Shapes extends Table {
 
   @override
   Set<Column> get primaryKey => {shape_id, shape_pt_sequence};
+}
+
+class CalendarDates extends Table {
+  TextColumn get service_id => text().references(Calendar, #service_id)();
+
+  DateTimeColumn get date => dateTime()();
+
+  IntColumn get exception_type => integer()();
+
+  @override
+  Set<Column> get primaryKey => {service_id, date};
 }
