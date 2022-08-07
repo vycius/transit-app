@@ -68,6 +68,36 @@ class AppDatabase extends _$AppDatabase {
     return query.get();
   }
 
+  Future<List<TripsWithStopTimes>> selectStopTimes(
+    String stopId,
+  ) {
+    final query = select(stopTimes)
+      ..where((s) => s.stop_id.equals(stopId))
+      ..orderBy([
+        (t) => OrderingTerm(expression: t.arrival_time),
+        (t) => OrderingTerm(expression: t.departure_time),
+      ]);
+
+    final joinedQuery = query.join([
+      innerJoin(
+        trips,
+        trips.trip_id.equalsExp(stopTimes.trip_id),
+      ),
+      innerJoin(
+        transitRoutes,
+        trips.route_id.equalsExp(transitRoutes.route_id),
+      ),
+    ]).map((row) {
+      return TripsWithStopTimes(
+        row.readTable(stopTimes),
+        row.readTable(trips),
+        row.readTable(transitRoutes),
+      );
+    });
+
+    return joinedQuery.get();
+  }
+
   Future<void> deleteEverything() {
     return transaction(() async {
       await customStatement('PRAGMA foreign_keys = OFF');
@@ -77,4 +107,12 @@ class AppDatabase extends _$AppDatabase {
       await customStatement('PRAGMA foreign_keys = ON');
     });
   }
+}
+
+class TripsWithStopTimes {
+  final StopTime stopTime;
+  final Trip trip;
+  final TransitRoute route;
+
+  TripsWithStopTimes(this.stopTime, this.trip, this.route);
 }

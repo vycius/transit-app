@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:transit/database/db.dart';
 import 'package:transit/gtfs_service.dart';
 import 'package:transit/models/region.dart';
-import 'package:transit/routes.dart';
+import 'package:transit/navigation_routes.dart';
 import 'package:transit/screens/home_screen.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
 

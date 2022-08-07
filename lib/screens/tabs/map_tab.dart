@@ -5,6 +5,7 @@ import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:transit/database/db.dart';
+import 'package:transit/navigation_routes.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
 
 class MapTab extends StatefulWidget {
@@ -58,7 +59,13 @@ class _MapTabState extends State<MapTab> {
                     width: 25,
                     height: 25,
                     builder: (context) => FloatingActionButton.small(
-                      onPressed: () => print(stop.stop_name),
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          NavigationRoutes.stop,
+                          arguments: stop,
+                        );
+                      },
                       backgroundColor: Colors.blue,
                       heroTag: null,
                       child: stopIcon,

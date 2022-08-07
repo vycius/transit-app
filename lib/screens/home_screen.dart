@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:transit/database/db.dart';
-import 'package:transit/routes.dart';
+import 'package:transit/navigation_routes.dart';
 import 'package:transit/screens/tabs/map_tab.dart';
 import 'package:transit/screens/tabs/routes_tab.dart';
 import 'package:transit/screens/tabs/stops_tab.dart';

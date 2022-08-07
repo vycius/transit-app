@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:transit/database/db.dart';
+import 'package:transit/navigation_routes.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
 
 class StopsTab extends StatelessWidget {
@@ -15,7 +16,7 @@ class StopsTab extends StatelessWidget {
       builder: (BuildContext context, stops) {
         return ListView.separated(
           itemCount: stops.length,
-          separatorBuilder: (context, i) => Divider(),
+          separatorBuilder: (context, i) => Divider(height: 1),
           itemBuilder: (context, index) {
             final stop = stops[index];
 
@@ -29,6 +30,13 @@ class StopsTab extends StatelessWidget {
               ),
               title: Text(stop.stop_name),
               subtitle: Text(stop.stop_desc ?? ''),
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  NavigationRoutes.stop,
+                  arguments: stop,
+                );
+              },
             );
           },
         );
