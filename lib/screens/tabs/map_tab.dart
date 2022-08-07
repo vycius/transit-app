@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:transit/database/db.dart';
@@ -13,15 +14,20 @@ class MapTab extends StatefulWidget {
 }
 
 class _MapTabState extends State<MapTab> {
+
   List<Stop> stops = [];
 
   @override
   Widget build(BuildContext context) {
-    final stopIcon = Icon(
-      MdiIcons.bus,
-      color: Colors.blue,
-      size: 20,
+    final stopIcon = FloatingActionButton.small(
       key: Key('map-stop-icon'),
+      onPressed: null,
+      backgroundColor: Colors.blue,
+      child: Icon(
+        MdiIcons.busStop,
+        color: Colors.white,
+        size: 18,
+      ),
     );
 
     return AppFutureBuilder<List<Stop>>(
@@ -30,23 +36,39 @@ class _MapTabState extends State<MapTab> {
         return FlutterMap(
           options: MapOptions(
             center: LatLng(54.68916, 25.2798),
-            zoom: 9.2,
+            plugins: [
+              MarkerClusterPlugin(),
+            ],
           ),
           layers: [
             TileLayerOptions(
               urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
               userAgentPackageName: 'lt.transit.transit',
             ),
-            MarkerLayerOptions(
+            MarkerClusterLayerOptions(
+              disableClusteringAtZoom: 14,
               markers: [
                 for (final stop in stops)
                   Marker(
+                    key: Key('stop-${stop.stop_id}'),
                     point: LatLng(stop.stop_lat, stop.stop_lon),
-                    width: 20,
-                    height: 20,
-                    builder: (context) => stopIcon,
+                    anchorPos: AnchorPos.align(AnchorAlign.center),
+                    width: 25,
+                    height: 25,
+                    builder: (context) => FloatingActionButton.small(
+                      onPressed: () => print(stop.stop_name),
+                      backgroundColor: Colors.blue,
+                      heroTag: null,
+                      child: stopIcon,
+                    ),
                   ),
               ],
+              builder: (context, markers) {
+                return FloatingActionButton(
+                  onPressed: null,
+                  child: Text(markers.length.toString()),
+                );
+              },
             ),
           ],
           nonRotatedChildren: [
