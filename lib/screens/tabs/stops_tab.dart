@@ -15,7 +15,7 @@ class StopsTab extends StatelessWidget {
     final database = AppDatabase.get(context);
 
     return AppFutureBuilder<List<Stop>>(
-      future: database.selectAllStops(currentPosition: currentPosition),
+      future: database.selectAllStopsWithRoutes(currentPosition: currentPosition),
       builder: (BuildContext context, stops) {
         return ListView.separated(
           itemCount: stops.length,

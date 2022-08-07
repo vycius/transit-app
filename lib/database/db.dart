@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:transit/database/tables.dart';
+import 'package:transit/models/db.dart';
 
 part 'db.g.dart';
 
@@ -55,16 +56,22 @@ class AppDatabase extends _$AppDatabase {
     return query.map((row) => row.read(routesCount)).getSingle();
   }
 
-  Future<List<TransitRoute>> selectAllRoutes() {
+  Future<List<TransitRoute>> selectAllRoutes() async {
     final query = select(transitRoutes)
       ..orderBy([
         (t) => OrderingTerm(expression: t.route_sort_order),
         (t) => OrderingTerm(expression: t.route_id),
       ]);
-    return query.get();
+
+    final rows = await query.get();
+
+    return rows.sortedByCompare(
+      (r) => '${r.route_color} ${r.route_short_name}',
+      compareNatural,
+    );
   }
 
-  Future<List<Stop>> selectAllStops({LatLng? currentPosition}) async {
+  Future<List<Stop>> selectAllStopsWithRoutes({LatLng? currentPosition}) async {
     final query = select(stops);
 
     final allStops = await query.get();
@@ -150,6 +157,48 @@ class AppDatabase extends _$AppDatabase {
     return joinedQuery.get();
   }
 
+  Future<List<TransitRoute>> selectRoutesByStop(Stop stop) {
+    return select(transitRoutes)
+        .join(
+          [
+            innerJoin(
+              trips,
+              trips.route_id.equalsExp(transitRoutes.route_id),
+              useColumns: false,
+            ),
+            innerJoin(
+              stopTimes,
+              stopTimes.trip_id.equalsExp(trips.trip_id) &
+                  stopTimes.stop_id.equals(stop.stop_id),
+              useColumns: false,
+            ),
+          ],
+        )
+        .map((row) => row.readTable(transitRoutes))
+        .get();
+  }
+
+  Future<List<TransitRoute>> selectStopsWithRoutes(Stop stop) {
+    return select(transitRoutes)
+        .join(
+          [
+            innerJoin(
+              trips,
+              trips.route_id.equalsExp(transitRoutes.route_id),
+              useColumns: false,
+            ),
+            innerJoin(
+              stopTimes,
+              stopTimes.trip_id.equalsExp(trips.trip_id) &
+                  stopTimes.stop_id.equals(stop.stop_id),
+              useColumns: false,
+            ),
+          ],
+        )
+        .map((row) => row.readTable(transitRoutes))
+        .get();
+  }
+
   Future<void> deleteEverything() {
     return transaction(() async {
       await customStatement('PRAGMA foreign_keys = OFF');
@@ -159,12 +208,4 @@ class AppDatabase extends _$AppDatabase {
       await customStatement('PRAGMA foreign_keys = ON');
     });
   }
-}
-
-class TripsWithStopTimes {
-  final StopTime stopTime;
-  final Trip trip;
-  final TransitRoute route;
-
-  TripsWithStopTimes(this.stopTime, this.trip, this.route);
 }

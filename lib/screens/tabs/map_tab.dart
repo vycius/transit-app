@@ -32,7 +32,7 @@ class _MapTabState extends State<MapTab> {
     );
 
     return AppFutureBuilder<List<Stop>>(
-      future: AppDatabase.get(context).selectAllStops(),
+      future: AppDatabase.get(context).selectAllStopsWithRoutes(),
       builder: (context, stops) {
         return FlutterMap(
           options: MapOptions(
