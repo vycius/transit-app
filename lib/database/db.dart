@@ -26,15 +26,6 @@ class AppDatabase extends _$AppDatabase {
   @override
   int get schemaVersion => 1;
 
-  @override
-  MigrationStrategy get migration {
-    return MigrationStrategy(
-      beforeOpen: (details) async {
-        await customStatement('PRAGMA foreign_keys = ON');
-      },
-    );
-  }
-
   static AppDatabase get(BuildContext context) {
     return Provider.of<AppDatabase>(
       context,
@@ -208,11 +199,9 @@ class AppDatabase extends _$AppDatabase {
 
   Future<void> deleteEverything() {
     return transaction(() async {
-      await customStatement('PRAGMA foreign_keys = OFF');
       for (final table in allTables) {
         await delete(table).go();
       }
-      await customStatement('PRAGMA foreign_keys = ON');
     });
   }
 }
