@@ -49,6 +49,7 @@ dependencies:
   collection: ^1.16.0
   intl: ^0.17.0
   protobuf: ^2.1.0
+  gtfs_realtime_bindings: ^1.0.0
 
 dev_dependencies:
   flutter_test:

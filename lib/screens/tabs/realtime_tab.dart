@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
+import 'package:gtfs_realtime_bindings/gtfs_realtime_bindings.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:transit/gtfs_service.dart';
-import 'package:transit/models/realtime/gtfs-realtime.pb.dart';
 import 'package:transit/screens/region_selector_screen.dart';
 
 class RealtimeTab extends StatelessWidget {

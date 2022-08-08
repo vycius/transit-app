@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:archive/archive.dart';
 import 'package:csv/csv.dart';
 import 'package:drift/drift.dart';
+import 'package:gtfs_realtime_bindings/gtfs_realtime_bindings.dart';
 import 'package:http/http.dart' as http;
 import 'package:transit/database/db.dart';
-import 'package:transit/models/realtime/gtfs-realtime.pb.dart';
 import 'package:transit/models/region.dart';
 
 class _CsvRowValues {
