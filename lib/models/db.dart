@@ -7,3 +7,10 @@ class TripsWithStopTimes {
 
   TripsWithStopTimes(this.stopTime, this.trip, this.route);
 }
+
+class StopWithStopTimes {
+  final Stop stop;
+  final StopTime stopTime;
+
+  StopWithStopTimes(this.stop, this.stopTime);
+}

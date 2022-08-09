@@ -3,13 +3,15 @@ import 'package:transit/database/db.dart';
 import 'package:transit/screens/home_screen.dart';
 import 'package:transit/screens/region_selector_screen.dart';
 import 'package:transit/screens/stop_screen.dart';
-import 'package:transit/screens/trips_screen.dart';
+import 'package:transit/screens/trip_screen.dart';
 
 class NavigationRoutes {
   static const routeRegionSelector = 'main';
   static const routeHome = 'home';
   static const routeStop = 'stop';
   static const routeTrip = 'trip';
+
+  NavigationRoutes._();
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -37,15 +39,15 @@ class NavigationRoutes {
           throw Exception('Pass stop to stops screen');
         }
       case routeTrip:
-        final route = settings.arguments;
-        if (route != null && route is TransitRoute) {
+        final arguments = settings.arguments;
+        if (arguments != null && arguments is TripScreenArguments) {
           return MaterialPageRoute(
             builder: (context) {
-              return TripsScreen(route: route);
+              return TripScreen(argumnets: arguments);
             },
           );
         } else {
-          throw Exception('Pass stop to stops screen');
+          throw Exception('Pass TripScreenArguments to trip screen');
         }
       default:
         throw Exception(

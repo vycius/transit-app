@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:transit/database/db.dart';
-import 'package:transit/gtfs_service.dart';
 import 'package:transit/models/region.dart';
 import 'package:transit/navigation_routes.dart';
 import 'package:transit/screens/home_screen.dart';
@@ -84,7 +83,7 @@ class _RegionSelectorScreenState extends State<RegionSelectorScreen> {
   }
 
   Future<bool> _importRegionGTFS(Region region) async {
-    await GTFSImportService().importRegionGTFS(region, _database);
+    // await GTFSImportService().importRegionGTFS(region, _database);
 
     if (mounted) {
       await Navigator.pushReplacementNamed(

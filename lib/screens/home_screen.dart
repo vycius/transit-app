@@ -4,7 +4,7 @@ import 'package:transit/database/db.dart';
 import 'package:transit/navigation_routes.dart';
 import 'package:transit/screens/tabs/map_tab.dart';
 import 'package:transit/screens/tabs/realtime_tab.dart';
-import 'package:transit/screens/tabs/routes_tab.dart';
+import 'package:transit/screens/tabs/route_tab.dart';
 import 'package:transit/screens/tabs/stops_tab.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,14 +19,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<_HomeScreenTab> _tabs = [
     _HomeScreenTab(
-      builder: () => const RoutesTab(),
-      icon: Icons.route_outlined,
-      label: 'Maršrutai',
-    ),
-    _HomeScreenTab(
       builder: () => StopsTab(),
       icon: MdiIcons.busStop,
       label: 'Stotelės',
+    ),
+    _HomeScreenTab(
+      builder: () => const RoutesTab(),
+      icon: Icons.route_outlined,
+      label: 'Maršrutai',
     ),
     _HomeScreenTab(
       builder: () => MapTab(),
@@ -61,6 +61,10 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
           ),
+          IconButton(
+            icon: const Icon(Icons.ac_unit),
+            onPressed: exportDbInto,
+          ),
         ],
       ),
       body: _currentTab.builder(),
@@ -78,6 +82,17 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> exportDbInto() async {
+    // final directory = await getApplicationDocumentsDirectory();
+    // final fullPath = '${directory.path}/vilnius-gtfs.db';
+    //
+    // final file = File(fullPath)..writeAsBytes(bytes, flush: true);
+    //
+    // _workbook.dispose();
+    //
+    // return file;
   }
 
   void onTabTapped(int index) {

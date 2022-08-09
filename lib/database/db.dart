@@ -148,6 +148,38 @@ class AppDatabase extends _$AppDatabase {
     return joinedQuery.get();
   }
 
+  Future<List<StopWithStopTimes>> selectStopWithStopTimesForTrip({
+    required String tripId,
+  }) {
+    final query = select(stopTimes)
+      ..where((s) => s.trip_id.equals(tripId))
+      ..orderBy([
+        (t) => OrderingTerm.asc(t.stop_sequence),
+      ]);
+
+    final joinedQuery = query.join([
+      innerJoin(
+        stops,
+        stops.stop_id.equalsExp(stopTimes.stop_id),
+      ),
+    ]).map((row) {
+      return StopWithStopTimes(
+        row.readTable(stops),
+        row.readTable(stopTimes),
+      );
+    });
+
+    return joinedQuery.get();
+  }
+
+  Future<List<Shape>> getTripShapes({required Trip trip}) {
+    final query = select(shapes)
+      ..where((s) => s.shape_id.equals(trip.shape_id))
+      ..orderBy([(s) => OrderingTerm.asc(s.shape_pt_sequence)]);
+
+    return query.get();
+  }
+
   Future<List<Trip>> selectTrips(TransitRoute route) {
     final query = select(trips)
       ..where((r) => r.route_id.equals(route.route_id));

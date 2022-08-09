@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:transit/database/db.dart';
 import 'package:transit/models/db.dart';
+import 'package:transit/navigation_routes.dart';
+import 'package:transit/screens/trip_screen.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
 import 'package:transit/screens/widgets/route_avatar.dart';
 
@@ -35,6 +37,15 @@ class StopScreen extends StatelessWidget {
                 title: Text(trip.trip_headsign ?? ''),
                 subtitle: Text(trip.trip_short_name ?? route.route_long_name),
                 trailing: Text(stopTimes.departure_time),
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  NavigationRoutes.routeTrip,
+                  arguments: TripScreenArguments(
+                    route: route,
+                    trip: trip,
+                    stop: stop,
+                  ),
+                ),
               );
             },
           );
