@@ -14,10 +14,15 @@ class RouteAvatar extends StatelessWidget {
     final routeColor = route.routeColor ?? Colors.teal;
     final routeTextColor = route.routeTextColor ?? Colors.white;
 
-    return CircleAvatar(
-      backgroundColor: routeColor,
-      foregroundColor: routeTextColor,
-      child: Text(text),
+    return Card(
+      color: routeColor,
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Text(
+          text,
+          style: TextStyle(color: routeTextColor),
+        ),
+      ),
     );
   }
 }

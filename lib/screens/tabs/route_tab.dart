@@ -12,7 +12,7 @@ class RoutesTab extends StatelessWidget {
     final database = AppDatabase.get(context);
 
     return AppFutureBuilder(
-      future: database.selectAllRoutes(),
+      future: database.getAllRoutes(),
       builder: (BuildContext context, List<TransitRoute> routes) {
         return ListView.builder(
           itemCount: routes.length,

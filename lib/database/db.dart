@@ -47,7 +47,7 @@ class AppDatabase extends _$AppDatabase {
     return query.map((row) => row.read(routesCount)).getSingle();
   }
 
-  Future<List<TransitRoute>> selectAllRoutes() async {
+  Future<List<TransitRoute>> getAllRoutes() async {
     final query = select(transitRoutes)
       ..orderBy([
         (t) => OrderingTerm(expression: t.route_sort_order),
@@ -178,6 +178,10 @@ class AppDatabase extends _$AppDatabase {
       ..orderBy([(s) => OrderingTerm.asc(s.shape_pt_sequence)]);
 
     return query.get();
+  }
+
+  Future<List<Trip>> getAllTrips() {
+    return select(trips).get();
   }
 
   Future<List<Trip>> selectTrips(TransitRoute route) {

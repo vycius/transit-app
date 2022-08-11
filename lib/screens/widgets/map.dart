@@ -62,14 +62,10 @@ class AppMap extends StatelessWidget {
         },
         backgroundColor: Colors.blue,
         heroTag: null,
-        child: FloatingActionButton.small(
-          onPressed: null,
-          backgroundColor: Colors.blue,
-          child: Icon(
-            MdiIcons.busStop,
-            color: Colors.white,
-            size: 18,
-          ),
+        child: Icon(
+          MdiIcons.busStop,
+          color: Colors.white,
+          size: 18,
         ),
       ),
     );
