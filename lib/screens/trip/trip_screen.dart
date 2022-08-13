@@ -47,7 +47,8 @@ class TripScreen extends StatelessWidget {
             defaultPanelState: PanelState.OPEN,
             // minHeight: 250,
             body: TripScreenMap(
-              route: selectedRoute,
+              selectedStop: selectedStop,
+              selectedRoute: selectedRoute,
               stopsWithStopTimes: stopsWithStopTimes,
               shapes: shapes,
             ),

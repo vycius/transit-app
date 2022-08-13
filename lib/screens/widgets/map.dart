@@ -5,6 +5,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:transit/constants.dart';
 import 'package:transit/database/db.dart';
+import 'package:transit/models/extensions.dart';
 import 'package:transit/navigation_routes.dart';
 
 class AppMap extends StatelessWidget {
@@ -45,13 +46,43 @@ class AppMap extends StatelessWidget {
     );
   }
 
+  static Marker buildIndexedStopMarker({
+    required Stop stop,
+    required int stopSequence,
+    required bool isActive,
+  }) {
+    return Marker(
+      key: Key('marker-indexed-stop-${stop.stop_id}'),
+      point: stop.latLng,
+      anchorPos: AnchorPos.align(AnchorAlign.center),
+      width: 24,
+      height: 24,
+      builder: (context) {
+        return DecoratedBox(
+          decoration: BoxDecoration(
+            color: isActive ? Colors.teal : Colors.grey,
+            shape: BoxShape.circle,
+          ),
+          child: Center(
+            child: Text(
+              stopSequence.toString(),
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   static Marker buildStopMarker(Stop stop) {
     return Marker(
       key: Key('marker-stop-${stop.stop_id}'),
-      point: LatLng(stop.stop_lat, stop.stop_lon),
+      point: stop.latLng,
       anchorPos: AnchorPos.align(AnchorAlign.center),
-      width: 25,
-      height: 25,
+      width: 24,
+      height: 24,
       builder: (context) => FloatingActionButton.small(
         onPressed: () {
           Navigator.pushNamed(

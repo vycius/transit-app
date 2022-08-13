@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:transit/database/db.dart';
 import 'package:transit/utils.dart';
 
@@ -17,5 +18,11 @@ extension TransitRouteExtensions on TransitRoute {
     }
 
     return null;
+  }
+}
+
+extension StopExtensions on Stop {
+  LatLng get latLng {
+    return LatLng(stop_lat, stop_lon);
   }
 }
