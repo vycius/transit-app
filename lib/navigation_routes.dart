@@ -3,7 +3,7 @@ import 'package:transit/database/db.dart';
 import 'package:transit/screens/home_screen.dart';
 import 'package:transit/screens/region_selector_screen.dart';
 import 'package:transit/screens/stop_screen.dart';
-import 'package:transit/screens/trip_screen.dart';
+import 'package:transit/screens/trip/trip_screen.dart';
 
 class NavigationRoutes {
   static const routeRegionSelector = 'main';

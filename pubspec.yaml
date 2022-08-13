@@ -52,6 +52,7 @@ dependencies:
   gtfs_realtime_bindings: ^1.0.0
   share_plus: ^4.0.10
   sliding_up_panel: ^2.0.0+1
+  flutter_timeline: ^0.3.0
 
 dev_dependencies:
   flutter_test:
