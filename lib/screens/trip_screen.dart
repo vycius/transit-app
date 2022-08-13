@@ -34,68 +34,136 @@ class TripScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          '${route.route_short_name}: ${trip.trip_short_name ?? route.route_long_name}',
-        ),
-      ),
-      body: AppFutureBuilder<_TripData>(
-        future: _getTripData(context),
-        builder: (context, tripData) {
-          return SlidingUpPanel(
-            minHeight: 250,
-            body: AppMap(
-              center: _calculateShapeCenter(tripData.shapes),
-              layers: [
-                PolylineLayerOptions(
-                  polylines: [
-                    Polyline(
-                      points: [
-                        for (final shape in tripData.shapes)
-                          LatLng(shape.shape_pt_lat, shape.shape_pt_lon),
-                      ],
-                      color: route.routeColor ?? Colors.blue,
-                      strokeWidth: 5,
-                    ),
-                  ],
-                ),
-                MarkerLayerOptions(
-                  markers: [
-                    for (final stopWithStopTimes in tripData.stopWithStopTimes)
-                      AppMap.buildStopMarker(stopWithStopTimes.stop)
-                  ],
-                ),
-              ],
-            ),
-            parallaxEnabled: true,
-            panelBuilder: (controller) {
-              final stopWithStopTimes = tripData.stopWithStopTimes;
+    return AppFutureBuilder<_TripData>(
+      future: _getTripData(context),
+      builder: (context, tripData) {
+        final stopWithStopTimes = tripData.stopWithStopTimes;
 
-              return ListView.separated(
-                itemCount: stopWithStopTimes.length,
-                controller: controller,
-                separatorBuilder: (context, i) => Divider(height: 1),
-                itemBuilder: (context, index) {
-                  final stopTime = stopWithStopTimes[index].stopTime;
-                  final stop = stopWithStopTimes[index].stop;
+        return Scaffold(
+          body: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                title: Text(
+                  '${route.route_short_name}: ${trip.trip_short_name ?? route.route_long_name}',
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Container(
+                  height: 300,
+                  child: AppMap(
+                    center: _calculateShapeCenter(tripData.shapes),
+                    layers: [
+                      PolylineLayerOptions(
+                        polylines: [
+                          Polyline(
+                            points: [
+                              for (final shape in tripData.shapes)
+                                LatLng(shape.shape_pt_lat, shape.shape_pt_lon),
+                            ],
+                            color: route.routeColor ?? Colors.blue,
+                            strokeWidth: 5,
+                          ),
+                        ],
+                      ),
+                      MarkerLayerOptions(
+                        markers: [
+                          for (final stopWithStopTimes
+                              in tripData.stopWithStopTimes)
+                            AppMap.buildStopMarker(stopWithStopTimes.stop)
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    final stopTime = stopWithStopTimes[index].stopTime;
+                    final stop = stopWithStopTimes[index].stop;
 
-                  return ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: Colors.lightBlue,
-                      foregroundColor: Colors.white,
-                      child: Text(stopTime.stop_sequence.toString()),
-                    ),
-                    title: Text(stop.stop_name),
-                    trailing: Text(stopTime.departure_time),
-                  );
-                },
-              );
-            },
-          );
-        },
-      ),
+                    return ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.lightBlue,
+                        foregroundColor: Colors.white,
+                        child: Text(stopTime.stop_sequence.toString()),
+                      ),
+                      title: Text(stop.stop_name),
+                      trailing: Text(stopTime.departure_time),
+                    );
+                  },
+                  childCount: stopWithStopTimes.length,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
+
+    // return Scaffold(
+    //   appBar: AppBar(
+    //     title: Text(
+    //       '${route.route_short_name}: ${trip.trip_short_name ?? route.route_long_name}',
+    //     ),
+    //   ),
+    //   body: AppFutureBuilder<_TripData>(
+    //     future: _getTripData(context),
+    //     builder: (context, tripData) {
+    //       return SlidingUpPanel(
+    //         defaultPanelState: PanelState.OPEN,
+    //         // minHeight: 250,
+    //         body: AppMap(
+    //           center: _calculateShapeCenter(tripData.shapes),
+    //           layers: [
+    //             PolylineLayerOptions(
+    //               polylines: [
+    //                 Polyline(
+    //                   points: [
+    //                     for (final shape in tripData.shapes)
+    //                       LatLng(shape.shape_pt_lat, shape.shape_pt_lon),
+    //                   ],
+    //                   color: route.routeColor ?? Colors.blue,
+    //                   strokeWidth: 5,
+    //                 ),
+    //               ],
+    //             ),
+    //             MarkerLayerOptions(
+    //               markers: [
+    //                 for (final stopWithStopTimes in tripData.stopWithStopTimes)
+    //                   AppMap.buildStopMarker(stopWithStopTimes.stop)
+    //               ],
+    //             ),
+    //           ],
+    //         ),
+    //         parallaxEnabled: true,
+    //         panelBuilder: (controller) {
+    //           final stopWithStopTimes = tripData.stopWithStopTimes;
+    //
+    //           return ListView.separated(
+    //             itemCount: stopWithStopTimes.length,
+    //             controller: controller,
+    //             separatorBuilder: (context, i) => Divider(height: 1),
+    //             itemBuilder: (context, index) {
+    //               final stopTime = stopWithStopTimes[index].stopTime;
+    //               final stop = stopWithStopTimes[index].stop;
+    //
+    //               return ListTile(
+    //                 leading: CircleAvatar(
+    //                   backgroundColor: Colors.lightBlue,
+    //                   foregroundColor: Colors.white,
+    //                   child: Text(stopTime.stop_sequence.toString()),
+    //                 ),
+    //                 title: Text(stop.stop_name),
+    //                 trailing: Text(stopTime.departure_time),
+    //               );
+    //             },
+    //           );
+    //         },
+    //       );
+    //     },
+    //   ),
+    // );
   }
 
   Future<_TripData> _getTripData(BuildContext context) async {
