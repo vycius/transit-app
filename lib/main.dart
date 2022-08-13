@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         debugShowCheckedModeBanner: false,
-        initialRoute: NavigationRoutes.routeRegionSelector,
+        initialRoute: NavigationRoutes.routeHome,
         onGenerateRoute: NavigationRoutes.onGenerateRoute,
       ),
     );
