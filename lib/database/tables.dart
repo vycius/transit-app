@@ -121,7 +121,7 @@ class StopTimes extends Table {
 
   IntColumn get stop_sequence => integer()();
 
-  IntColumn get stop_headsign => integer().nullable()();
+  TextColumn get stop_headsign => text().nullable()();
 
   IntColumn get pickup_type => integer().nullable()();
 

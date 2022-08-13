@@ -2496,7 +2496,7 @@ class StopTime extends DataClass implements Insertable<StopTime> {
   final String departure_time;
   final String stop_id;
   final int stop_sequence;
-  final int? stop_headsign;
+  final String? stop_headsign;
   final int? pickup_type;
   final int? drop_off_type;
   final int? continuous_pickup;
@@ -2529,7 +2529,7 @@ class StopTime extends DataClass implements Insertable<StopTime> {
           .mapFromDatabaseResponse(data['${effectivePrefix}stop_id'])!,
       stop_sequence: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}stop_sequence'])!,
-      stop_headsign: const IntType()
+      stop_headsign: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}stop_headsign']),
       pickup_type: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}pickup_type']),
@@ -2554,7 +2554,7 @@ class StopTime extends DataClass implements Insertable<StopTime> {
     map['stop_id'] = Variable<String>(stop_id);
     map['stop_sequence'] = Variable<int>(stop_sequence);
     if (!nullToAbsent || stop_headsign != null) {
-      map['stop_headsign'] = Variable<int?>(stop_headsign);
+      map['stop_headsign'] = Variable<String?>(stop_headsign);
     }
     if (!nullToAbsent || pickup_type != null) {
       map['pickup_type'] = Variable<int?>(pickup_type);
@@ -2617,7 +2617,7 @@ class StopTime extends DataClass implements Insertable<StopTime> {
       departure_time: serializer.fromJson<String>(json['departure_time']),
       stop_id: serializer.fromJson<String>(json['stop_id']),
       stop_sequence: serializer.fromJson<int>(json['stop_sequence']),
-      stop_headsign: serializer.fromJson<int?>(json['stop_headsign']),
+      stop_headsign: serializer.fromJson<String?>(json['stop_headsign']),
       pickup_type: serializer.fromJson<int?>(json['pickup_type']),
       drop_off_type: serializer.fromJson<int?>(json['drop_off_type']),
       continuous_pickup: serializer.fromJson<int?>(json['continuous_pickup']),
@@ -2637,7 +2637,7 @@ class StopTime extends DataClass implements Insertable<StopTime> {
       'departure_time': serializer.toJson<String>(departure_time),
       'stop_id': serializer.toJson<String>(stop_id),
       'stop_sequence': serializer.toJson<int>(stop_sequence),
-      'stop_headsign': serializer.toJson<int?>(stop_headsign),
+      'stop_headsign': serializer.toJson<String?>(stop_headsign),
       'pickup_type': serializer.toJson<int?>(pickup_type),
       'drop_off_type': serializer.toJson<int?>(drop_off_type),
       'continuous_pickup': serializer.toJson<int?>(continuous_pickup),
@@ -2653,7 +2653,7 @@ class StopTime extends DataClass implements Insertable<StopTime> {
           String? departure_time,
           String? stop_id,
           int? stop_sequence,
-          int? stop_headsign,
+          String? stop_headsign,
           int? pickup_type,
           int? drop_off_type,
           int? continuous_pickup,
@@ -2731,7 +2731,7 @@ class StopTimesCompanion extends UpdateCompanion<StopTime> {
   final Value<String> departure_time;
   final Value<String> stop_id;
   final Value<int> stop_sequence;
-  final Value<int?> stop_headsign;
+  final Value<String?> stop_headsign;
   final Value<int?> pickup_type;
   final Value<int?> drop_off_type;
   final Value<int?> continuous_pickup;
@@ -2776,7 +2776,7 @@ class StopTimesCompanion extends UpdateCompanion<StopTime> {
     Expression<String>? departure_time,
     Expression<String>? stop_id,
     Expression<int>? stop_sequence,
-    Expression<int?>? stop_headsign,
+    Expression<String?>? stop_headsign,
     Expression<int?>? pickup_type,
     Expression<int?>? drop_off_type,
     Expression<int?>? continuous_pickup,
@@ -2808,7 +2808,7 @@ class StopTimesCompanion extends UpdateCompanion<StopTime> {
       Value<String>? departure_time,
       Value<String>? stop_id,
       Value<int>? stop_sequence,
-      Value<int?>? stop_headsign,
+      Value<String?>? stop_headsign,
       Value<int?>? pickup_type,
       Value<int?>? drop_off_type,
       Value<int?>? continuous_pickup,
@@ -2850,7 +2850,7 @@ class StopTimesCompanion extends UpdateCompanion<StopTime> {
       map['stop_sequence'] = Variable<int>(stop_sequence.value);
     }
     if (stop_headsign.present) {
-      map['stop_headsign'] = Variable<int?>(stop_headsign.value);
+      map['stop_headsign'] = Variable<String?>(stop_headsign.value);
     }
     if (pickup_type.present) {
       map['pickup_type'] = Variable<int?>(pickup_type.value);
@@ -2934,9 +2934,9 @@ class $StopTimesTable extends StopTimes
   final VerificationMeta _stop_headsignMeta =
       const VerificationMeta('stop_headsign');
   @override
-  late final GeneratedColumn<int?> stop_headsign = GeneratedColumn<int?>(
+  late final GeneratedColumn<String?> stop_headsign = GeneratedColumn<String?>(
       'stop_headsign', aliasedName, true,
-      type: const IntType(), requiredDuringInsert: false);
+      type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _pickup_typeMeta =
       const VerificationMeta('pickup_type');
   @override
