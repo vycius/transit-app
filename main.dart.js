@@ -20438,7 +20438,7 @@ a2G:function a2G(){},
 a2H:function a2H(){},
 a2I:function a2I(a){this.a=a},
 a2J:function a2J(a){this.a=a},
-aFw(){return new A.Cz(A.b([new A.pY("Stotel\u0117s",new A.add(),B.kO),new A.pY("Mar\u0161rutai",new A.ade(),B.B9),new A.pY("\u017dem\u0117lapis",new A.adf(),B.B6),new A.pY("Realus laikas",new A.adg(),B.vm)],t.es),B.m)},
+aFw(){return new A.Cz(A.b([new A.pY("Artimiausios stotel\u0117s",new A.add(),B.kO),new A.pY("Mar\u0161rutai",new A.ade(),B.B9),new A.pY("Stoteli\u0173 \u017eem\u0117lapis",new A.adf(),B.B6),new A.pY("Realus laikas",new A.adg(),B.vm)],t.es),B.m)},
 m3:function m3(a){this.a=a},
 Cz:function Cz(a,b){var _=this
 _.d=0
