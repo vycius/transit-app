@@ -34,7 +34,7 @@ class RealtimeTab extends StatelessWidget {
         );
 
         return StreamBuilder<FeedMessage>(
-          stream: GTFSImportService().streamGtfsRealtime(region),
+          stream: GTFSRealtimeService().streamGtfsRealtime(region),
           builder: (context, snapshot) {
             var vehiclePositions = <VehiclePosition>[];
             if (snapshot.hasData) {
