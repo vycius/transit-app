@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _HomeScreenTab(
       builder: () => StopsTab(),
       icon: MdiIcons.busStop,
-      label: 'Stotelės',
+      label: 'Artimiausios stotelės',
     ),
     _HomeScreenTab(
       builder: () => const RoutesTab(),
@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _HomeScreenTab(
       builder: () => MapTab(),
       icon: Icons.map,
-      label: 'Žemėlapis',
+      label: 'Stotelių žemėlapis',
     ),
     _HomeScreenTab(
       builder: () => RealtimeTab(),
