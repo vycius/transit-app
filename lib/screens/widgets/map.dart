@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
+import 'package:gtfs_db/gtfs_db.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:transit/constants.dart';
-import 'package:transit/database/db.dart';
 import 'package:transit/models/extensions.dart';
 import 'package:transit/navigation_routes.dart';
 

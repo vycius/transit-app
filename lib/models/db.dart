@@ -1,4 +1,4 @@
-import 'package:transit/database/db.dart';
+import 'package:gtfs_db/gtfs_db.dart';
 
 class TripsWithStopTimes {
   final StopTime stopTime;

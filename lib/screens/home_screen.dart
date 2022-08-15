@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:transit/database/db.dart';
 import 'package:transit/navigation_routes.dart';
 import 'package:transit/screens/tabs/map_tab.dart';
 import 'package:transit/screens/tabs/realtime_tab.dart';
@@ -53,7 +52,6 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: const Icon(Icons.location_city),
             tooltip: 'Regionas',
             onPressed: () async {
-              await AppDatabase.get(context).deleteEverything();
               // ignore: use_build_context_synchronously
               await Navigator.pushReplacementNamed(
                 context,

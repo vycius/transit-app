@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:transit/database/db.dart';
+import 'package:gtfs_db/gtfs_db.dart';
+import 'package:transit/database/database_extensions.dart';
 import 'package:transit/models/region.dart';
 import 'package:transit/navigation_routes.dart';
 import 'package:transit/screens/home_screen.dart';

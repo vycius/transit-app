@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gtfs_db/gtfs_db.dart';
 import 'package:provider/provider.dart';
 import 'package:transit/database/connection/connection.dart';
-import 'package:transit/database/db.dart';
 import 'package:transit/navigation_routes.dart';
 
 void main() {

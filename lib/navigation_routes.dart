@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:transit/database/db.dart';
+import 'package:gtfs_db/gtfs_db.dart';
 import 'package:transit/screens/home_screen.dart';
 import 'package:transit/screens/region_selector_screen.dart';
 import 'package:transit/screens/stop_screen.dart';

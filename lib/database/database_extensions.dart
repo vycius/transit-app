@@ -1,39 +1,10 @@
 import 'package:collection/collection.dart';
-import 'package:drift/drift.dart';
-import 'package:flutter/material.dart';
+import 'package:gtfs_db/gtfs_db.dart';
 import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:provider/provider.dart';
-import 'package:transit/database/tables.dart';
 import 'package:transit/models/db.dart';
 
-part 'db.g.dart';
-
-@DriftDatabase(
-  tables: [
-    Stops,
-    TransitRoutes,
-    Calendar,
-    Trips,
-    StopTimes,
-    Shapes,
-    CalendarDates,
-  ],
-
-)
-class AppDatabase extends _$AppDatabase {
-  AppDatabase(super.e);
-
-  @override
-  int get schemaVersion => 1;
-
-  static AppDatabase get(BuildContext context) {
-    return Provider.of<AppDatabase>(
-      context,
-      listen: false,
-    );
-  }
-
+extension DatabaseExtensions on AppDatabase {
   Future<int> stopsCount() {
     final stopsCount = stops.stop_id.count();
     final query = selectOnly(stops)..addColumns([stopsCount]);
@@ -269,6 +240,10 @@ class AppDatabase extends _$AppDatabase {
         value.map((e) => e.value).toList(),
       ),
     );
+  }
+
+  Future<FeedInfoData> getFeedInfo() {
+    return select(feedInfo).getSingle();
   }
 
   Future<void> deleteEverything() {

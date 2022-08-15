@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gtfs_db/gtfs_db.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:transit/database/db.dart';
+import 'package:transit/database/database_extensions.dart';
 import 'package:transit/navigation_routes.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
 

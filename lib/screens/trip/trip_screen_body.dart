@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:transit/database/db.dart';
+import 'package:gtfs_db/gtfs_db.dart';
 import 'package:transit/models/db.dart';
 
 class TripScreenListBody extends StatelessWidget {

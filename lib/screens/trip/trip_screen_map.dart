@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:gtfs_db/gtfs_db.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:transit/database/db.dart';
 import 'package:transit/models/db.dart';
 import 'package:transit/models/extensions.dart';
 import 'package:transit/screens/widgets/map.dart';

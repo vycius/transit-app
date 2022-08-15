@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gtfs_db/gtfs_db.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:transit/database/db.dart';
+import 'package:transit/database/database_extensions.dart';
 import 'package:transit/models/db.dart';
 import 'package:transit/screens/trip/trip_screen_body.dart';
 import 'package:transit/screens/trip/trip_screen_map.dart';

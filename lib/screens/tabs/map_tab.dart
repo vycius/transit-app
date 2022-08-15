@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:gtfs_db/gtfs_db.dart';
 import 'package:transit/constants.dart';
-import 'package:transit/database/db.dart';
+import 'package:transit/database/database_extensions.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
 import 'package:transit/screens/widgets/map.dart';
 
