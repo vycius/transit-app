@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _HomeScreenTab(
       builder: () => StopsTab(),
       icon: MdiIcons.busStop,
-      label: 'Artimiausios stotelės',
+      label: 'Artimiausios',
     ),
     _HomeScreenTab(
       builder: () => const RoutesTab(),
@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _HomeScreenTab(
       builder: () => MapTab(),
       icon: Icons.map,
-      label: 'Stotelių žemėlapis',
+      label: 'Stotelės',
     ),
     _HomeScreenTab(
       builder: () => RealtimeTab(),
@@ -61,10 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.ac_unit),
-            onPressed: exportDbInto,
-          ),
         ],
       ),
       body: _currentTab.builder(),
@@ -82,17 +78,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
-  }
-
-  Future<void> exportDbInto() async {
-    // final directory = await getApplicationDocumentsDirectory();
-    // final fullPath = '${directory.path}/vilnius-gtfs.db';
-    //
-    // final file = File(fullPath)..writeAsBytes(bytes, flush: true);
-    //
-    // _workbook.dispose();
-    //
-    // return file;
   }
 
   void onTabTapped(int index) {

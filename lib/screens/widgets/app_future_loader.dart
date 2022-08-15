@@ -38,7 +38,7 @@ class AppFutureBuilder<T> extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 16),
                   child: Text(
-                    'Klaida kraunant Future: ${snapshot.error}',
+                    'Klaida kraunant Future: ${snapshot.error}\n${snapshot.stackTrace}',
                     textAlign: TextAlign.center,
                   ),
                 )
