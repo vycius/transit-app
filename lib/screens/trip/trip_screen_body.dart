@@ -3,27 +3,33 @@ import 'package:transit/database/db.dart';
 import 'package:transit/models/db.dart';
 
 class TripScreenListBody extends StatelessWidget {
+  final ScrollController scrollController;
   final List<StopWithStopTimes> stopsWithStopTimes;
   final Stop selectedStop;
 
   const TripScreenListBody({
     super.key,
+    required this.scrollController,
     required this.stopsWithStopTimes,
     required this.selectedStop,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Stepper(
-      controlsBuilder: (context, details) {
-        return SizedBox.shrink();
-      },
-      margin: EdgeInsets.zero,
-      currentStep: _getSelectedStopIndex(),
-      steps: [
-        for (final stopWithStopTime in stopsWithStopTimes)
-          _buildStep(stopWithStopTime)
-      ],
+    return SingleChildScrollView(
+      controller: scrollController,
+      child: Stepper(
+        controlsBuilder: (context, details) {
+          return SizedBox.shrink();
+        },
+        physics: NeverScrollableScrollPhysics(),
+        margin: EdgeInsets.zero,
+        currentStep: _getSelectedStopIndex(),
+        steps: [
+          for (final stopWithStopTime in stopsWithStopTimes)
+            _buildStep(stopWithStopTime)
+        ],
+      ),
     );
   }
 

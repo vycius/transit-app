@@ -53,8 +53,9 @@ class TripScreen extends StatelessWidget {
               shapes: shapes,
             ),
             parallaxEnabled: true,
-            panelBuilder: (controller) {
+            panelBuilder: (scrollController) {
               return TripScreenListBody(
+                scrollController: scrollController,
                 selectedStop: selectedStop,
                 stopsWithStopTimes: stopsWithStopTimes,
               );

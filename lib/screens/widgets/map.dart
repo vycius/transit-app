@@ -61,7 +61,7 @@ class AppMap extends StatelessWidget {
       builder: (context) {
         return DecoratedBox(
           decoration: BoxDecoration(
-            color: isActive ? Colors.teal : Colors.grey,
+            color: isActive ? Colors.indigo : Colors.grey,
             shape: BoxShape.circle,
           ),
           child: Center(
