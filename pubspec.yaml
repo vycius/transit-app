@@ -47,6 +47,10 @@ dependencies:
   intl: ^0.17.0
   gtfs_realtime_bindings: ^1.0.0
   sliding_up_panel: ^2.0.0+1
+  geolocator: ^8.2.1
+
+dependency_overrides:
+  geolocator: ^8.2.1
 
 dev_dependencies:
   flutter_test:
