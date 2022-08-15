@@ -90,7 +90,7 @@ class AppMap extends StatelessWidget {
             key: Key('marker-stop-body'),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(4)),
-              color: Colors.lightBlue,
+              color: Colors.indigo,
             ),
             child: FittedBox(
               child: Padding(

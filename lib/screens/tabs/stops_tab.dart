@@ -28,7 +28,7 @@ class StopsTab extends StatelessWidget {
               leading: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(4)),
-                  color: Colors.lightBlue,
+                  color: Colors.indigo,
                 ),
                 child: FittedBox(
                   child: Padding(

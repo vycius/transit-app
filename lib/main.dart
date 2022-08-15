@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       create: (context) => constructDb(),
       dispose: (context, db) => db.close(),
       child: MaterialApp(
-        title: 'Transit',
+        title: 'BUS',
         theme: ThemeData(
           primarySwatch: Colors.indigo,
           visualDensity: VisualDensity.adaptivePlatformDensity,
