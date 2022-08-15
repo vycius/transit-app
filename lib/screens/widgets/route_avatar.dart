@@ -29,16 +29,5 @@ class RouteAvatar extends StatelessWidget {
         ),
       ),
     );
-
-    return Card(
-      color: routeColor,
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Text(
-          text,
-          style: TextStyle(color: routeTextColor),
-        ),
-      ),
-    );
   }
 }
