@@ -15,7 +15,8 @@ class StopsTab extends StatelessWidget {
     final database = AppDatabase.get(context);
 
     return AppFutureBuilder<List<Stop>>(
-      future: database.selectAllStopsWithRoutes(currentPosition: currentPosition),
+      future:
+          database.selectAllStopsWithRoutes(currentPosition: currentPosition),
       builder: (BuildContext context, stops) {
         return ListView.separated(
           itemCount: stops.length,
@@ -24,11 +25,19 @@ class StopsTab extends StatelessWidget {
             final stop = stops[index];
 
             return ListTile(
-              leading: CircleAvatar(
-                backgroundColor: Colors.blue,
-                child: Icon(
-                  MdiIcons.busStop,
-                  color: Colors.white,
+              leading: DecoratedBox(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(4)),
+                  color: Colors.lightBlue,
+                ),
+                child: FittedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Icon(
+                      MdiIcons.busStop,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
               title: Text(stop.stop_name),

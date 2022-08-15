@@ -14,6 +14,22 @@ class RouteAvatar extends StatelessWidget {
     final routeColor = route.routeColor ?? Colors.teal;
     final routeTextColor = route.routeTextColor ?? Colors.white;
 
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(4)),
+        color: routeColor,
+      ),
+      child: FittedBox(
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Text(
+            text,
+            style: TextStyle(color: routeTextColor),
+          ),
+        ),
+      ),
+    );
+
     return Card(
       color: routeColor,
       child: Padding(

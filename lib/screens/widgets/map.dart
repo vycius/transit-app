@@ -25,6 +25,7 @@ class AppMap extends StatelessWidget {
     return FlutterMap(
       options: MapOptions(
         center: center ?? defaultLatLng,
+        interactiveFlags: InteractiveFlag.all & ~InteractiveFlag.rotate,
         plugins: [
           LocationMarkerPlugin(),
           ...plugins,
@@ -81,24 +82,35 @@ class AppMap extends StatelessWidget {
       key: Key('marker-stop-${stop.stop_id}'),
       point: stop.latLng,
       anchorPos: AnchorPos.align(AnchorAlign.center),
-      width: 24,
-      height: 24,
-      builder: (context) => FloatingActionButton.small(
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            NavigationRoutes.routeStop,
-            arguments: stop,
-          );
-        },
-        backgroundColor: Colors.blue,
-        heroTag: null,
-        child: Icon(
-          MdiIcons.busStop,
-          color: Colors.white,
-          size: 18,
-        ),
-      ),
+      width: 16,
+      height: 16,
+      builder: (context) {
+        return GestureDetector(
+          child: DecoratedBox(
+            key: Key('marker-stop-body'),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              color: Colors.lightBlue,
+            ),
+            child: FittedBox(
+              child: Padding(
+                padding: const EdgeInsets.all(2),
+                child: Icon(
+                  MdiIcons.busStop,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          onTap: () {
+            Navigator.pushNamed(
+              context,
+              NavigationRoutes.routeStop,
+              arguments: stop,
+            );
+          },
+        );
+      },
     );
   }
 }
