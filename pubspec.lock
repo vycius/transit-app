@@ -321,8 +321,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: panevezys
-      resolved-ref: dc1467378c31e515faff989c577ac78707221a56
+      ref: kaunas
+      resolved-ref: "0ad8f1b838b6a238850e45db03fcfd787b7b73f0"
       url: "https://github.com/vycius/gtfs-sqlite-db.git"
     source: git
     version: "1.0.0"

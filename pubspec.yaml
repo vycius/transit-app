@@ -47,7 +47,7 @@ dependencies:
   gtfs_db:
     git:
       url: https://github.com/vycius/gtfs-sqlite-db.git
-      ref: panevezys
+      ref: kaunas
 
 
 dependency_overrides:

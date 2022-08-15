@@ -7,7 +7,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:transit/database/database_extensions.dart';
 import 'package:transit/gtfs_service.dart';
 import 'package:transit/models/extensions.dart';
-import 'package:transit/screens/region_selector_screen.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
 import 'package:transit/screens/widgets/map.dart';
 
@@ -16,13 +15,18 @@ class RealtimeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final region = RegionSelectorScreen.regions.first;
-
     return AppFutureBuilder<_RealtimeTabData>(
       future: _getFuture(context),
       builder: (context, data) {
         final trips = data.trips;
         final routes = data.routes;
+        final gtfsRealtimeUrl = data.feedInfo.agency_gtfs_realtime_url;
+
+        if (gtfsRealtimeUrl == null) {
+          return Center(
+            child: Text('Realaus laiko atvykimai nepalaikomi'),
+          );
+        }
 
         final tripLookup = Map.fromIterables(
           trips.map((t) => t.trip_id),
@@ -35,7 +39,7 @@ class RealtimeTab extends StatelessWidget {
         );
 
         return StreamBuilder<FeedMessage>(
-          stream: GTFSRealtimeService().streamGtfsRealtime(region),
+          stream: GTFSRealtimeService().streamGtfsRealtime(gtfsRealtimeUrl),
           builder: (context, snapshot) {
             var vehiclePositions = <VehiclePosition>[];
             if (snapshot.hasData) {
@@ -60,6 +64,7 @@ class RealtimeTab extends StatelessWidget {
     final database = AppDatabase.get(context);
 
     return _RealtimeTabData(
+      feedInfo: await database.getFeedInfo(),
       routes: await database.getAllRoutes(),
       trips: await database.getAllTrips(),
     );
@@ -67,10 +72,15 @@ class RealtimeTab extends StatelessWidget {
 }
 
 class _RealtimeTabData {
+  final FeedInfoData feedInfo;
   final List<TransitRoute> routes;
   final List<Trip> trips;
 
-  _RealtimeTabData({required this.routes, required this.trips});
+  _RealtimeTabData({
+    required this.feedInfo,
+    required this.routes,
+    required this.trips,
+  });
 }
 
 class RealtimeBody extends StatelessWidget {
