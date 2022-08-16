@@ -34,6 +34,27 @@ class NearbyStopsTab extends StatelessWidget {
   }
 }
 
+class StopAvatar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(4)),
+        color: Colors.indigo,
+      ),
+      child: FittedBox(
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Icon(
+            Icons.pin_drop,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class StopListTile extends StatelessWidget {
   final Stop stop;
   final LatLng currentPosition;
@@ -49,21 +70,7 @@ class StopListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: DecoratedBox(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(4)),
-          color: Colors.indigo,
-        ),
-        child: FittedBox(
-          child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: Icon(
-              Icons.pin_drop,
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ),
+      leading: StopAvatar(),
       title: Text(stop.stop_name),
       subtitle: Text(_formatDistance(stop, currentPosition)),
       onTap: () {
