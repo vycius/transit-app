@@ -13,68 +13,79 @@ class StopsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentPosition = defaultLatLng;
-
     final database = DatabaseService.get(context);
+    final currentPosition = defaultLatLng;
 
     return AppFutureBuilder<List<Stop>>(
       future: database.getAllStopsOrderedByDistance(
         currentPosition: currentPosition,
       ),
       builder: (BuildContext context, stops) {
-        return ListView.separated(
+        return ListView.builder(
           itemCount: stops.length,
-          separatorBuilder: (context, i) => Divider(height: 1),
           itemBuilder: (context, index) {
-            final stop = stops[index];
-
-            return ListTile(
-              leading: DecoratedBox(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(4)),
-                  color: Colors.indigo,
-                ),
-                child: FittedBox(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Icon(
-                      MdiIcons.busStop,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-              title: Text(stop.stop_name),
-              subtitle: Text(_formatDistance(stop, currentPosition)),
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  NavigationRoutes.routeStop,
-                  arguments: stop,
-                );
-              },
+            return StopListTile(
+              stop: stops[index],
+              currentPosition: currentPosition,
             );
           },
         );
       },
     );
   }
+}
 
-  String _formatDistance(Stop stop, LatLng? currentPosition) {
-    if (currentPosition == null) {
-      return '';
-    } else {
-      final distance = Distance();
+class StopListTile extends StatelessWidget {
+  final Stop stop;
+  final LatLng currentPosition;
 
-      final distanceM = distance
-          .as(
-            LengthUnit.Meter,
-            stop.latLng,
-            currentPosition,
-          )
-          .toInt();
+  static final _distance = Distance();
 
-      return '$distanceM m';
-    }
+  const StopListTile({
+    super.key,
+    required this.stop,
+    required this.currentPosition,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(4)),
+          color: Colors.indigo,
+        ),
+        child: FittedBox(
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Icon(
+              MdiIcons.busStop,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+      title: Text(stop.stop_name),
+      subtitle: Text(_formatDistance(stop, currentPosition)),
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          NavigationRoutes.routeStop,
+          arguments: stop,
+        );
+      },
+    );
+  }
+
+  String _formatDistance(Stop stop, LatLng currentPosition) {
+    final distanceM = _distance
+        .as(
+          LengthUnit.Meter,
+          stop.latLng,
+          currentPosition,
+        )
+        .toInt();
+
+    return '$distanceM m';
   }
 }
