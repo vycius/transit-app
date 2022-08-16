@@ -16,7 +16,6 @@ class DatabaseService extends AppDatabase {
     );
   }
 
-
   Future<int> routesCount() {
     final routesCount = transitRoutes.route_id.count();
     final query = selectOnly(transitRoutes)..addColumns([routesCount]);
@@ -40,8 +39,6 @@ class DatabaseService extends AppDatabase {
   }
 
   Future<List<Stop>> selectAllStopsWithRoutes({LatLng? currentPosition}) async {
-    await getRoutesLookupByStop();
-
     final query = select(stops);
 
     final allStops = await query.get();
@@ -210,43 +207,6 @@ class DatabaseService extends AppDatabase {
         )
         .map((row) => row.readTable(transitRoutes))
         .get();
-  }
-
-  Future<Map<Stop, List<TransitRoute>>> getRoutesLookupByStop() async {
-    final query1 = select(stops).join([
-      innerJoin(
-        stopTimes,
-        stopTimes.stop_id.equalsExp(stops.stop_id),
-        useColumns: false,
-      ),
-      innerJoin(
-        trips,
-        trips.trip_id.equalsExp(stopTimes.trip_id),
-        useColumns: false,
-      ),
-      innerJoin(
-        transitRoutes,
-        transitRoutes.route_id.equalsExp(trips.route_id),
-      ),
-    ])
-      ..groupBy([stops.stop_id, transitRoutes.route_id]);
-
-    final List<MapEntry<Stop, TransitRoute>> values = await query1
-        .map(
-          (row) => MapEntry(
-            row.readTable(stops),
-            row.readTable(transitRoutes),
-          ),
-        )
-        .get();
-
-    return groupBy<MapEntry<Stop, TransitRoute>, Stop>(values, (r) => r.key)
-        .map(
-      (key, value) => MapEntry(
-        key,
-        value.map((e) => e.value).toList(),
-      ),
-    );
   }
 
   Future<FeedInfoData> getFeedInfo() {

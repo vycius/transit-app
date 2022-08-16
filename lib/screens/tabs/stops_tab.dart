@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gtfs_db/gtfs_db.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:transit/constants.dart';
 import 'package:transit/database/database_service.dart';
+import 'package:transit/models/extensions.dart';
 import 'package:transit/navigation_routes.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
 
@@ -11,13 +13,14 @@ class StopsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentPosition = LatLng(54.7081385, 25.2497002);
+    final currentPosition = defaultLatLng;
 
     final database = DatabaseService.get(context);
 
     return AppFutureBuilder<List<Stop>>(
-      future:
-          database.selectAllStopsWithRoutes(currentPosition: currentPosition),
+      future: database.selectAllStopsWithRoutes(
+        currentPosition: currentPosition,
+      ),
       builder: (BuildContext context, stops) {
         return ListView.separated(
           itemCount: stops.length,
@@ -66,7 +69,7 @@ class StopsTab extends StatelessWidget {
       final distanceM = distance
           .as(
             LengthUnit.Meter,
-            LatLng(stop.stop_lat, stop.stop_lon),
+            stop.latLng,
             currentPosition,
           )
           .toInt();
