@@ -18,7 +18,7 @@ class StopsTab extends StatelessWidget {
     final database = DatabaseService.get(context);
 
     return AppFutureBuilder<List<Stop>>(
-      future: database.selectAllStopsWithRoutes(
+      future: database.getAllStopsOrderedByDistance(
         currentPosition: currentPosition,
       ),
       builder: (BuildContext context, stops) {

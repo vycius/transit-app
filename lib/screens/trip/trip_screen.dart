@@ -70,7 +70,7 @@ class TripScreen extends StatelessWidget {
   Future<_TripData> _getTripData(BuildContext context) async {
     final database = DatabaseService.get(context);
 
-    final stopWithStopTimes = await database.selectStopWithStopTimesForTrip(
+    final stopWithStopTimes = await database.getStopWithStopTimesForTrip(
       tripId: selectedTrip.trip_id,
     );
 

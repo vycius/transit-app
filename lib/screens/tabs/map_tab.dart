@@ -12,7 +12,7 @@ class MapTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppFutureBuilder<List<Stop>>(
-      future: DatabaseService.get(context).selectAllStopsWithRoutes(),
+      future: DatabaseService.get(context).getAllStopsOrderedByDistance(),
       builder: (context, stops) {
         return AppMap(
           center: defaultLatLng,

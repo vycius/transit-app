@@ -16,29 +16,26 @@ class DatabaseService extends AppDatabase {
     );
   }
 
-  Future<int> routesCount() {
-    final routesCount = transitRoutes.route_id.count();
-    final query = selectOnly(transitRoutes)..addColumns([routesCount]);
-
-    return query.map((row) => row.read(routesCount)!).getSingle();
-  }
-
   Future<List<TransitRoute>> getAllRoutes() async {
-    final query = select(transitRoutes)
-      ..orderBy([
-        (t) => OrderingTerm(expression: t.route_sort_order),
-        (t) => OrderingTerm(expression: t.route_id),
-      ]);
+    final routes = await select(transitRoutes).get();
 
-    final rows = await query.get();
-
-    return rows.sortedByCompare(
+    return routes.sortedByCompare(
       (r) => '${r.route_color} ${r.route_short_name}',
       compareNatural,
     );
   }
 
-  Future<List<Stop>> selectAllStopsWithRoutes({LatLng? currentPosition}) async {
+  Future<List<Trip>> getAllTrips() {
+    return select(trips).get();
+  }
+
+  Future<FeedInfoData> getFeedInfo() {
+    return select(feedInfo).getSingle();
+  }
+
+  Future<List<Stop>> getAllStopsOrderedByDistance({
+    LatLng? currentPosition,
+  }) async {
     final query = select(stops);
 
     final allStops = await query.get();
@@ -78,7 +75,7 @@ class DatabaseService extends AppDatabase {
     }
   }
 
-  Future<List<TripsWithStopTimes>> selectStopTimes(
+  Future<List<TripsWithStopTimes>> getStopTimesForStop(
     String stopId,
     DateTime dateTime,
   ) {
@@ -124,7 +121,7 @@ class DatabaseService extends AppDatabase {
     return joinedQuery.get();
   }
 
-  Future<List<StopWithStopTimes>> selectStopWithStopTimesForTrip({
+  Future<List<StopWithStopTimes>> getStopWithStopTimesForTrip({
     required String tripId,
   }) {
     final query = select(stopTimes)
@@ -154,63 +151,6 @@ class DatabaseService extends AppDatabase {
       ..orderBy([(s) => OrderingTerm.asc(s.shape_pt_sequence)]);
 
     return query.get();
-  }
-
-  Future<List<Trip>> getAllTrips() {
-    return select(trips).get();
-  }
-
-  Future<List<Trip>> selectTrips(TransitRoute route) {
-    final query = select(trips)
-      ..where((r) => r.route_id.equals(route.route_id));
-
-    return query.get();
-  }
-
-  Future<List<TransitRoute>> selectRoutesByStop(Stop stop) {
-    return select(transitRoutes)
-        .join(
-          [
-            innerJoin(
-              trips,
-              trips.route_id.equalsExp(transitRoutes.route_id),
-              useColumns: false,
-            ),
-            innerJoin(
-              stopTimes,
-              stopTimes.trip_id.equalsExp(trips.trip_id) &
-                  stopTimes.stop_id.equals(stop.stop_id),
-              useColumns: false,
-            ),
-          ],
-        )
-        .map((row) => row.readTable(transitRoutes))
-        .get();
-  }
-
-  Future<List<TransitRoute>> selectStopsWithRoutes(Stop stop) {
-    return select(transitRoutes)
-        .join(
-          [
-            innerJoin(
-              trips,
-              trips.route_id.equalsExp(transitRoutes.route_id),
-              useColumns: false,
-            ),
-            innerJoin(
-              stopTimes,
-              stopTimes.trip_id.equalsExp(trips.trip_id) &
-                  stopTimes.stop_id.equals(stop.stop_id),
-              useColumns: false,
-            ),
-          ],
-        )
-        .map((row) => row.readTable(transitRoutes))
-        .get();
-  }
-
-  Future<FeedInfoData> getFeedInfo() {
-    return select(feedInfo).getSingle();
   }
 
   Future<void> deleteEverything() {
