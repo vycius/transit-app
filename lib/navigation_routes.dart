@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gtfs_db/gtfs_db.dart';
 import 'package:transit/screens/home_screen.dart';
-import 'package:transit/screens/region_selector_screen.dart';
 import 'package:transit/screens/stop_screen.dart';
 import 'package:transit/screens/trip/trip_screen.dart';
 
 class NavigationRoutes {
-  static const routeRegionSelector = 'main';
   static const routeHome = 'home';
   static const routeStop = 'stop';
   static const routeTrip = 'trip';
@@ -15,12 +13,6 @@ class NavigationRoutes {
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case routeRegionSelector:
-        return MaterialPageRoute(
-          builder: (context) {
-            return RegionSelectorScreen();
-          },
-        );
       case routeHome:
         return MaterialPageRoute(
           builder: (context) {

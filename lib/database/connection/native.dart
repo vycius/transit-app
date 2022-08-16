@@ -14,9 +14,7 @@ DatabaseService constructDb() {
 
     if (!await file.exists()) {
       // Extract the pre-populated database file from assets
-      final blob = await rootBundle.load(
-        'packages/gtfs_db/assets/sqlite/db.sqlite',
-      );
+      final blob = await rootBundle.load('assets/sqlite/db.sqlite');
 
       final buffer = blob.buffer;
       await file.writeAsBytes(

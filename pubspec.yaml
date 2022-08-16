@@ -44,8 +44,8 @@ dependencies:
   gtfs_realtime_bindings: ^1.0.0
   sliding_up_panel: ^2.0.0+1
   backdrop: ^0.8.0
-  drift: 1.7.1
-  
+  drift: ^2.0.1
+
   gtfs_db:
     git:
       url: https://github.com/vycius/gtfs-sqlite-db.git

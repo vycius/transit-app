@@ -4,8 +4,7 @@ import 'package:http/http.dart' as http;
 class GTFSRealtimeService {
   Future<FeedMessage> fetchGtfRealtime(String gtfsRealtimeUrl) async {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final url =
-        'https://api.allorigins.win/raw?url=$gtfsRealtimeUrl?time=$timestamp';
+    final url = '$gtfsRealtimeUrl?time=$timestamp';
     final response = await http.get(Uri.parse(url));
     final message = FeedMessage.fromBuffer(response.bodyBytes);
 

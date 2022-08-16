@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:transit/navigation_routes.dart';
 import 'package:transit/screens/tabs/map_tab.dart';
 import 'package:transit/screens/tabs/realtime_tab.dart';
 import 'package:transit/screens/tabs/route_tab.dart';
@@ -47,19 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(_currentTab.label),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.location_city),
-            tooltip: 'Regionas',
-            onPressed: () async {
-              // ignore: use_build_context_synchronously
-              await Navigator.pushReplacementNamed(
-                context,
-                NavigationRoutes.routeRegionSelector,
-              );
-            },
-          ),
-        ],
       ),
       body: _currentTab.builder(),
       bottomNavigationBar: BottomNavigationBar(

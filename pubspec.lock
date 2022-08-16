@@ -189,7 +189,7 @@ packages:
       name: drift
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.1"
+    version: "2.0.1"
   fake_async:
     dependency: transitive
     description:
@@ -329,7 +329,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: ab6e05d2711169b5381cbfb44db9740984026b23
+      resolved-ref: "04988b2d98f29a221a296c63c986717068caf8b7"
       url: "https://github.com/vycius/gtfs-sqlite-db.git"
     source: git
     version: "1.0.0"

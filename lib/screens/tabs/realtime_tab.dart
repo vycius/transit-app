@@ -5,7 +5,7 @@ import 'package:gtfs_realtime_bindings/gtfs_realtime_bindings.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:transit/database/database_service.dart';
-import 'package:transit/gtfs_service.dart';
+import 'package:transit/gtfs_realtime_service.dart';
 import 'package:transit/models/extensions.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
 import 'package:transit/screens/widgets/map.dart';
