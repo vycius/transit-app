@@ -3,7 +3,6 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:gtfs_db/gtfs_db.dart';
 import 'package:gtfs_realtime_bindings/gtfs_realtime_bindings.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:transit/constants.dart';
 import 'package:transit/database/database_service.dart';
 import 'package:transit/gtfs_realtime_service.dart';
@@ -149,7 +148,7 @@ class RealtimeBody extends StatelessWidget {
       return Text(routeShortName, style: TextStyle(color: routeTextColor));
     } else {
       return Icon(
-        MdiIcons.bus,
+        Icons.directions_bus,
         color: routeTextColor,
         size: 18,
       );

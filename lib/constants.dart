@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'package:latlong2/latlong.dart';
 
 final defaultLatLng = _vilniusLatLng;

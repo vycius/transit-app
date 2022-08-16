@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gtfs_db/gtfs_db.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:transit/constants.dart';
 import 'package:transit/database/database_service.dart';
 import 'package:transit/models/extensions.dart';
