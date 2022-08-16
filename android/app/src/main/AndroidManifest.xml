@@ -7,7 +7,7 @@
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="transit"
+        android:label="BUS"
         android:roundIcon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
