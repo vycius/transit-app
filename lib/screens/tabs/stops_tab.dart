@@ -59,7 +59,7 @@ class StopListTile extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8),
             child: Icon(
-              MdiIcons.busStop,
+              Icons.pin_drop,
               color: Colors.white,
             ),
           ),

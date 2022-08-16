@@ -18,23 +18,23 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<_HomeScreenTab> _tabs = [
     _HomeScreenTab(
       builder: () => StopsTab(),
-      icon: MdiIcons.busStop,
+      icon: Icons.near_me,
       label: 'Artimiausios',
+    ),
+    _HomeScreenTab(
+      builder: () => MapTab(),
+      icon: Icons.pin_drop,
+      label: 'Stotelės',
+    ),
+    _HomeScreenTab(
+      builder: () => RealtimeTab(),
+      icon: Icons.directions_bus,
+      label: 'Realus laikas',
     ),
     _HomeScreenTab(
       builder: () => const RoutesTab(),
       icon: Icons.route_outlined,
       label: 'Maršrutai',
-    ),
-    _HomeScreenTab(
-      builder: () => MapTab(),
-      icon: Icons.map,
-      label: 'Stotelės',
-    ),
-    _HomeScreenTab(
-      builder: () => RealtimeTab(),
-      icon: MdiIcons.bus,
-      label: 'Realus laikas',
     ),
   ];
 
