@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gtfs_db/gtfs_db.dart';
-import 'package:transit/screens/home_screen.dart';
+import 'package:transit/screens/main_screen.dart';
 import 'package:transit/screens/stop_screen.dart';
 import 'package:transit/screens/trip/trip_screen.dart';
 
@@ -16,7 +16,7 @@ class NavigationRoutes {
       case routeHome:
         return MaterialPageRoute(
           builder: (context) {
-            return HomeScreen();
+            return MainScreen();
           },
         );
       case routeStop:

@@ -1,38 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:transit/screens/tabs/map_tab.dart';
-import 'package:transit/screens/tabs/realtime_tab.dart';
-import 'package:transit/screens/tabs/route_tab.dart';
-import 'package:transit/screens/tabs/stops_tab.dart';
+import 'package:transit/screens/tabs/nearby_stops_tab.dart';
+import 'package:transit/screens/tabs/realtime_vehicles_tab.dart';
+import 'package:transit/screens/tabs/routes_tab.dart';
+import 'package:transit/screens/tabs/stops_map_tab.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class MainScreen extends StatefulWidget {
+  const MainScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<MainScreen> createState() => _MainScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
   final List<_HomeScreenTab> _tabs = [
     _HomeScreenTab(
-      builder: () => StopsTab(),
+      builder: () => NearbyStopsTab(),
       icon: Icons.near_me,
       label: 'Artimiausios',
     ),
     _HomeScreenTab(
-      builder: () => MapTab(),
+      builder: () => StopsMapTab(),
       icon: Icons.pin_drop,
       label: 'Stotelės',
     ),
     _HomeScreenTab(
-      builder: () => RealtimeTab(),
+      builder: () => RealtimeVehiclesTab(),
       icon: Icons.directions_bus,
       label: 'Realus laikas',
     ),
     _HomeScreenTab(
-      builder: () => const RoutesTab(),
-      icon: Icons.route_outlined,
+      builder: () => RoutesTab(),
+      icon: Icons.route,
       label: 'Maršrutai',
     ),
   ];

@@ -42,9 +42,9 @@ class StopScreen extends StatelessWidget {
                   context,
                   NavigationRoutes.routeTrip,
                   arguments: TripScreenArguments(
-                    selectedRoute: route,
-                    selectedTrip: trip,
-                    selectedStop: stop,
+                    route: route,
+                    trip: trip,
+                    stop: stop,
                   ),
                 ),
               );

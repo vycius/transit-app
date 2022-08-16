@@ -6,8 +6,8 @@ import 'package:transit/database/database_service.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
 import 'package:transit/screens/widgets/map.dart';
 
-class MapTab extends StatelessWidget {
-  const MapTab({super.key});
+class StopsMapTab extends StatelessWidget {
+  const StopsMapTab({super.key});
 
   @override
   Widget build(BuildContext context) {

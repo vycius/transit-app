@@ -7,8 +7,8 @@ import 'package:transit/models/extensions.dart';
 import 'package:transit/navigation_routes.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
 
-class StopsTab extends StatelessWidget {
-  const StopsTab({Key? key}) : super(key: key);
+class NearbyStopsTab extends StatelessWidget {
+  const NearbyStopsTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

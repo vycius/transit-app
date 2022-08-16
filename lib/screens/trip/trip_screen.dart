@@ -8,25 +8,25 @@ import 'package:transit/screens/trip/trip_screen_map.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
 
 class TripScreenArguments {
-  final TransitRoute selectedRoute;
-  final Trip selectedTrip;
-  final Stop selectedStop;
+  final TransitRoute route;
+  final Trip trip;
+  final Stop stop;
 
   TripScreenArguments({
-    required this.selectedRoute,
-    required this.selectedTrip,
-    required this.selectedStop,
+    required this.route,
+    required this.trip,
+    required this.stop,
   });
 }
 
 class TripScreen extends StatelessWidget {
   final TripScreenArguments argumnets;
 
-  Stop get selectedStop => argumnets.selectedStop;
+  Stop get selectedStop => argumnets.stop;
 
-  TransitRoute get selectedRoute => argumnets.selectedRoute;
+  TransitRoute get selectedRoute => argumnets.route;
 
-  Trip get selectedTrip => argumnets.selectedTrip;
+  Trip get selectedTrip => argumnets.trip;
 
   TripScreen({super.key, required this.argumnets});
 

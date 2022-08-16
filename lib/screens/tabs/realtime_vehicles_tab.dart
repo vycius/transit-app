@@ -10,8 +10,8 @@ import 'package:transit/models/extensions.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
 import 'package:transit/screens/widgets/map.dart';
 
-class RealtimeTab extends StatelessWidget {
-  const RealtimeTab({super.key});
+class RealtimeVehiclesTab extends StatelessWidget {
+  const RealtimeVehiclesTab({super.key});
 
   @override
   Widget build(BuildContext context) {
