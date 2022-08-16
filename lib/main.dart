@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gtfs_db/gtfs_db.dart';
 import 'package:provider/provider.dart';
 import 'package:transit/database/connection/connection.dart';
+import 'package:transit/database/database_service.dart';
 import 'package:transit/navigation_routes.dart';
 
 void main() {
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Provider<AppDatabase>(
+    return Provider<DatabaseService>(
       create: (context) => constructDb(),
       dispose: (context, db) => db.close(),
       child: MaterialApp(

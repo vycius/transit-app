@@ -1,10 +1,21 @@
 import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
 import 'package:gtfs_db/gtfs_db.dart';
 import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:provider/provider.dart';
 import 'package:transit/models/db.dart';
 
-extension DatabaseExtensions on AppDatabase {
+class DatabaseService extends AppDatabase {
+  DatabaseService(super.e);
+
+  static DatabaseService get(BuildContext context) {
+    return Provider.of<DatabaseService>(
+      context,
+      listen: false,
+    );
+  }
+
   Future<int> stopsCount() {
     final stopsCount = stops.stop_id.count();
     final query = selectOnly(stops)..addColumns([stopsCount]);
@@ -22,14 +33,14 @@ extension DatabaseExtensions on AppDatabase {
   Future<List<TransitRoute>> getAllRoutes() async {
     final query = select(transitRoutes)
       ..orderBy([
-        (t) => OrderingTerm(expression: t.route_sort_order),
-        (t) => OrderingTerm(expression: t.route_id),
+            (t) => OrderingTerm(expression: t.route_sort_order),
+            (t) => OrderingTerm(expression: t.route_id),
       ]);
 
     final rows = await query.get();
 
     return rows.sortedByCompare(
-      (r) => '${r.route_color} ${r.route_short_name}',
+          (r) => '${r.route_color} ${r.route_short_name}',
       compareNatural,
     );
   }
@@ -44,7 +55,7 @@ extension DatabaseExtensions on AppDatabase {
       return allStops;
     } else {
       return allStops.sortedBy<num>(
-        (s) => distance.as(
+            (s) => distance.as(
           LengthUnit.Meter,
           LatLng(s.stop_lat, s.stop_lon),
           currentPosition,
@@ -75,9 +86,9 @@ extension DatabaseExtensions on AppDatabase {
   }
 
   Future<List<TripsWithStopTimes>> selectStopTimes(
-    String stopId,
-    DateTime dateTime,
-  ) {
+      String stopId,
+      DateTime dateTime,
+      ) {
     final localDateTime = dateTime.toLocal();
 
     final timeFormat = DateFormat('HH:mm:ss');
@@ -89,8 +100,8 @@ extension DatabaseExtensions on AppDatabase {
       ..where((s) => s.stop_id.equals(stopId))
       ..where((s) => s.arrival_time.isBiggerOrEqualValue(timeFormatted))
       ..orderBy([
-        (t) => OrderingTerm(expression: t.arrival_time),
-        (t) => OrderingTerm(expression: t.departure_time),
+            (t) => OrderingTerm(expression: t.arrival_time),
+            (t) => OrderingTerm(expression: t.departure_time),
       ]);
 
     final joinedQuery = query.join([
@@ -105,9 +116,9 @@ extension DatabaseExtensions on AppDatabase {
       innerJoin(
         calendar,
         calendar.service_id.equalsExp(trips.service_id) &
-            calendar.start_date.isSmallerOrEqualValue(dateFormatted) &
-            calendar.end_date.isBiggerOrEqualValue(dateFormatted) &
-            _calendarWeekdayExpression(localDateTime),
+        calendar.start_date.isSmallerOrEqualValue(dateFormatted) &
+        calendar.end_date.isBiggerOrEqualValue(dateFormatted) &
+        _calendarWeekdayExpression(localDateTime),
       ),
     ]).map((row) {
       return TripsWithStopTimes(
@@ -126,7 +137,7 @@ extension DatabaseExtensions on AppDatabase {
     final query = select(stopTimes)
       ..where((s) => s.trip_id.equals(tripId))
       ..orderBy([
-        (t) => OrderingTerm.asc(t.stop_sequence),
+            (t) => OrderingTerm.asc(t.stop_sequence),
       ]);
 
     final joinedQuery = query.join([
@@ -166,20 +177,20 @@ extension DatabaseExtensions on AppDatabase {
   Future<List<TransitRoute>> selectRoutesByStop(Stop stop) {
     return select(transitRoutes)
         .join(
-          [
-            innerJoin(
-              trips,
-              trips.route_id.equalsExp(transitRoutes.route_id),
-              useColumns: false,
-            ),
-            innerJoin(
-              stopTimes,
-              stopTimes.trip_id.equalsExp(trips.trip_id) &
-                  stopTimes.stop_id.equals(stop.stop_id),
-              useColumns: false,
-            ),
-          ],
-        )
+      [
+        innerJoin(
+          trips,
+          trips.route_id.equalsExp(transitRoutes.route_id),
+          useColumns: false,
+        ),
+        innerJoin(
+          stopTimes,
+          stopTimes.trip_id.equalsExp(trips.trip_id) &
+          stopTimes.stop_id.equals(stop.stop_id),
+          useColumns: false,
+        ),
+      ],
+    )
         .map((row) => row.readTable(transitRoutes))
         .get();
   }
@@ -187,20 +198,20 @@ extension DatabaseExtensions on AppDatabase {
   Future<List<TransitRoute>> selectStopsWithRoutes(Stop stop) {
     return select(transitRoutes)
         .join(
-          [
-            innerJoin(
-              trips,
-              trips.route_id.equalsExp(transitRoutes.route_id),
-              useColumns: false,
-            ),
-            innerJoin(
-              stopTimes,
-              stopTimes.trip_id.equalsExp(trips.trip_id) &
-                  stopTimes.stop_id.equals(stop.stop_id),
-              useColumns: false,
-            ),
-          ],
-        )
+      [
+        innerJoin(
+          trips,
+          trips.route_id.equalsExp(transitRoutes.route_id),
+          useColumns: false,
+        ),
+        innerJoin(
+          stopTimes,
+          stopTimes.trip_id.equalsExp(trips.trip_id) &
+          stopTimes.stop_id.equals(stop.stop_id),
+          useColumns: false,
+        ),
+      ],
+    )
         .map((row) => row.readTable(transitRoutes))
         .get();
   }
@@ -227,15 +238,15 @@ extension DatabaseExtensions on AppDatabase {
     final List<MapEntry<Stop, TransitRoute>> values = await query1
         .map(
           (row) => MapEntry(
-            row.readTable(stops),
-            row.readTable(transitRoutes),
-          ),
-        )
+        row.readTable(stops),
+        row.readTable(transitRoutes),
+      ),
+    )
         .get();
 
     return groupBy<MapEntry<Stop, TransitRoute>, Stop>(values, (r) => r.key)
         .map(
-      (key, value) => MapEntry(
+          (key, value) => MapEntry(
         key,
         value.map((e) => e.value).toList(),
       ),

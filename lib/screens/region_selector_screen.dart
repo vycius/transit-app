@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gtfs_db/gtfs_db.dart';
-import 'package:transit/database/database_extensions.dart';
+import 'package:transit/database/database_service.dart';
 import 'package:transit/models/region.dart';
 import 'package:transit/navigation_routes.dart';
 import 'package:transit/screens/home_screen.dart';
@@ -24,7 +23,7 @@ class RegionSelectorScreen extends StatefulWidget {
 }
 
 class _RegionSelectorScreenState extends State<RegionSelectorScreen> {
-  AppDatabase get _database => AppDatabase.get(context);
+  DatabaseService get _database => DatabaseService.get(context);
 
   Region? _regionToLoad;
 

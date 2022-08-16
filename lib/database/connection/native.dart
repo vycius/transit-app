@@ -5,8 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:gtfs_db/gtfs_db.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:transit/database/database_service.dart';
 
-AppDatabase constructDb() {
+DatabaseService constructDb() {
   final db = LazyDatabase(() async {
     final dbFolder = await getApplicationDocumentsDirectory();
     final file = File(p.join(dbFolder.path, 'db.sqlite'));
@@ -25,5 +26,5 @@ AppDatabase constructDb() {
 
     return NativeDatabase(file);
   });
-  return AppDatabase(db);
+  return DatabaseService(db);
 }

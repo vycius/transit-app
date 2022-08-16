@@ -4,7 +4,7 @@ import 'package:gtfs_db/gtfs_db.dart';
 import 'package:gtfs_realtime_bindings/gtfs_realtime_bindings.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:transit/database/database_extensions.dart';
+import 'package:transit/database/database_service.dart';
 import 'package:transit/gtfs_service.dart';
 import 'package:transit/models/extensions.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
@@ -61,7 +61,7 @@ class RealtimeTab extends StatelessWidget {
   }
 
   Future<_RealtimeTabData> _getFuture(BuildContext context) async {
-    final database = AppDatabase.get(context);
+    final database = DatabaseService.get(context);
 
     return _RealtimeTabData(
       feedInfo: await database.getFeedInfo(),

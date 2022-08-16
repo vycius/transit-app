@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gtfs_db/gtfs_db.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:transit/database/database_extensions.dart';
+import 'package:transit/database/database_service.dart';
 import 'package:transit/models/db.dart';
 import 'package:transit/screens/trip/trip_screen_body.dart';
 import 'package:transit/screens/trip/trip_screen_map.dart';
@@ -68,7 +68,7 @@ class TripScreen extends StatelessWidget {
   }
 
   Future<_TripData> _getTripData(BuildContext context) async {
-    final database = AppDatabase.get(context);
+    final database = DatabaseService.get(context);
 
     final stopWithStopTimes = await database.selectStopWithStopTimesForTrip(
       tripId: selectedTrip.trip_id,

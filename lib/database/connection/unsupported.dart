@@ -1,3 +1,3 @@
-import 'package:gtfs_db/gtfs_db.dart';
+import 'package:transit/database/database_service.dart';
 
-AppDatabase constructDb() => throw UnimplementedError();
+DatabaseService constructDb() => throw UnimplementedError();

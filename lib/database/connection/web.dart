@@ -1,9 +1,9 @@
-import 'package:flutter/services.dart';
-import 'package:gtfs_db/gtfs_db.dart';
 import 'package:drift/web.dart';
+import 'package:flutter/services.dart';
+import 'package:transit/database/database_service.dart';
 
-AppDatabase constructDb() {
-  return AppDatabase(
+DatabaseService constructDb() {
+  return DatabaseService(
     WebDatabase.withStorage(
       DriftWebStorage.indexedDb('db'),
       logStatements: true,

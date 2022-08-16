@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gtfs_db/gtfs_db.dart';
-import 'package:transit/database/database_extensions.dart';
+import 'package:transit/database/database_service.dart';
 import 'package:transit/models/db.dart';
 import 'package:transit/navigation_routes.dart';
 import 'package:transit/screens/trip/trip_screen.dart';
@@ -19,7 +19,7 @@ class StopScreen extends StatelessWidget {
         title: Text(stop.stop_name),
       ),
       body: AppFutureBuilder<List<TripsWithStopTimes>>(
-        future: AppDatabase.get(context).selectStopTimes(
+        future: DatabaseService.get(context).selectStopTimes(
           stop.stop_id,
           DateTime.now(),
         ),

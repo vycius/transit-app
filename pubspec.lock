@@ -36,6 +36,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.8.2"
+  backdrop:
+    dependency: "direct main"
+    description:
+      name: backdrop
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -177,7 +184,7 @@ packages:
     source: hosted
     version: "2.2.3"
   drift:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: drift
       url: "https://pub.dartlang.org"
@@ -321,8 +328,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: kaunas
-      resolved-ref: "0ad8f1b838b6a238850e45db03fcfd787b7b73f0"
+      ref: main
+      resolved-ref: ab6e05d2711169b5381cbfb44db9740984026b23
       url: "https://github.com/vycius/gtfs-sqlite-db.git"
     source: git
     version: "1.0.0"
@@ -659,7 +666,7 @@ packages:
       name: sqlite3
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.2"
+    version: "1.8.0"
   sqlite3_flutter_libs:
     dependency: "direct main"
     description:

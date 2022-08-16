@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gtfs_db/gtfs_db.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:transit/database/database_extensions.dart';
+import 'package:transit/database/database_service.dart';
 import 'package:transit/navigation_routes.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
 
@@ -13,7 +13,7 @@ class StopsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentPosition = LatLng(54.7081385, 25.2497002);
 
-    final database = AppDatabase.get(context);
+    final database = DatabaseService.get(context);
 
     return AppFutureBuilder<List<Stop>>(
       future:
