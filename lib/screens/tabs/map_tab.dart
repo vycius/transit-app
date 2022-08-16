@@ -7,7 +7,7 @@ import 'package:transit/screens/widgets/app_future_loader.dart';
 import 'package:transit/screens/widgets/map.dart';
 
 class MapTab extends StatelessWidget {
-  const MapTab({Key? key}) : super(key: key);
+  const MapTab({super.key});
 
   @override
   Widget build(BuildContext context) {
