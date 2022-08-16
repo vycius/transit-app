@@ -20,7 +20,7 @@ class StopScreen extends StatelessWidget {
       ),
       body: AppFutureBuilder<List<TripsWithStopTimes>>(
         future: DatabaseService.get(context).getStopTimesForStop(
-          stop.stop_id,
+          stop,
           DateTime.now(),
         ),
         builder: (context, tripsWithTimes) {

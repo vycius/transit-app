@@ -46,7 +46,6 @@ class TripScreen extends StatelessWidget {
 
           return SlidingUpPanel(
             defaultPanelState: PanelState.OPEN,
-            // minHeight: 250,
             body: TripScreenMap(
               selectedStop: selectedStop,
               selectedRoute: selectedRoute,
@@ -71,7 +70,7 @@ class TripScreen extends StatelessWidget {
     final database = DatabaseService.get(context);
 
     final stopWithStopTimes = await database.getStopWithStopTimesForTrip(
-      tripId: selectedTrip.trip_id,
+      trip: selectedTrip,
     );
 
     final shapes = await database.getTripShapes(trip: selectedTrip);

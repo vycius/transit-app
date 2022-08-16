@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:gtfs_db/gtfs_db.dart';
 import 'package:transit/constants.dart';
 import 'package:transit/database/database_service.dart';
@@ -16,13 +15,7 @@ class StopsMapTab extends StatelessWidget {
       builder: (context, stops) {
         return AppMap(
           center: defaultLatLng,
-          layers: [
-            MarkerLayerOptions(
-              markers: [
-                for (final stop in stops) AppMap.buildStopMarker(stop),
-              ],
-            ),
-          ],
+          stopsLayer: StopsMarkerLayer(stops: stops),
         );
       },
     );

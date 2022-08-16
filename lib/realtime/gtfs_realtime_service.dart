@@ -18,4 +18,13 @@ class GTFSRealtimeService {
       (e) => fetchGtfRealtime(gtfsRealtimeUrl),
     );
   }
+
+  Stream<List<VehiclePosition>> streamGtfsRealtimeVehiclePositions(
+    String gtfsRealtimeUrl,
+  ) {
+    return streamGtfsRealtime(gtfsRealtimeUrl).map(
+      (r) =>
+          r.entity.where((e) => e.hasVehicle()).map((e) => e.vehicle).toList(),
+    );
+  }
 }

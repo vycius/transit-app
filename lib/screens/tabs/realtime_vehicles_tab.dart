@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:gtfs_db/gtfs_db.dart';
 import 'package:gtfs_realtime_bindings/gtfs_realtime_bindings.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:transit/constants.dart';
 import 'package:transit/database/database_service.dart';
-import 'package:transit/models/extensions.dart';
 import 'package:transit/realtime/gtfs_realtime_service.dart';
 import 'package:transit/screens/widgets/app_future_loader.dart';
 import 'package:transit/screens/widgets/map.dart';
@@ -38,18 +35,13 @@ class RealtimeVehiclesTab extends StatelessWidget {
           routes,
         );
 
-        return StreamBuilder<FeedMessage>(
-          stream: GTFSRealtimeService().streamGtfsRealtime(gtfsRealtimeUrl),
+        return StreamBuilder<List<VehiclePosition>>(
+          stream: GTFSRealtimeService()
+              .streamGtfsRealtimeVehiclePositions(gtfsRealtimeUrl),
           builder: (context, snapshot) {
-            var vehiclePositions = <VehiclePosition>[];
-            if (snapshot.hasData) {
-              vehiclePositions = snapshot.requireData.entity
-                  .where((e) => e.hasVehicle())
-                  .map((e) => e.vehicle)
-                  .toList();
-            }
+            final vehiclePositions = snapshot.data ?? [];
 
-            return RealtimeBody(
+            return _RealtimeVehiclesTabBody(
               vehiclePositions: vehiclePositions,
               tripLookup: tripLookup,
               routeLookup: routeLookup,
@@ -83,13 +75,12 @@ class _RealtimeTabData {
   });
 }
 
-class RealtimeBody extends StatelessWidget {
+class _RealtimeVehiclesTabBody extends StatelessWidget {
   final List<VehiclePosition> vehiclePositions;
   final Map<String, Trip> tripLookup;
   final Map<String, TransitRoute> routeLookup;
 
-  const RealtimeBody({
-    super.key,
+  const _RealtimeVehiclesTabBody({
     required this.vehiclePositions,
     required this.tripLookup,
     required this.routeLookup,
@@ -99,59 +90,11 @@ class RealtimeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppMap(
       center: defaultLatLng,
-      layers: [
-        MarkerLayerOptions(
-          markers: [
-            for (final vehiclePosition in vehiclePositions)
-              Marker(
-                key: Key('vehicle-${vehiclePosition.vehicle.id}'),
-                point: LatLng(
-                  vehiclePosition.position.latitude,
-                  vehiclePosition.position.longitude,
-                ),
-                anchorPos: AnchorPos.align(AnchorAlign.center),
-                width: 25,
-                height: 25,
-                builder: (context) {
-                  return _buildVehicleIcon(vehiclePosition);
-                },
-              ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildVehicleIcon(VehiclePosition vehiclePosition) {
-    final trip = tripLookup[vehiclePosition.trip.tripId];
-    final routeId = trip?.route_id;
-    final route = (routeId != null) ? routeLookup[routeId] : null;
-
-    final routeColor = route?.routeColor ?? Colors.teal;
-
-    return Transform.rotate(
-      angle: degToRadian(vehiclePosition.position.bearing),
-      child: FloatingActionButton.small(
-        onPressed: null,
-        backgroundColor: routeColor,
-        heroTag: null,
-        child: _buildVehicleBody(route),
+      vehiclePositionsLayer: VehiclePositionsMarkerLayer(
+        vehiclePositions: vehiclePositions,
+        tripLookup: tripLookup,
+        routeLookup: routeLookup,
       ),
     );
-  }
-
-  Widget _buildVehicleBody(TransitRoute? route) {
-    final routeShortName = route?.route_short_name;
-    final routeTextColor = route?.routeTextColor ?? Colors.white;
-
-    if (route != null && routeShortName != null) {
-      return Text(routeShortName, style: TextStyle(color: routeTextColor));
-    } else {
-      return Icon(
-        Icons.directions_bus,
-        color: routeTextColor,
-        size: 18,
-      );
-    }
   }
 }

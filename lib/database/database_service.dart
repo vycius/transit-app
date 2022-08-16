@@ -29,6 +29,13 @@ class DatabaseService extends AppDatabase {
     return select(trips).get();
   }
 
+  Future<List<Trip>> getTripsByRoute(TransitRoute route) {
+    final query = select(trips)
+      ..where((t) => t.route_id.equals(route.route_id));
+
+    return query.get();
+  }
+
   Future<FeedInfoData> getFeedInfo() {
     return select(feedInfo).getSingle();
   }
@@ -54,6 +61,46 @@ class DatabaseService extends AppDatabase {
     }
   }
 
+  Future<List<TransitRoute>> selectRoutesByStop(Stop stop) {
+    return select(transitRoutes)
+        .join(
+          [
+            innerJoin(
+              trips,
+              trips.route_id.equalsExp(transitRoutes.route_id),
+              useColumns: false,
+            ),
+            innerJoin(
+              stopTimes,
+              stopTimes.trip_id.equalsExp(trips.trip_id) &
+                  stopTimes.stop_id.equals(stop.stop_id),
+              useColumns: false,
+            ),
+          ],
+        )
+        .map((row) => row.readTable(transitRoutes))
+        .get();
+  }
+
+  Future<List<Stop>> getStopsByRoute(TransitRoute route) {
+    final query = select(stops).join([
+      innerJoin(
+        stopTimes,
+        stopTimes.trip_id.equalsExp(trips.trip_id) &
+            stopTimes.stop_id.equalsExp(stops.stop_id),
+        useColumns: false,
+      ),
+      innerJoin(
+        trips,
+        trips.route_id.equals(route.route_id),
+        useColumns: false,
+      ),
+    ])
+      ..groupBy([stops.stop_id]);
+
+    return query.map((row) => row.readTable(stops)).get();
+  }
+
   Expression<bool> _calendarWeekdayExpression(DateTime dateTime) {
     switch (dateTime.weekday) {
       case DateTime.monday:
@@ -76,7 +123,7 @@ class DatabaseService extends AppDatabase {
   }
 
   Future<List<TripsWithStopTimes>> getStopTimesForStop(
-    String stopId,
+    Stop stop,
     DateTime dateTime,
   ) {
     final localDateTime = dateTime.toLocal();
@@ -87,7 +134,7 @@ class DatabaseService extends AppDatabase {
     final dateFormatted = dateFormat.format(localDateTime.toLocal());
 
     final query = select(stopTimes)
-      ..where((s) => s.stop_id.equals(stopId))
+      ..where((s) => s.stop_id.equals(stop.stop_id))
       ..where((s) => s.arrival_time.isBiggerOrEqualValue(timeFormatted))
       ..orderBy([
         (t) => OrderingTerm(expression: t.arrival_time),
@@ -122,10 +169,10 @@ class DatabaseService extends AppDatabase {
   }
 
   Future<List<StopWithStopTimes>> getStopWithStopTimesForTrip({
-    required String tripId,
+    required Trip trip,
   }) {
     final query = select(stopTimes)
-      ..where((s) => s.trip_id.equals(tripId))
+      ..where((s) => s.trip_id.equals(trip.trip_id))
       ..orderBy([
         (t) => OrderingTerm.asc(t.stop_sequence),
       ]);

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gtfs_db/gtfs_db.dart';
 import 'package:transit/screens/main_screen.dart';
+import 'package:transit/screens/route_screen.dart';
 import 'package:transit/screens/stop_screen.dart';
 import 'package:transit/screens/trip/trip_screen.dart';
 
 class NavigationRoutes {
   static const routeHome = 'home';
   static const routeStop = 'stop';
+  static const routeRoute = 'route';
   static const routeTrip = 'trip';
 
   NavigationRoutes._();
@@ -29,6 +31,17 @@ class NavigationRoutes {
           );
         } else {
           throw Exception('Pass stop to stops screen');
+        }
+      case routeRoute:
+        final route = settings.arguments;
+        if (route != null && route is TransitRoute) {
+          return MaterialPageRoute(
+            builder: (context) {
+              return RouteScreen(route: route);
+            },
+          );
+        } else {
+          throw Exception('Pass route to route screen');
         }
       case routeTrip:
         final arguments = settings.arguments;
