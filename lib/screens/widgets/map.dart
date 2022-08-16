@@ -120,7 +120,7 @@ class VehiclePositionsMarkerLayer {
     final routeId = trip?.route_id;
     final route = (routeId != null) ? routeLookup[routeId] : null;
 
-    final routeColor = route?.routeColor ?? Colors.teal;
+    final routeColor = route?.routeColor ?? Colors.indigo;
 
     return Transform.rotate(
       angle: degToRadian(vehiclePosition.position.bearing),

@@ -11,7 +11,7 @@ class RouteAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     final text = route.route_short_name ?? '';
 
-    final routeColor = route.routeColor ?? Colors.teal;
+    final routeColor = route.routeColor ?? Colors.indigo;
     final routeTextColor = route.routeTextColor ?? Colors.white;
 
     return DecoratedBox(
