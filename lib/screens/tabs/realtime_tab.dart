@@ -4,6 +4,7 @@ import 'package:gtfs_db/gtfs_db.dart';
 import 'package:gtfs_realtime_bindings/gtfs_realtime_bindings.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:transit/constants.dart';
 import 'package:transit/database/database_service.dart';
 import 'package:transit/gtfs_realtime_service.dart';
 import 'package:transit/models/extensions.dart';
@@ -98,7 +99,7 @@ class RealtimeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppMap(
-      center: LatLng(54.68916, 25.2798),
+      center: defaultLatLng,
       layers: [
         MarkerLayerOptions(
           markers: [
