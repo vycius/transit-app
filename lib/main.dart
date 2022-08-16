@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:transit/database/connection/connection.dart';
 import 'package:transit/database/database_service.dart';
+import 'package:transit/database/executor/executor.dart';
 import 'package:transit/navigation_routes.dart';
 
 void main() {
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider<DatabaseService>(
-      create: (context) => constructDb(),
+      create: (context) => DatabaseService(getDatabaseExecutor()),
       dispose: (context, db) => db.close(),
       child: MaterialApp(
         title: 'BUS',

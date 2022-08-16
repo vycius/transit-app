@@ -16,24 +16,32 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<_HomeScreenTab> _tabs = [
     _HomeScreenTab(
+      title: 'Artimiausios stotelės',
+      label: 'Artimiausios',
       builder: () => NearbyStopsTab(),
       icon: Icons.near_me,
-      label: 'Artimiausios',
+      activeIcon: Icons.near_me_outlined,
     ),
     _HomeScreenTab(
+      title: 'Stotelių žemėlapis',
+      label: 'Stotelės',
       builder: () => StopsMapTab(),
       icon: Icons.pin_drop,
-      label: 'Stotelės',
+      activeIcon: Icons.pin_drop_outlined,
     ),
     _HomeScreenTab(
+      title: 'Realus laikas',
+      label: 'Realus laikas',
       builder: () => RealtimeVehiclesTab(),
       icon: Icons.directions_bus,
-      label: 'Realus laikas',
+      activeIcon: Icons.directions_bus_outlined,
     ),
     _HomeScreenTab(
+      title: 'Maršrutai',
+      label: 'Maršrutai',
       builder: () => RoutesTab(),
       icon: Icons.route,
-      label: 'Maršrutai',
+      activeIcon: Icons.route_outlined,
     ),
   ];
 
@@ -43,7 +51,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_currentTab.label),
+        title: Text(_currentTab.title),
         centerTitle: true,
       ),
       body: _currentTab.builder(),
@@ -57,6 +65,7 @@ class _MainScreenState extends State<MainScreen> {
             BottomNavigationBarItem(
               label: tab.label,
               icon: Icon(tab.icon),
+              activeIcon: Icon(tab.activeIcon),
             ),
         ],
       ),
@@ -69,13 +78,17 @@ class _MainScreenState extends State<MainScreen> {
 }
 
 class _HomeScreenTab {
+  final String title;
   final String label;
   final Widget Function() builder;
   final IconData icon;
+  final IconData activeIcon;
 
   const _HomeScreenTab({
+    required this.title,
     required this.label,
     required this.builder,
     required this.icon,
+    required this.activeIcon,
   });
 }

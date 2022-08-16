@@ -152,12 +152,4 @@ class DatabaseService extends AppDatabase {
 
     return query.get();
   }
-
-  Future<void> deleteEverything() {
-    return transaction(() async {
-      for (final table in allTables) {
-        await delete(table).go();
-      }
-    });
-  }
 }
