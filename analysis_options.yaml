@@ -22,7 +22,6 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
-    avoid_print: false
     use_super_parameters: false
     sort_pub_dependencies: false
     avoid_classes_with_only_static_members: false

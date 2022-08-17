@@ -34,7 +34,7 @@ class RouteScreen extends StatelessWidget {
           }
 
           final stops = data.stops;
-          print(stops.length.toString());
+
           final tripLookup = Map.fromIterables(
             data.trips.map((t) => t.trip_id),
             data.trips,
