@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gtfs_db/gtfs_db.dart';
 import 'package:transit/constants.dart';
 import 'package:transit/database/database_service.dart';
-import 'package:transit/screens/widgets/app_future_loader.dart';
-import 'package:transit/screens/widgets/map.dart';
+import 'package:transit/widgets/app_future_loader.dart';
+import 'package:transit/widgets/map.dart';
 
 class StopsMapTab extends StatelessWidget {
   const StopsMapTab({super.key});

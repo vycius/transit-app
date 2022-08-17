@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gtfs_db/gtfs_db.dart';
 import 'package:transit/database/database_service.dart';
 import 'package:transit/navigation_routes.dart';
-import 'package:transit/screens/widgets/app_future_loader.dart';
-import 'package:transit/screens/widgets/route_avatar.dart';
+import 'package:transit/widgets/app_future_loader.dart';
+import 'package:transit/widgets/route_avatar.dart';
 
 class RoutesTab extends StatelessWidget {
   const RoutesTab({super.key});

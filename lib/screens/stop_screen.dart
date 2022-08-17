@@ -4,8 +4,8 @@ import 'package:transit/database/database_service.dart';
 import 'package:transit/models/db.dart';
 import 'package:transit/navigation_routes.dart';
 import 'package:transit/screens/trip/trip_screen.dart';
-import 'package:transit/screens/widgets/app_future_loader.dart';
-import 'package:transit/screens/widgets/route_avatar.dart';
+import 'package:transit/widgets/app_future_loader.dart';
+import 'package:transit/widgets/route_avatar.dart';
 
 class StopScreen extends StatelessWidget {
   final Stop stop;

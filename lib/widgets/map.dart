@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:gtfs_db/gtfs_db.dart';
-import 'package:gtfs_realtime_bindings/gtfs_realtime_bindings.dart';
+import 'package:gtfs_realtime_bindings/gtfs_realtime_bindings.dart' as rt;
 import 'package:latlong2/latlong.dart';
 import 'package:transit/constants.dart';
 import 'package:transit/models/extensions.dart';
 import 'package:transit/navigation_routes.dart';
+import 'package:transit/screens/trip/trip_screen.dart';
 
 class AppMap extends StatelessWidget {
   final LatLng? center;
@@ -13,6 +14,7 @@ class AppMap extends StatelessWidget {
   final List<LayerOptions> layers;
   final VehiclePositionsMarkerLayer? vehiclePositionsLayer;
   final StopsMarkerLayer? stopsLayer;
+  final ShapesPolylineLayer? shapesPolylineLayer;
 
   AppMap({
     super.key,
@@ -21,6 +23,7 @@ class AppMap extends StatelessWidget {
     this.layers = const [],
     this.vehiclePositionsLayer,
     this.stopsLayer,
+    this.shapesPolylineLayer,
   });
 
   @override
@@ -38,6 +41,7 @@ class AppMap extends StatelessWidget {
           urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
           userAgentPackageName: 'lt.transit.transit',
         ),
+        if (shapesPolylineLayer != null) shapesPolylineLayer!.buildLayer(),
         if (stopsLayer != null) stopsLayer!.buildLayer(),
         if (vehiclePositionsLayer != null) vehiclePositionsLayer!.buildLayer(),
         // ...layers,
@@ -81,8 +85,34 @@ class AppMap extends StatelessWidget {
   }
 }
 
+class ShapesPolylineLayer {
+  final List<List<Shape>> lines;
+  final Color color;
+
+  ShapesPolylineLayer({
+    required this.lines,
+    required this.color,
+  });
+
+  PolylineLayerOptions buildLayer() {
+    return PolylineLayerOptions(
+      polylines: [
+        for (final shapes in lines)
+          Polyline(
+            points: [
+              for (final shape in shapes)
+                LatLng(shape.shape_pt_lat, shape.shape_pt_lon),
+            ],
+            color: color,
+            strokeWidth: 5,
+          ),
+      ],
+    );
+  }
+}
+
 class VehiclePositionsMarkerLayer {
-  final List<VehiclePosition> vehiclePositions;
+  final List<rt.VehiclePosition> vehiclePositions;
   final Map<String, Trip> tripLookup;
   final Map<String, TransitRoute> routeLookup;
 
@@ -118,7 +148,7 @@ class VehiclePositionsMarkerLayer {
 
   Widget _buildVehicleIcon(
     BuildContext context,
-    VehiclePosition vehiclePosition,
+    rt.VehiclePosition vehiclePosition,
   ) {
     final trip = tripLookup[vehiclePosition.trip.tripId];
     final routeId = trip?.route_id;
@@ -139,13 +169,17 @@ class VehiclePositionsMarkerLayer {
       ),
     );
 
-    if (route != null) {
+    if (route != null && trip != null) {
       return GestureDetector(
         onTap: () {
           Navigator.pushNamed(
             context,
-            NavigationRoutes.routeRoute,
-            arguments: route,
+            NavigationRoutes.routeTrip,
+            arguments: TripScreenArguments(
+              route: route,
+              trip: trip,
+              stop: null,
+            ),
           );
         },
         child: vehicleIcon,

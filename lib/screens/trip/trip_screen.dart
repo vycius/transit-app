@@ -1,16 +1,16 @@
+import 'package:backdrop/backdrop.dart';
 import 'package:flutter/material.dart';
 import 'package:gtfs_db/gtfs_db.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:transit/database/database_service.dart';
 import 'package:transit/models/db.dart';
 import 'package:transit/screens/trip/trip_screen_body.dart';
 import 'package:transit/screens/trip/trip_screen_map.dart';
-import 'package:transit/screens/widgets/app_future_loader.dart';
+import 'package:transit/widgets/app_future_loader.dart';
 
 class TripScreenArguments {
   final TransitRoute route;
   final Trip trip;
-  final Stop stop;
+  final Stop? stop;
 
   TripScreenArguments({
     required this.route,
@@ -20,49 +20,42 @@ class TripScreenArguments {
 }
 
 class TripScreen extends StatelessWidget {
-  final TripScreenArguments argumnets;
+  final TripScreenArguments arguments;
 
-  Stop get selectedStop => argumnets.stop;
+  Stop? get selectedStop => arguments.stop;
 
-  TransitRoute get selectedRoute => argumnets.route;
+  TransitRoute get selectedRoute => arguments.route;
 
-  Trip get selectedTrip => argumnets.trip;
+  Trip get selectedTrip => arguments.trip;
 
-  TripScreen({super.key, required this.argumnets});
+  TripScreen({super.key, required this.arguments});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          '${selectedRoute.route_short_name}: ${selectedTrip.trip_short_name ?? selectedRoute.route_long_name}',
-        ),
-      ),
-      body: AppFutureBuilder<_TripData>(
-        future: _getTripData(context),
-        builder: (context, tripData) {
-          final stopsWithStopTimes = tripData.stopsWithStopTimes;
-          final shapes = tripData.shapes;
+    return AppFutureBuilder<_TripData>(
+      future: _getTripData(context),
+      builder: (context, tripData) {
+        final stopsWithStopTimes = tripData.stopsWithStopTimes;
+        final stops = stopsWithStopTimes.map((st) => st.stop).toList();
+        final shapes = tripData.shapes;
 
-          return SlidingUpPanel(
-            defaultPanelState: PanelState.OPEN,
-            body: TripScreenMap(
-              selectedStop: selectedStop,
-              selectedRoute: selectedRoute,
-              stopsWithStopTimes: stopsWithStopTimes,
-              shapes: shapes,
+        return BackdropScaffold(
+          appBar: BackdropAppBar(
+            title: Text(
+              '${selectedRoute.route_short_name}: ${selectedTrip.trip_short_name ?? selectedRoute.route_long_name}',
             ),
-            parallaxEnabled: true,
-            panelBuilder: (scrollController) {
-              return TripScreenListBody(
-                scrollController: scrollController,
-                selectedStop: selectedStop,
-                stopsWithStopTimes: stopsWithStopTimes,
-              );
-            },
-          );
-        },
-      ),
+          ),
+          backLayer: TripScreenMap(
+            selectedRoute: selectedRoute,
+            stops: stops,
+            shapes: shapes,
+          ),
+          frontLayer: TripScreenListBody(
+            selectedStop: selectedStop,
+            stopsWithStopTimes: stopsWithStopTimes,
+          ),
+        );
+      },
     );
   }
 

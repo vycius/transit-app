@@ -53,6 +53,7 @@ dependencies:
     git:
       url: https://github.com/vycius/gtfs-sqlite-db.git
       ref: main
+  backdrop: ^0.8.0
 
 dev_dependencies:
   flutter_test:

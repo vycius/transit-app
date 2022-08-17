@@ -3,8 +3,8 @@ import 'package:gtfs_db/gtfs_db.dart';
 import 'package:gtfs_realtime_bindings/gtfs_realtime_bindings.dart';
 import 'package:transit/database/database_service.dart';
 import 'package:transit/realtime/gtfs_realtime_service.dart';
-import 'package:transit/screens/widgets/app_future_loader.dart';
-import 'package:transit/screens/widgets/map.dart';
+import 'package:transit/widgets/app_future_loader.dart';
+import 'package:transit/widgets/map.dart';
 
 class RouteScreen extends StatelessWidget {
   final TransitRoute route;

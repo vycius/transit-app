@@ -5,7 +5,7 @@ import 'package:transit/constants.dart';
 import 'package:transit/database/database_service.dart';
 import 'package:transit/models/extensions.dart';
 import 'package:transit/navigation_routes.dart';
-import 'package:transit/screens/widgets/app_future_loader.dart';
+import 'package:transit/widgets/app_future_loader.dart';
 
 class NearbyStopsTab extends StatelessWidget {
   const NearbyStopsTab({Key? key}) : super(key: key);

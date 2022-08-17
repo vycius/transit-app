@@ -48,7 +48,7 @@ class NavigationRoutes {
         if (arguments != null && arguments is TripScreenArguments) {
           return MaterialPageRoute(
             builder: (context) {
-              return TripScreen(argumnets: arguments);
+              return TripScreen(arguments: arguments);
             },
           );
         } else {
