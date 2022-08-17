@@ -103,10 +103,11 @@ class VehiclePositionsMarkerLayer {
               vehiclePosition.position.longitude,
             ),
             anchorPos: AnchorPos.align(AnchorAlign.center),
-            width: 25,
-            height: 25,
+            width: 20,
+            height: 20,
             builder: (context) {
               return _buildVehicleIcon(
+                context,
                 vehiclePosition,
               );
             },
@@ -115,22 +116,43 @@ class VehiclePositionsMarkerLayer {
     );
   }
 
-  Widget _buildVehicleIcon(VehiclePosition vehiclePosition) {
+  Widget _buildVehicleIcon(
+    BuildContext context,
+    VehiclePosition vehiclePosition,
+  ) {
     final trip = tripLookup[vehiclePosition.trip.tripId];
     final routeId = trip?.route_id;
     final route = (routeId != null) ? routeLookup[routeId] : null;
 
     final routeColor = route?.routeColor ?? Colors.indigo;
 
-    return Transform.rotate(
+    final vehicleIcon = Transform.rotate(
       angle: degToRadian(vehiclePosition.position.bearing),
-      child: FloatingActionButton.small(
-        onPressed: null,
-        backgroundColor: routeColor,
-        heroTag: null,
-        child: _buildVehicleBody(route),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: routeColor,
+          shape: BoxShape.circle,
+        ),
+        child: Center(
+          child: _buildVehicleBody(route),
+        ),
       ),
     );
+
+    if (route != null) {
+      return GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            NavigationRoutes.routeRoute,
+            arguments: route,
+          );
+        },
+        child: vehicleIcon,
+      );
+    } else {
+      return vehicleIcon;
+    }
   }
 
   Widget _buildVehicleBody(TransitRoute? route) {
@@ -138,12 +160,22 @@ class VehiclePositionsMarkerLayer {
     final routeTextColor = route?.routeTextColor ?? Colors.white;
 
     if (route != null && routeShortName != null) {
-      return Text(routeShortName, style: TextStyle(color: routeTextColor));
+      return Padding(
+        padding: const EdgeInsets.all(4),
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            routeShortName,
+            style: TextStyle(color: routeTextColor),
+            maxLines: 1,
+          ),
+        ),
+      );
     } else {
       return Icon(
         Icons.directions_bus,
         color: routeTextColor,
-        size: 18,
+        size: 15,
       );
     }
   }
