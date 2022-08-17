@@ -4,7 +4,9 @@ import 'package:gtfs_realtime_bindings/gtfs_realtime_bindings.dart';
 import 'package:transit/database/database_service.dart';
 import 'package:transit/realtime/gtfs_realtime_service.dart';
 import 'package:transit/widgets/app_future_loader.dart';
-import 'package:transit/widgets/map.dart';
+import 'package:transit/widgets/map/layers/stops_marker_layer.dart';
+import 'package:transit/widgets/map/layers/vehicle_positions_markers_layer.dart';
+import 'package:transit/widgets/map/transit_map.dart';
 
 class RouteScreen extends StatelessWidget {
   final TransitRoute route;
@@ -49,9 +51,9 @@ class RouteScreen extends StatelessWidget {
                   .where((v) => tripLookup.containsKey(v.trip.tripId))
                   .toList();
 
-              return AppMap(
+              return TransitMap(
                 stopsLayer: StopsMarkerLayer(stops: stops),
-                vehiclePositionsLayer: VehiclePositionsMarkerLayer(
+                vehiclePositionsLayer: VehiclePositionMarkersLayer(
                   vehiclePositions: filteredVehiclePositions,
                   tripLookup: tripLookup,
                   routeLookup: routeLookup,

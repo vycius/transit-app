@@ -5,7 +5,8 @@ import 'package:transit/constants.dart';
 import 'package:transit/database/database_service.dart';
 import 'package:transit/realtime/gtfs_realtime_service.dart';
 import 'package:transit/widgets/app_future_loader.dart';
-import 'package:transit/widgets/map.dart';
+import 'package:transit/widgets/map/layers/vehicle_positions_markers_layer.dart';
+import 'package:transit/widgets/map/transit_map.dart';
 
 class RealtimeVehiclesTab extends StatelessWidget {
   const RealtimeVehiclesTab({super.key});
@@ -88,9 +89,9 @@ class _RealtimeVehiclesTabBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppMap(
+    return TransitMap(
       center: defaultLatLng,
-      vehiclePositionsLayer: VehiclePositionsMarkerLayer(
+      vehiclePositionsLayer: VehiclePositionMarkersLayer(
         vehiclePositions: vehiclePositions,
         tripLookup: tripLookup,
         routeLookup: routeLookup,

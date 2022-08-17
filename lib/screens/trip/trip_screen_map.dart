@@ -3,7 +3,9 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:gtfs_db/gtfs_db.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:transit/models/extensions.dart';
-import 'package:transit/widgets/map.dart';
+import 'package:transit/widgets/map/layers/shapes_polyline_layer.dart';
+import 'package:transit/widgets/map/layers/stops_marker_layer.dart';
+import 'package:transit/widgets/map/transit_map.dart';
 
 class TripScreenMap extends StatelessWidget {
   final List<Shape> shapes;
@@ -19,7 +21,7 @@ class TripScreenMap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppMap(
+    return TransitMap(
       center: _calculateCenter(),
       shapesPolylineLayer: ShapesPolylineLayer(
         lines: [shapes],
