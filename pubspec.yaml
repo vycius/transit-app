@@ -33,7 +33,6 @@ dependencies:
   collection: ^1.16.0
   http: ^0.13.5
   provider: ^6.0.3
-  sliding_up_panel: ^2.0.0+1
 
   # Database
   drift: ^2.0.1
