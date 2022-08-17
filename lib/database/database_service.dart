@@ -192,11 +192,27 @@ class DatabaseService extends AppDatabase {
     return joinedQuery.get();
   }
 
-  Future<List<Shape>> getTripShapes({required Trip trip}) {
+  Future<List<Shape>> getShapesForTrip(Trip trip) {
     final query = select(shapes)
       ..where((s) => s.shape_id.equals(trip.shape_id))
       ..orderBy([(s) => OrderingTerm.asc(s.shape_pt_sequence)]);
 
     return query.get();
+  }
+
+  Future<List<List<Shape>>> getShapesForRoute(TransitRoute route) async {
+    final query = select(shapes).join([
+      innerJoin(
+        trips,
+        (trips.shape_id.equalsExp(shapes.shape_id)) &
+            (trips.route_id.equals(route.route_id)),
+        useColumns: false,
+      )
+    ])
+      ..groupBy([shapes.shape_id, shapes.shape_pt_sequence]);
+
+    final rows = await query.map((r) => r.readTable(shapes)).get();
+
+    return groupBy<Shape, String>(rows, (r) => r.shape_id).values.toList();
   }
 }

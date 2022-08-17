@@ -66,7 +66,7 @@ class TripScreen extends StatelessWidget {
       trip: selectedTrip,
     );
 
-    final shapes = await database.getTripShapes(trip: selectedTrip);
+    final shapes = await database.getShapesForTrip(selectedTrip);
 
     return _TripData(
       stopsWithStopTimes: stopWithStopTimes,

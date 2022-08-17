@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gtfs_db/gtfs_db.dart';
-import 'package:gtfs_realtime_bindings/gtfs_realtime_bindings.dart';
+import 'package:gtfs_realtime_bindings/gtfs_realtime_bindings.dart'
+    show VehiclePosition;
 import 'package:transit/database/database_service.dart';
+import 'package:transit/models/extensions.dart';
 import 'package:transit/realtime/gtfs_realtime_service.dart';
 import 'package:transit/widgets/app_future_loader.dart';
+import 'package:transit/widgets/map/layers/shapes_polyline_layer.dart';
 import 'package:transit/widgets/map/layers/stops_marker_layer.dart';
 import 'package:transit/widgets/map/layers/vehicle_positions_markers_layer.dart';
 import 'package:transit/widgets/map/transit_map.dart';
@@ -53,6 +56,10 @@ class RouteScreen extends StatelessWidget {
 
               return TransitMap(
                 stopsLayer: StopsMarkerLayer(stops: stops),
+                shapesPolylineLayer: ShapesPolylineLayer(
+                  lines: data.lines,
+                  color: route.routeColor ?? Colors.indigo,
+                ),
                 vehiclePositionsLayer: VehiclePositionMarkersLayer(
                   vehiclePositions: filteredVehiclePositions,
                   tripLookup: tripLookup,
@@ -73,6 +80,7 @@ class RouteScreen extends StatelessWidget {
       feedInfo: await database.getFeedInfo(),
       stops: await database.getStopsByRoute(route),
       trips: await database.getTripsByRoute(route),
+      lines: await database.getShapesForRoute(route),
     );
   }
 }
@@ -81,10 +89,12 @@ class _RouteScreenFutureData {
   final FeedInfoData feedInfo;
   final List<Stop> stops;
   final List<Trip> trips;
+  final List<List<Shape>> lines;
 
   _RouteScreenFutureData({
     required this.feedInfo,
     required this.stops,
     required this.trips,
+    required this.lines,
   });
 }
