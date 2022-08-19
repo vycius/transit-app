@@ -189,7 +189,7 @@ packages:
       name: drift
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   fake_async:
     dependency: transitive
     description:
@@ -210,7 +210,7 @@ packages:
       name: file
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.2"
+    version: "6.1.4"
   fixnum:
     dependency: transitive
     description:
@@ -315,7 +315,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "04988b2d98f29a221a296c63c986717068caf8b7"
+      resolved-ref: "54c0075d3f2590c5cb5aa2c5af71b27abdef931f"
       url: "https://github.com/vycius/gtfs-sqlite-db.git"
     source: git
     version: "1.0.0"
@@ -598,7 +598,7 @@ packages:
       name: pubspec_parse
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.0"
+    version: "1.2.1"
   quiver:
     dependency: transitive
     description:
