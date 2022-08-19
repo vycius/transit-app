@@ -40,7 +40,23 @@ class RealtimeVehiclesTab extends StatelessWidget {
           stream: GTFSRealtimeService()
               .streamGtfsRealtimeVehiclePositions(gtfsRealtimeUrl),
           builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    CircularProgressIndicator(),
+                    Padding(
+                      padding: EdgeInsets.only(top: 16),
+                      child: Text('Kraunami realaus laiko atvykimai...'),
+                    )
+                  ],
+                ),
+              );
+            }
+
             final vehiclePositions = snapshot.data ?? [];
+
 
             return _RealtimeVehiclesTabBody(
               vehiclePositions: vehiclePositions,
