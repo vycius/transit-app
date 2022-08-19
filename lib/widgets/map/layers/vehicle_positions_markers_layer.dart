@@ -53,7 +53,7 @@ class VehiclePositionMarkersLayer {
     final routeColor = route?.routeColor ?? Colors.indigo;
     final routeTextColor = route?.routeTextColor ?? Colors.white;
 
-    final vehicleIcon = Transform.rotate(
+    return Transform.rotate(
       angle: degToRadian(vehiclePosition.position.bearing),
       child: FloatingActionButton.small(
         onPressed: (route != null && trip != null)
@@ -65,25 +65,6 @@ class VehiclePositionMarkersLayer {
         child: _buildVehicleBody(route),
       ),
     );
-
-    if (route != null && trip != null) {
-      return GestureDetector(
-        onTap: () {
-          Navigator.pushNamed(
-            context,
-            NavigatorRoutes.routeTrip,
-            arguments: TripScreenArguments(
-              route: route,
-              trip: trip,
-              stop: null,
-            ),
-          );
-        },
-        child: vehicleIcon,
-      );
-    } else {
-      return vehicleIcon;
-    }
   }
 
   Future<void> _onPressed(BuildContext context, TransitRoute route, Trip trip) {

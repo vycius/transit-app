@@ -41,22 +41,14 @@ class RealtimeVehiclesTab extends StatelessWidget {
               .streamGtfsRealtimeVehiclePositions(gtfsRealtimeUrl),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    CircularProgressIndicator(),
-                    Padding(
-                      padding: EdgeInsets.only(top: 16),
-                      child: Text('Kraunami realaus laiko atvykimai...'),
-                    )
-                  ],
-                ),
-              );
+              return _RealtimeVehiclesLoadingIndicator();
+            }
+            if (snapshot.hasError) {
+              // ignore: avoid_print
+              print('Stream error: ${snapshot.error}\n${snapshot.stackTrace}');
             }
 
             final vehiclePositions = snapshot.data ?? [];
-
 
             return _RealtimeVehiclesTabBody(
               vehiclePositions: vehiclePositions,
@@ -76,6 +68,24 @@ class RealtimeVehiclesTab extends StatelessWidget {
       feedInfo: await database.getFeedInfo(),
       routes: await database.getAllRoutes(),
       trips: await database.getAllTrips(),
+    );
+  }
+}
+
+class _RealtimeVehiclesLoadingIndicator extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          CircularProgressIndicator(),
+          Padding(
+            padding: EdgeInsets.only(top: 16),
+            child: Text('Kraunami realaus laiko atvykimai...'),
+          )
+        ],
+      ),
     );
   }
 }
