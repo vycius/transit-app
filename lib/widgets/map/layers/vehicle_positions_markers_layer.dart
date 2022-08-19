@@ -42,26 +42,25 @@ class VehiclePositionMarkersLayer {
     );
   }
 
-  Widget _buildVehicleIcon(
-    BuildContext context,
-    rt.VehiclePosition vehiclePosition,
-  ) {
+  Widget _buildVehicleIcon(BuildContext context,
+      rt.VehiclePosition vehiclePosition,) {
     final trip = tripLookup[vehiclePosition.trip.tripId];
     final routeId = trip?.route_id;
     final route = (routeId != null) ? routeLookup[routeId] : null;
 
+
     final routeColor = route?.routeColor ?? Colors.indigo;
+    final routeTextColor = route?.routeTextColor ?? Colors.white;
 
     final vehicleIcon = Transform.rotate(
       angle: degToRadian(vehiclePosition.position.bearing),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: routeColor,
-          shape: BoxShape.circle,
-        ),
-        child: Center(
-          child: _buildVehicleBody(route),
-        ),
+      child: FloatingActionButton.small(
+        onPressed: (route != null && trip != null) ? () =>
+            _onPressed(context, route, trip) : null,
+        backgroundColor: routeColor,
+        foregroundColor: routeTextColor,
+        child: _buildVehicleBody(route),
+
       ),
     );
 
@@ -85,18 +84,28 @@ class VehiclePositionMarkersLayer {
     }
   }
 
+  Future<void> _onPressed(BuildContext context, TransitRoute route, Trip trip) {
+    return Navigator.pushNamed(
+      context,
+      NavigationRoutes.routeTrip,
+      arguments: TripScreenArguments(
+        route: route,
+        trip: trip,
+        stop: null,
+      ),
+    );
+  }
+
   Widget _buildVehicleBody(TransitRoute? route) {
     final routeShortName = route?.route_short_name;
-    final routeTextColor = route?.routeTextColor ?? Colors.white;
 
     if (route != null && routeShortName != null) {
       return Padding(
-        padding: const EdgeInsets.all(4),
+        padding: const EdgeInsets.all(2),
         child: FittedBox(
           fit: BoxFit.scaleDown,
           child: Text(
             routeShortName,
-            style: TextStyle(color: routeTextColor),
             maxLines: 1,
           ),
         ),
@@ -104,7 +113,6 @@ class VehiclePositionMarkersLayer {
     } else {
       return Icon(
         Icons.directions_bus,
-        color: routeTextColor,
         size: 15,
       );
     }
