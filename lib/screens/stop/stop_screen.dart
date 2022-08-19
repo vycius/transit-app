@@ -29,28 +29,54 @@ class StopScreen extends StatelessWidget {
             separatorBuilder: (context, i) => Divider(height: 1),
             itemBuilder: (context, index) {
               final tripWithTime = tripsWithTimes[index];
-              final trip = tripWithTime.trip;
-              final stopTimes = tripWithTime.stopTime;
-              final route = tripWithTime.route;
 
-              return ListTile(
-                leading: RouteAvatar(route: route),
-                title: Text(trip.trip_headsign ?? ''),
-                subtitle: Text(trip.trip_short_name ?? route.route_long_name),
-                trailing: Text(stopTimes.departure_time),
-                onTap: () => Navigator.pushNamed(
-                  context,
-                  NavigationRoutes.routeTrip,
-                  arguments: TripScreenArguments(
-                    route: route,
-                    trip: trip,
-                    stop: stop,
-                  ),
-                ),
+              return TripStopTimeListTile(
+                stop: stop,
+                route: tripWithTime.route,
+                trip: tripWithTime.trip,
+                stopTime: tripWithTime.stopTime,
               );
             },
           );
         },
+      ),
+    );
+  }
+}
+
+class TripStopTimeListTile extends StatelessWidget {
+  final Stop stop;
+  final StopTime stopTime;
+  final Trip trip;
+  final TransitRoute route;
+
+  const TripStopTimeListTile({
+    super.key,
+    required this.stop,
+    required this.stopTime,
+    required this.route,
+    required this.trip,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: RouteAvatar(route: route),
+      title: Text(trip.trip_headsign ?? ''),
+      subtitle: Text(trip.trip_short_name ?? route.route_long_name),
+      trailing: Text(stopTime.departure_time),
+      onTap: () => _onTap(context),
+    );
+  }
+
+  Future<void> _onTap(BuildContext context) {
+    return Navigator.pushNamed(
+      context,
+      NavigatorRoutes.routeTrip,
+      arguments: TripScreenArguments(
+        route: route,
+        trip: trip,
+        stop: stop,
       ),
     );
   }

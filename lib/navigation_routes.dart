@@ -5,13 +5,13 @@ import 'package:transit/screens/route/route_screen.dart';
 import 'package:transit/screens/stop/stop_screen.dart';
 import 'package:transit/screens/trip/trip_screen.dart';
 
-class NavigationRoutes {
+class NavigatorRoutes {
   static const routeHome = 'home';
   static const routeStop = 'stop';
   static const routeRoute = 'route';
   static const routeTrip = 'trip';
 
-  NavigationRoutes._();
+  NavigatorRoutes._();
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {

@@ -47,7 +47,7 @@ class StopsMarkerLayer {
           onTap: () {
             Navigator.pushNamed(
               context,
-              NavigationRoutes.routeStop,
+              NavigatorRoutes.routeStop,
               arguments: stop,
             );
           },

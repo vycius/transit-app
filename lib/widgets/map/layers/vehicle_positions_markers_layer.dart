@@ -69,7 +69,7 @@ class VehiclePositionMarkersLayer {
         onTap: () {
           Navigator.pushNamed(
             context,
-            NavigationRoutes.routeTrip,
+            NavigatorRoutes.routeTrip,
             arguments: TripScreenArguments(
               route: route,
               trip: trip,
@@ -87,7 +87,7 @@ class VehiclePositionMarkersLayer {
   Future<void> _onPressed(BuildContext context, TransitRoute route, Trip trip) {
     return Navigator.pushNamed(
       context,
-      NavigationRoutes.routeTrip,
+      NavigatorRoutes.routeTrip,
       arguments: TripScreenArguments(
         route: route,
         trip: trip,

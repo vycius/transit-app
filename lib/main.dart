@@ -26,8 +26,8 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         debugShowCheckedModeBanner: false,
-        initialRoute: NavigationRoutes.routeHome,
-        onGenerateRoute: NavigationRoutes.onGenerateRoute,
+        initialRoute: NavigatorRoutes.routeHome,
+        onGenerateRoute: NavigatorRoutes.onGenerateRoute,
       ),
     );
   }

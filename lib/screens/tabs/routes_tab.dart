@@ -39,7 +39,7 @@ class RoutesListTile extends StatelessWidget {
       onTap: () {
         Navigator.pushNamed(
           context,
-          NavigationRoutes.routeRoute,
+          NavigatorRoutes.routeRoute,
           arguments: route,
         );
       },
