@@ -40,25 +40,23 @@ class DatabaseService extends AppDatabase {
     return select(feedInfo).getSingle();
   }
 
-  Future<List<Stop>> getAllStopsOrderedByDistance({
-    LatLng? currentPosition,
-  }) async {
-    final query = select(stops);
+  Future<List<Stop>> getAllStops() {
+    return select(stops).get();
+  }
 
-    final allStops = await query.get();
+  Future<List<Stop>> getAllStopsOrderedByDistance({
+    required LatLng currentPosition,
+  }) async {
+    final allStops = await getAllStops();
     final distance = Distance();
 
-    if (currentPosition == null) {
-      return allStops;
-    } else {
-      return allStops.sortedBy<num>(
-        (s) => distance.as(
-          LengthUnit.Meter,
-          LatLng(s.stop_lat, s.stop_lon),
-          currentPosition,
-        ),
-      );
-    }
+    return allStops.sortedBy<num>(
+      (s) => distance.as(
+        LengthUnit.Meter,
+        LatLng(s.stop_lat, s.stop_lon),
+        currentPosition,
+      ),
+    );
   }
 
   Future<List<TransitRoute>> selectRoutesByStop(Stop stop) {

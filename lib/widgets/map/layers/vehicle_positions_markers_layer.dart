@@ -42,12 +42,13 @@ class VehiclePositionMarkersLayer {
     );
   }
 
-  Widget _buildVehicleIcon(BuildContext context,
-      rt.VehiclePosition vehiclePosition,) {
+  Widget _buildVehicleIcon(
+    BuildContext context,
+    rt.VehiclePosition vehiclePosition,
+  ) {
     final trip = tripLookup[vehiclePosition.trip.tripId];
     final routeId = trip?.route_id;
     final route = (routeId != null) ? routeLookup[routeId] : null;
-
 
     final routeColor = route?.routeColor ?? Colors.indigo;
     final routeTextColor = route?.routeTextColor ?? Colors.white;
@@ -55,12 +56,13 @@ class VehiclePositionMarkersLayer {
     final vehicleIcon = Transform.rotate(
       angle: degToRadian(vehiclePosition.position.bearing),
       child: FloatingActionButton.small(
-        onPressed: (route != null && trip != null) ? () =>
-            _onPressed(context, route, trip) : null,
+        onPressed: (route != null && trip != null)
+            ? () => _onPressed(context, route, trip)
+            : null,
         backgroundColor: routeColor,
         foregroundColor: routeTextColor,
+        heroTag: null,
         child: _buildVehicleBody(route),
-
       ),
     );
 
