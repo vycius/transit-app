@@ -3,7 +3,6 @@ import 'package:gtfs_db/gtfs_db.dart';
 import 'package:gtfs_realtime_bindings/gtfs_realtime_bindings.dart'
     show VehiclePosition;
 import 'package:transit/database/database_service.dart';
-import 'package:transit/models/extensions.dart';
 import 'package:transit/realtime/gtfs_realtime_service.dart';
 import 'package:transit/widgets/app_future_loader.dart';
 import 'package:transit/widgets/map/layers/shapes_polyline_layer.dart';
