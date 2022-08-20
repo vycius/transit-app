@@ -72,7 +72,9 @@ class _RealtimeVehiclesLoadingIndicator extends StatelessWidget {
           CircularProgressIndicator(),
           Padding(
             padding: EdgeInsets.only(top: 16),
-            child: Text('Kraunami realaus laiko atvykimai...'),
+            child: Text(
+              'Kraunamos realaus laiko transporto priemonių pozicijos...',
+            ),
           )
         ],
       ),
