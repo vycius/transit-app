@@ -44,6 +44,8 @@ class TripScreen extends StatelessWidget {
             title: Text(
               '${selectedRoute.route_short_name}: ${selectedTrip.trip_short_name ?? selectedRoute.route_long_name}',
             ),
+            leading: BackButton(),
+            actions: [BackdropToggleButton()],
           ),
           backLayer: TripScreenMap(
             selectedRoute: selectedRoute,
