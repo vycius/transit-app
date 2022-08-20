@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:transit/models/db.dart';
-export 'package:transit/models/extensions.dart';
+export 'package:transit/models/db_extensions.dart';
 
 class DatabaseService extends AppDatabase {
   DatabaseService(super.e);

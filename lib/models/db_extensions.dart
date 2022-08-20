@@ -4,7 +4,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:transit/utils.dart';
 
 extension TransitRouteExtensions on TransitRoute {
-  Color? get routeColor {
+  Color? get parsedRouteColor {
     if (route_color != null) {
       return hexToColor(route_color!);
     }
@@ -12,7 +12,7 @@ extension TransitRouteExtensions on TransitRoute {
     return null;
   }
 
-  Color? get routeTextColor {
+  Color? get parsedRouteTextColor {
     if (route_text_color != null) {
       return hexToColor(route_text_color!);
     }

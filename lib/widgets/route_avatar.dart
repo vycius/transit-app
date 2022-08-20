@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gtfs_db/gtfs_db.dart';
-import 'package:transit/models/extensions.dart';
+import 'package:transit/models/db_extensions.dart';
 
 class RouteAvatar extends StatelessWidget {
   final TransitRoute route;
@@ -11,8 +11,8 @@ class RouteAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     final text = route.route_short_name ?? '';
 
-    final routeColor = route.routeColor ?? Colors.indigo;
-    final routeTextColor = route.routeTextColor ?? Colors.white;
+    final routeColor = route.parsedRouteColor ?? Colors.indigo;
+    final routeTextColor = route.parsedRouteTextColor ?? Colors.white;
 
     return DecoratedBox(
       decoration: BoxDecoration(

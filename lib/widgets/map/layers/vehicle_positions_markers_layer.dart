@@ -5,7 +5,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:gtfs_db/gtfs_db.dart';
 import 'package:gtfs_realtime_bindings/gtfs_realtime_bindings.dart' as rt;
 import 'package:latlong2/latlong.dart';
-import 'package:transit/models/extensions.dart';
+import 'package:transit/models/db_extensions.dart';
 import 'package:transit/navigator_routes.dart';
 import 'package:transit/screens/trip/trip_screen.dart';
 
@@ -65,8 +65,8 @@ class VehiclePositionMarkersLayer {
     final routeId = trip?.route_id;
     final route = (routeId != null) ? _routeLookup[routeId] : null;
 
-    final routeColor = route?.routeColor ?? Colors.indigo;
-    final routeTextColor = route?.routeTextColor ?? Colors.white;
+    final routeColor = route?.parsedRouteColor ?? Colors.indigo;
+    final routeTextColor = route?.parsedRouteTextColor ?? Colors.white;
 
     return Transform.rotate(
       angle: degToRadian(vehiclePosition.position.bearing),

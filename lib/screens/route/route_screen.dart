@@ -49,7 +49,7 @@ class RouteScreen extends StatelessWidget {
                 stopsLayer: StopsMarkerLayer(stops: stops),
                 shapesPolylineLayer: ShapesPolylineLayer(
                   lines: data.lines,
-                  color: route.routeColor ?? Colors.indigo,
+                  color: route.parsedRouteColor ?? Colors.indigo,
                 ),
                 vehiclePositionsLayer: VehiclePositionMarkersLayer(
                   vehiclePositions: filteredVehiclePositions,
