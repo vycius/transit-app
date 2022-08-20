@@ -40,11 +40,14 @@ android {
     }
 
     sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
+        main.java.srcDirs += 'src/main/java'
     }
 
     signingConfigs {
         debug {
+            storeFile file("debug.keystore")
+        }
+        release {
             storeFile file("debug.keystore")
         }
     }
@@ -75,8 +78,4 @@ android {
 
 flutter {
     source '../..'
-}
-
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
