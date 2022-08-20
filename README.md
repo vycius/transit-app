@@ -7,5 +7,5 @@ skirtingose platfomose veikiančias programas.
 
 Kurso metu tobulinsime viešojo transporto programėlę „BUS“. Užduotis rasite https://nma2022.vycius.lt
 
-![BUS app](file:///Users/karolis/DataspellProjects/nma-2022/_build/html/_images/bus-app.png)
+![BUS app](https://nma2022.vycius.lt/_images/bus-app.png)
 
