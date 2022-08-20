@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:gtfs_db/gtfs_db.dart';
@@ -9,14 +11,27 @@ import 'package:transit/screens/trip/trip_screen.dart';
 
 class VehiclePositionMarkersLayer {
   final List<rt.VehiclePosition> vehiclePositions;
-  final Map<String, Trip> tripLookup;
-  final Map<String, TransitRoute> routeLookup;
+  final List<Trip> trips;
+  final List<TransitRoute> routes;
+
+  late Map<String, Trip> _tripLookup;
+  late Map<String, TransitRoute> _routeLookup;
 
   VehiclePositionMarkersLayer({
     required this.vehiclePositions,
-    required this.tripLookup,
-    required this.routeLookup,
-  });
+    required this.trips,
+    required this.routes,
+  }) {
+    _tripLookup = HashMap.fromIterables(
+      trips.map((t) => t.trip_id),
+      trips,
+    );
+
+    _routeLookup = HashMap.fromIterables(
+      routes.map((r) => r.route_id),
+      routes,
+    );
+  }
 
   MarkerLayerOptions buildLayer() {
     return MarkerLayerOptions(
@@ -46,9 +61,9 @@ class VehiclePositionMarkersLayer {
     BuildContext context,
     rt.VehiclePosition vehiclePosition,
   ) {
-    final trip = tripLookup[vehiclePosition.trip.tripId];
+    final trip = _tripLookup[vehiclePosition.trip.tripId];
     final routeId = trip?.route_id;
-    final route = (routeId != null) ? routeLookup[routeId] : null;
+    final route = (routeId != null) ? _routeLookup[routeId] : null;
 
     final routeColor = route?.routeColor ?? Colors.indigo;
     final routeTextColor = route?.routeTextColor ?? Colors.white;

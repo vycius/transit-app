@@ -33,16 +33,8 @@ class RouteScreen extends StatelessWidget {
           }
 
           final stops = data.stops;
-
-          final tripLookup = Map.fromIterables(
-            data.trips.map((t) => t.trip_id),
-            data.trips,
-          );
-
-          final routeLookup = Map.fromIterables(
-            [route.route_id],
-            [route],
-          );
+          final trips = data.trips;
+          final tripIdsSet = trips.map((t) => t.trip_id).toSet();
 
           return StreamBuilder<List<VehiclePosition>>(
             stream: GTFSRealtimeService()
@@ -50,7 +42,7 @@ class RouteScreen extends StatelessWidget {
             builder: (context, snapshot) {
               final vehiclePositions = snapshot.data ?? [];
               final filteredVehiclePositions = vehiclePositions
-                  .where((v) => tripLookup.containsKey(v.trip.tripId))
+                  .where((v) => tripIdsSet.contains(v.trip.tripId))
                   .toList();
 
               return TransitMap(
@@ -61,8 +53,8 @@ class RouteScreen extends StatelessWidget {
                 ),
                 vehiclePositionsLayer: VehiclePositionMarkersLayer(
                   vehiclePositions: filteredVehiclePositions,
-                  tripLookup: tripLookup,
-                  routeLookup: routeLookup,
+                  trips: trips,
+                  routes: [route],
                 ),
               );
             },

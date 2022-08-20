@@ -26,16 +26,6 @@ class RealtimeVehiclesTab extends StatelessWidget {
           );
         }
 
-        final tripLookup = Map.fromIterables(
-          trips.map((t) => t.trip_id),
-          trips,
-        );
-
-        final routeLookup = Map.fromIterables(
-          routes.map((r) => r.route_id),
-          routes,
-        );
-
         return StreamBuilder<List<VehiclePosition>>(
           stream: GTFSRealtimeService()
               .streamGtfsRealtimeVehiclePositions(gtfsRealtimeUrl),
@@ -52,8 +42,8 @@ class RealtimeVehiclesTab extends StatelessWidget {
 
             return _RealtimeVehiclesTabBody(
               vehiclePositions: vehiclePositions,
-              tripLookup: tripLookup,
-              routeLookup: routeLookup,
+              trips: trips,
+              routes: routes,
             );
           },
         );
@@ -104,13 +94,13 @@ class _RealtimeTabData {
 
 class _RealtimeVehiclesTabBody extends StatelessWidget {
   final List<VehiclePosition> vehiclePositions;
-  final Map<String, Trip> tripLookup;
-  final Map<String, TransitRoute> routeLookup;
+  final List<Trip> trips;
+  final List<TransitRoute> routes;
 
   const _RealtimeVehiclesTabBody({
     required this.vehiclePositions,
-    required this.tripLookup,
-    required this.routeLookup,
+    required this.trips,
+    required this.routes,
   });
 
   @override
@@ -119,8 +109,8 @@ class _RealtimeVehiclesTabBody extends StatelessWidget {
       center: defaultLatLng,
       vehiclePositionsLayer: VehiclePositionMarkersLayer(
         vehiclePositions: vehiclePositions,
-        tripLookup: tripLookup,
-        routeLookup: routeLookup,
+        trips: trips,
+        routes: routes,
       ),
     );
   }
