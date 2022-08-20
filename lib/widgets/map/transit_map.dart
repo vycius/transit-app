@@ -26,6 +26,7 @@ class TransitMap extends StatelessWidget {
       options: MapOptions(
         center: center ?? defaultLatLng,
         interactiveFlags: InteractiveFlag.all & ~InteractiveFlag.rotate,
+        maxZoom: 18,
       ),
       layers: [
         TileLayerOptions(
