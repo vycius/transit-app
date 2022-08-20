@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gtfs_db/gtfs_db.dart';
 import 'package:transit/database/database_service.dart';
-import 'package:transit/navigation_routes.dart';
+import 'package:transit/navigator_routes.dart';
 import 'package:transit/widgets/app_future_loader.dart';
 import 'package:transit/widgets/route_avatar.dart';
 

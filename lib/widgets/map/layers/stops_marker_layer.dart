@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:gtfs_db/gtfs_db.dart';
 import 'package:transit/models/extensions.dart';
-import 'package:transit/navigation_routes.dart';
+import 'package:transit/navigator_routes.dart';
 
 class StopsMarkerLayer {
   final List<Stop> stops;

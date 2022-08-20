@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:transit/database/database_service.dart';
 import 'package:transit/database/executor/executor.dart';
-import 'package:transit/navigation_routes.dart';
+import 'package:transit/navigator_routes.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

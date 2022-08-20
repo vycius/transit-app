@@ -56,7 +56,7 @@ class NavigatorRoutes {
         }
       default:
         throw Exception(
-          'Unable to find route ${settings.name} in navigation_routes.dart',
+          'Unable to find route ${settings.name} in navigator_routes.dart',
         );
     }
   }

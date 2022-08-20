@@ -6,7 +6,7 @@ import 'package:gtfs_db/gtfs_db.dart';
 import 'package:gtfs_realtime_bindings/gtfs_realtime_bindings.dart' as rt;
 import 'package:latlong2/latlong.dart';
 import 'package:transit/models/extensions.dart';
-import 'package:transit/navigation_routes.dart';
+import 'package:transit/navigator_routes.dart';
 import 'package:transit/screens/trip/trip_screen.dart';
 
 class VehiclePositionMarkersLayer {

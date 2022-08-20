@@ -3,7 +3,7 @@ import 'package:gtfs_db/gtfs_db.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:transit/constants.dart';
 import 'package:transit/database/database_service.dart';
-import 'package:transit/navigation_routes.dart';
+import 'package:transit/navigator_routes.dart';
 import 'package:transit/widgets/app_future_loader.dart';
 
 class NearbyStopsTab extends StatelessWidget {
