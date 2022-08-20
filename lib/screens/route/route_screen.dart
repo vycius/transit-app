@@ -26,19 +26,14 @@ class RouteScreen extends StatelessWidget {
         builder: (context, data) {
           final gtfsRealtimeUrl = data.feedInfo.agency_gtfs_realtime_url;
 
-          if (gtfsRealtimeUrl == null) {
-            return Center(
-              child: Text('Realaus laiko atvykimai nepalaikomi'),
-            );
-          }
-
           final stops = data.stops;
           final trips = data.trips;
           final tripIdsSet = trips.map((t) => t.trip_id).toSet();
 
           return StreamBuilder<List<VehiclePosition>>(
-            stream: GTFSRealtimeService()
-                .streamGtfsRealtimeVehiclePositions(gtfsRealtimeUrl),
+            stream: GTFSRealtimeService().streamGtfsRealtimeVehiclePositions(
+              gtfsRealtimeUrl,
+            ),
             builder: (context, snapshot) {
               final vehiclePositions = snapshot.data ?? [];
               final filteredVehiclePositions = vehiclePositions
