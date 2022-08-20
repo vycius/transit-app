@@ -20111,7 +20111,7 @@ else throw A.c(A.bz("Pass route to route screen"))
 case"trip":q=a.b
 if(q!=null&&q instanceof A.B1)return A.Ik(new A.a1l(q),p,t.z)
 else throw A.c(A.bz("Pass TripScreenArguments to trip screen"))
-default:throw A.c(A.bz("Unable to find route "+A.d(o)+" in navigation_routes.dart"))}},
+default:throw A.c(A.bz("Unable to find route "+A.d(o)+" in navigator_routes.dart"))}},
 a1i:function a1i(){},
 a1j:function a1j(a){this.a=a},
 a1k:function a1k(a){this.a=a},
@@ -54787,7 +54787,7 @@ r=j.ga_8()
 q=j.a
 q=q.ax
 q.toString
-h.a=new A.yK(r,j.ga0_(),j.ga0c(),q,"nav",A.aHD(),!0,s)}h.b=null
+h.a=new A.yK(r,j.ga0_(),j.ga0c(),q,"nav",A.aHC(),!0,s)}h.b=null
 s=j.a
 s.toString
 p=new A.iE(new A.aeO(h,j),i)
@@ -66220,7 +66220,7 @@ case 1:return A.V(q,r)}})
 return A.W($async$$0,r)},
 $S:437}
 A.IA.prototype={
-F(a,b){return A.aB7(new A.yo("home",A.aHC(),"BUS",A.aoE(null,B.bt,A.aoU()),!1,null),new A.a1g(),new A.a1h(),t.Js)}}
+F(a,b){return A.aB7(new A.yo("home",A.aHD(),"BUS",A.aoE(null,B.bt,A.aoU()),!1,null),new A.a1g(),new A.a1h(),t.Js)}}
 A.a1g.prototype={
 $1(a){var s=A.aH_(),r=A.aBX()
 return new A.k_(new A.Gn(s,r))},
@@ -67896,7 +67896,7 @@ l(A,"aHh",3,null,["$3"],["iU"],512,0)
 q(A.q2.prototype,"gYp","Yq",0)
 q(A.v1.prototype,"gxh","a_0",0)
 p(A.v4.prototype,"gG5","a_p",3)
-m(A,"aHD","aAp",513)
+m(A,"aHC","aAp",513)
 r(A,"aka","aDC",48)
 r(A,"arw","aDD",48)
 r(A,"Tg","aDE",48)
@@ -68040,7 +68040,7 @@ q(h,"ga9g","a9h",31)
 q(h,"ga9o","a9p",52)
 q(h,"ga9i","a9j",52)
 s(A,"aru","art",0)
-r(A,"aHC","aAo",113)
+r(A,"aHD","aAo",113)
 p(A.Cm.prototype,"ga8J","a8K",32)
 m(A,"aGl","aGm",549)
 l(A,"aIn",2,null,["$1$2","$2"],["aqK",function(a,b){return A.aqK(a,b,t.b8)}],550,0)
